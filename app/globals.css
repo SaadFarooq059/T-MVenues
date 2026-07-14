@@ -1,0 +1,180 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@keyframes tm-splash-logo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Brand palette */
+  --color-ink: #2a2521;
+  --color-champagne: #f3ecdf;
+  --color-gold: #b08d57;
+  --color-gold-dark: #8f7245;
+  --color-sage: #6b7563;
+  --color-cream: #f8f3ea;
+
+  /* Fonts */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  /* Semantic tokens mapped to brand palette */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  color-scheme: light;
+  --radius: 0.25rem;
+
+  --background: #f3ecdf;
+  --foreground: #2a2521;
+  --card: #f8f3ea;
+  --card-foreground: #2a2521;
+  --popover: #f8f3ea;
+  --popover-foreground: #2a2521;
+  --primary: #b08d57;
+  --primary-foreground: #f3ecdf;
+  --secondary: #6b7563;
+  --secondary-foreground: #f3ecdf;
+  --muted: #e8dfce;
+  --muted-foreground: #6b6257;
+  --accent: #b08d57;
+  --accent-foreground: #f3ecdf;
+  --destructive: #9b3d33;
+  --border: #ddd1bc;
+  --input: #ddd1bc;
+  --ring: #b08d57;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Marquee animations ── */
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% - var(--marquee-gap, 1.5rem))); }
+}
+@keyframes marquee-right {
+  0%   { transform: translateX(calc(-100% - var(--marquee-gap, 1.5rem))); }
+  100% { transform: translateX(0); }
+}
+@keyframes marquee-text {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% - var(--marquee-gap, 1.5rem))); }
+}
+
+.marquee-group {
+  animation: marquee-left var(--marquee-duration, 50s) linear infinite;
+}
+.marquee-group-reverse {
+  animation: marquee-right var(--marquee-duration, 50s) linear infinite;
+  animation-delay: calc(var(--marquee-duration, 50s) / -2);
+}
+.marquee-text-group {
+  animation: marquee-text var(--marquee-text-duration, 80s) linear infinite;
+}
+
+.marquee-track:hover .marquee-group,
+.marquee-track:hover .marquee-group-reverse,
+.marquee-track:hover .marquee-text-group {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-group,
+  .marquee-group-reverse,
+  .marquee-text-group {
+    animation-play-state: paused;
+  }
+}
+
+/* ── Quote marquee (home) ── */
+@keyframes quote-marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes quote-marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.quote-marquee-track,
+.quote-marquee-track-reverse {
+  display: flex;
+  width: max-content;
+}
+
+.quote-marquee-track {
+  animation: quote-marquee-left 80s linear infinite;
+}
+
+.quote-marquee-track-reverse {
+  animation: quote-marquee-right 80s linear infinite;
+}
+
+.quote-marquee-track:hover,
+.quote-marquee-track-reverse:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quote-marquee-track,
+  .quote-marquee-track-reverse {
+    animation-play-state: paused;
+  }
+}
+
+/* Hide scrollbar for horizontal scroll strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
