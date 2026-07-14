@@ -157,7 +157,7 @@ export function GalleryGrid() {
               type="button"
               onClick={() => setLightboxIndex(null)}
               aria-label="Close lightbox"
-              className="absolute -right-3 -top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:-right-12 md:top-0"
+              className="absolute right-2 top-2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:-right-12 md:top-0"
             >
               <X className="h-4 w-4" />
             </button>
@@ -189,7 +189,7 @@ export function GalleryGrid() {
               type="button"
               onClick={(e) => { e.stopPropagation(); setLightboxIndex((i) => ((i ?? 0) - 1 + filtered.length) % filtered.length) }}
               aria-label="Previous image"
-              className="absolute left-0 top-1/2 -translate-x-12 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink"
+              className="absolute left-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:left-0 md:-translate-x-12"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -197,7 +197,7 @@ export function GalleryGrid() {
               type="button"
               onClick={(e) => { e.stopPropagation(); setLightboxIndex((i) => ((i ?? 0) + 1) % filtered.length) }}
               aria-label="Next image"
-              className="absolute right-0 top-1/2 translate-x-12 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink"
+              className="absolute right-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:right-0 md:translate-x-12"
             >
               <ChevronRight className="h-5 w-5" />
             </button>

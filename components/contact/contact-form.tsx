@@ -13,7 +13,7 @@ const eventTypes = [
 ]
 
 const inputClass =
-  'w-full rounded-sm border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground/70 transition-colors focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold'
+  'w-full rounded-sm border border-border bg-card px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 transition-colors focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold'
 
 const labelClass =
   'mb-2 block text-xs font-medium uppercase tracking-[0.16em] text-foreground/70'
@@ -157,7 +157,7 @@ export function ContactForm() {
             <button
               type="submit"
               disabled={submitting}
-              className="mt-2 inline-flex items-center justify-center rounded-sm bg-gold px-8 py-4 text-sm font-medium uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:bg-gold-dark hover:text-champagne focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold disabled:cursor-not-allowed disabled:opacity-70"
+              className="mt-2 inline-flex w-full items-center justify-center rounded-sm bg-gold px-8 py-4 text-sm font-medium uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:bg-gold-dark hover:text-champagne focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
               {submitting ? 'Sending…' : 'Send Enquiry'}
             </button>

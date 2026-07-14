@@ -206,7 +206,7 @@ export function Header({ links = navLinks }: { links?: NavLink[] }) {
         <div
           className={cn(
             'w-full transition-[border-radius,background-color,box-shadow,max-width] duration-500',
-            scrolled ? 'rounded-full max-w-fit' : 'rounded-none max-w-none',
+            scrolled ? 'rounded-full max-w-full lg:max-w-fit' : 'rounded-none max-w-none',
             scrolled
               ? 'bg-champagne/95 shadow-[0_2px_24px_rgba(34,42,53,0.10),0_0_0_1px_rgba(34,42,53,0.07)] backdrop-blur-md'
               : solid
@@ -218,7 +218,7 @@ export function Header({ links = navLinks }: { links?: NavLink[] }) {
           <div
             className={cn(
               'relative flex items-center justify-center transition-[height,padding] duration-500',
-              scrolled ? 'h-20 px-4' : 'h-24 px-8 md:h-28',
+              scrolled ? 'h-20 px-4 pr-14 lg:pr-4' : 'h-24 px-5 sm:px-8 md:h-28',
             )}
           >
             {/* Left links */}
@@ -284,7 +284,8 @@ export function Header({ links = navLinks }: { links?: NavLink[] }) {
       {/* Panel */}
       <nav
         className={cn(
-          'fixed right-4 top-28 z-40 w-[calc(100%-2rem)] max-w-sm rounded-2xl bg-champagne px-3 py-3 shadow-2xl transition-all duration-300 ease-out lg:hidden',
+          'fixed right-4 z-40 w-[calc(100%-2rem)] max-w-sm max-h-[calc(100dvh-7.5rem)] overflow-y-auto rounded-2xl bg-champagne px-3 py-3 shadow-2xl transition-all duration-300 ease-out lg:hidden',
+          scrolled ? 'top-[5.75rem]' : 'top-28 md:top-[7.25rem]',
           mobileOpen
             ? 'visible translate-y-0 opacity-100'
             : 'invisible -translate-y-2 opacity-0',

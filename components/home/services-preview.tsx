@@ -13,7 +13,7 @@ function ServiceCard({ service }: { service: Service }) {
 
   return (
     <div
-      className="relative h-[480px] w-full overflow-hidden rounded-xl cursor-pointer group"
+      className="relative h-[420px] w-full cursor-pointer overflow-hidden rounded-xl group sm:h-[480px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -33,21 +33,23 @@ function ServiceCard({ service }: { service: Service }) {
         </div>
 
         {/* Top-right number */}
-        <div className="absolute top-5 right-5 z-10 font-serif text-5xl font-bold text-champagne/20 leading-none select-none">
+        <div className="absolute top-5 right-5 z-10 select-none font-serif text-4xl font-bold leading-none text-champagne/20 sm:text-5xl">
           0{(['weddings','corporate','shoots','collaborations'].indexOf(service.id) + 1)}
         </div>
 
         {/* Content */}
-        <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
+        <div className="absolute inset-0 z-10 flex flex-col justify-between p-6 sm:p-8">
           {/* Title */}
-          <h3 className="font-serif text-4xl font-bold text-champagne leading-tight transition-all duration-300 group-hover:text-gold group-hover:scale-[1.03] origin-left">
+          <h3 className="origin-left font-serif text-3xl font-bold leading-tight text-champagne transition-all duration-300 group-hover:scale-[1.03] group-hover:text-gold sm:text-4xl">
             {service.title}
           </h3>
 
-          {/* Bullet points — slide up on hover */}
+          {/* Bullet points — always visible on touch; slide up on hover desktop */}
           <div
             className={`transition-all duration-500 ${
-              hovered ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              hovered
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-0 opacity-100 [@media(hover:hover)]:translate-y-10 [@media(hover:hover)]:opacity-0'
             }`}
           >
             <ul className="space-y-3">

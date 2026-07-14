@@ -30,24 +30,29 @@ export function GalleryHero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const section = Math.floor(window.scrollY / window.innerHeight)
+      const viewportHeight = window.visualViewport?.height ?? window.innerHeight
+      const section = Math.floor(window.scrollY / viewportHeight)
       setActiveSection(Math.min(Math.max(section, 0), slides.length - 1))
     }
 
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.visualViewport?.addEventListener('resize', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.visualViewport?.removeEventListener('resize', handleScroll)
+    }
   }, [])
 
   return (
     <div
       className="relative"
-      style={{ height: `${slides.length * 100}vh` }}
+      style={{ height: `${slides.length * 100}svh` }}
     >
       {slides.map((slide, index) => (
         <section
           key={slide.img}
-          className="sticky top-0 h-screen w-full overflow-hidden bg-ink"
+          className="sticky top-0 h-svh w-full overflow-hidden bg-ink"
           aria-label={slide.headline}
         >
           <div className="absolute inset-0">
@@ -65,21 +70,21 @@ export function GalleryHero() {
 
           <div
             className={cn(
-              'pointer-events-none absolute inset-0 flex items-center justify-center px-5 transition-opacity duration-500 ease-in-out',
+              'pointer-events-none absolute inset-0 flex items-center justify-center px-5 pt-24 transition-opacity duration-500 ease-in-out md:pt-28',
               activeSection === index ? 'opacity-100' : 'opacity-0',
             )}
           >
             <h2 className="text-center font-serif leading-none tracking-tight text-champagne drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">
-              <span className="block text-[clamp(2.75rem,8vw,7rem)]">
+              <span className="block text-[clamp(2.25rem,8vw,7rem)]">
                 {slide.headline}
               </span>
-              <span className="mt-1 block text-[clamp(2.75rem,8vw,7rem)] italic text-gold">
+              <span className="mt-1 block text-[clamp(2.25rem,8vw,7rem)] italic text-gold">
                 {slide.sub}
               </span>
             </h2>
           </div>
 
-          <div className="absolute bottom-8 left-8 font-mono text-sm tracking-[0.2em] text-champagne/70">
+          <div className="absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-5 font-mono text-sm tracking-[0.2em] text-champagne/70 sm:left-8">
             <span className="font-medium text-champagne">
               0{index + 1}
             </span>

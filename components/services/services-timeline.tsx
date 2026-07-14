@@ -43,7 +43,7 @@ export function ServicesTimeline({ services }: { services: Service[] }) {
             className="flex flex-col gap-8 pt-16 md:flex-row md:gap-16 md:pt-28"
           >
             {/* ── Sticky left: number + title ── */}
-            <div className="flex items-start gap-4 md:sticky md:top-32 md:w-64 md:shrink-0 md:self-start md:flex-col md:gap-3">
+            <div className="flex items-start gap-4 md:sticky md:top-36 md:w-64 md:shrink-0 md:self-start md:flex-col md:gap-3">
               {/* Timeline dot + vertical rail */}
               <div className="relative z-40 mt-1 shrink-0">
                 {/* Vertical line track (only on md+) */}

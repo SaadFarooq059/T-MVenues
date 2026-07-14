@@ -107,34 +107,34 @@ export default async function ServicePage({
 
       {/* ── Prev / Next service navigation ── */}
       <section className="border-t border-border/60">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-border/60">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-border/60 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
           {prev ? (
             <Link
               href={`/services/${prev.slug}`}
-              className="group flex flex-col gap-1 px-8 py-8 transition-colors hover:bg-cream"
+              className="group flex flex-col gap-1 px-5 py-6 transition-colors hover:bg-cream sm:px-8 sm:py-8"
             >
               <span className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-1" />
                 Previous
               </span>
-              <span className="font-serif text-xl text-ink group-hover:text-gold">{prev.title}</span>
+              <span className="font-serif text-lg text-ink group-hover:text-gold sm:text-xl">{prev.title}</span>
             </Link>
           ) : (
-            <div />
+            <div className="hidden sm:block" />
           )}
           {next ? (
             <Link
               href={`/services/${next.slug}`}
-              className="group flex flex-col items-end gap-1 px-8 py-8 transition-colors hover:bg-cream"
+              className="group flex flex-col items-start gap-1 px-5 py-6 transition-colors hover:bg-cream sm:items-end sm:px-8 sm:py-8"
             >
               <span className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 Next
                 <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
               </span>
-              <span className="font-serif text-xl text-ink group-hover:text-gold">{next.title}</span>
+              <span className="font-serif text-lg text-ink group-hover:text-gold sm:text-xl">{next.title}</span>
             </Link>
           ) : (
-            <div />
+            <div className="hidden sm:block" />
           )}
         </div>
       </section>

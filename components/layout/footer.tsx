@@ -54,7 +54,7 @@ export function Footer({
                 alt="T&M Venue Styling"
                 width={200}
                 height={200}
-                className="h-28 w-auto brightness-0 invert md:h-32"
+                className="h-20 w-auto brightness-0 invert md:h-32"
               />
             </Link>
             <p className="mt-4 max-w-xs text-pretty leading-relaxed text-champagne/60">
@@ -125,7 +125,7 @@ export function Footer({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
-                  className="w-full bg-transparent py-2 text-sm text-champagne placeholder:text-champagne/40 focus:outline-none"
+                  className="w-full bg-transparent py-2 text-base text-champagne placeholder:text-champagne/40 focus:outline-none"
                 />
                 <button
                   type="submit"

@@ -98,10 +98,10 @@ export function WhyChooseUs() {
                 style={{ transitionDelay: `${300 + i * 100}ms` }}
               >
                 {/* Ghost number */}
-                <div className="pointer-events-none absolute -left-2 top-1/2 -translate-y-1/2 select-none font-serif text-[7rem] font-bold leading-none text-gold/15 transition-colors duration-300 group-hover:text-gold/25">
+                <div className="pointer-events-none absolute -left-2 top-1/2 -translate-y-1/2 select-none font-serif text-[4.5rem] font-bold leading-none text-gold/15 transition-colors duration-300 group-hover:text-gold/25 sm:text-[7rem]">
                   {r.number}
                 </div>
-                <div className="relative z-10 pl-10">
+                <div className="relative z-10 pl-8 sm:pl-10">
                   <h3 className="font-serif text-xl font-semibold text-foreground">{r.title}</h3>
                   <p className="mt-2 leading-relaxed text-muted-foreground">{r.body}</p>
                 </div>
@@ -111,15 +111,15 @@ export function WhyChooseUs() {
 
           {/* Centre — circular image */}
           <div ref={imageRef} className="flex justify-center md:col-span-4">
-            <div className="relative flex h-[420px] w-full max-w-[400px] items-center justify-center">
+            <div className="relative mx-auto aspect-square w-full max-w-[340px] sm:max-w-[400px]">
               {/* Decorative rings */}
-              <div className="absolute inset-0 m-auto h-[340px] w-[340px] rounded-full border border-dashed border-gold/25" />
-              <div className="absolute inset-0 m-auto h-[280px] w-[280px] rounded-full border border-gold/15" />
-              <div className="absolute inset-0 m-auto h-[220px] w-[220px] rounded-full border border-gold/10" />
+              <div className="absolute inset-[6%] rounded-full border border-dashed border-gold/25" />
+              <div className="absolute inset-[14%] rounded-full border border-gold/15" />
+              <div className="absolute inset-[22%] rounded-full border border-gold/10" />
 
               {/* Scroll-driven image */}
               <div
-                className="relative z-10 h-[290px] w-[290px] overflow-hidden rounded-full shadow-[0_8px_40px_rgba(34,42,53,0.18)] ring-4 ring-background"
+                className="absolute inset-[18%] z-10 overflow-hidden rounded-full shadow-[0_8px_40px_rgba(34,42,53,0.18)] ring-4 ring-background"
                 style={{
                   transform: `scale(${1 + scrollProgress * 0.12}) rotate(${scrollProgress * 4}deg)`,
                   transition: 'transform 0.4s ease-out',
@@ -129,7 +129,7 @@ export function WhyChooseUs() {
                   src="/images/gallery-5.png"
                   alt="T&M Venue Styling — detail of a beautifully dressed wedding table"
                   fill
-                  sizes="290px"
+                  sizes="(max-width: 640px) 70vw, 290px"
                   className="object-cover"
                   crossOrigin="anonymous"
                 />
@@ -142,16 +142,16 @@ export function WhyChooseUs() {
             {reasons.filter(r => r.align === 'right').map((r, i) => (
               <div
                 key={r.number}
-                className={`group relative cursor-default p-3 text-right transition-all duration-700 hover:-translate-x-1 ${
+                className={`group relative cursor-default p-3 text-left transition-all duration-700 hover:-translate-x-1 md:text-right ${
                   visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${300 + i * 100}ms` }}
               >
                 {/* Ghost number */}
-                <div className="pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 select-none font-serif text-[7rem] font-bold leading-none text-gold/15 transition-colors duration-300 group-hover:text-gold/25">
+                <div className="pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 select-none font-serif text-[4.5rem] font-bold leading-none text-gold/15 transition-colors duration-300 group-hover:text-gold/25 sm:text-[7rem]">
                   {r.number}
                 </div>
-                <div className="relative z-10 pr-10">
+                <div className="relative z-10 pr-8 sm:pr-10">
                   <h3 className="font-serif text-xl font-semibold text-foreground">{r.title}</h3>
                   <p className="mt-2 leading-relaxed text-muted-foreground">{r.body}</p>
                 </div>

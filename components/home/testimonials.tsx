@@ -112,7 +112,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex + '-quote'}
-                  className="font-serif text-3xl font-light leading-[1.2] tracking-tight text-champagne md:text-4xl lg:text-5xl"
+                  className="font-serif text-2xl font-light leading-[1.2] tracking-tight text-champagne sm:text-3xl md:text-4xl lg:text-5xl"
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -148,7 +148,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
             </div>
 
             {/* Author row + navigation */}
-            <div className="flex items-end justify-between">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex + '-author'}

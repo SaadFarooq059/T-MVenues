@@ -37,17 +37,17 @@ const quotes = [
 
 function QuoteCard({ quote }: { quote: (typeof quotes)[number] }) {
   return (
-    <div className="flex shrink-0 items-center gap-8 px-8">
+    <div className="flex shrink-0 items-center gap-5 px-5 md:gap-8 md:px-8">
       <div className="flex shrink-0 items-center gap-2" aria-hidden="true">
-        <span className="h-px w-8 bg-gold/40" />
+        <span className="h-px w-6 bg-gold/40 md:w-8" />
         <span className="size-1.5 rotate-45 bg-gold/50" />
-        <span className="h-px w-8 bg-gold/40" />
+        <span className="h-px w-6 bg-gold/40 md:w-8" />
       </div>
-      <p className="whitespace-nowrap font-serif text-lg italic leading-snug text-ink/80 md:text-xl">
+      <p className="whitespace-nowrap font-serif text-base italic leading-snug text-ink/80 md:text-xl">
         &ldquo;{quote.text}&rdquo;
       </p>
       <span className="h-7 w-px shrink-0 bg-gold/30" aria-hidden="true" />
-      <span className="whitespace-nowrap text-[0.7rem] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+      <span className="whitespace-nowrap text-[0.65rem] font-medium uppercase tracking-[0.2em] text-muted-foreground md:text-[0.7rem]">
         {quote.attribution}
       </span>
     </div>
@@ -87,11 +87,11 @@ export function QuotesMarquee() {
       aria-label="Marriage quotes"
     >
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-champagne to-transparent md:w-44"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-champagne to-transparent sm:w-24 md:w-44"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-champagne to-transparent md:w-44"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-champagne to-transparent sm:w-24 md:w-44"
         aria-hidden="true"
       />
 

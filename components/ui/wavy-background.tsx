@@ -104,7 +104,7 @@ export function WavyBackground({
   return (
     <div
       className={cn(
-        'relative flex h-[85vh] min-h-[520px] flex-col items-center justify-center overflow-hidden',
+        'relative flex min-h-[520px] flex-col items-center justify-center overflow-hidden md:h-[85vh]',
         containerClassName,
       )}
     >

@@ -2,8 +2,8 @@ import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 
 /**
- * Shared header block for inner pages. Sits below the fixed 80px header
- * (pt-20 accounts for it) on a warm ink background.
+ * Shared header block for inner pages. Sits below the fixed header
+ * (pt-24 / md:pt-28 account for the taller logo bar) on a warm ink background.
  */
 export function PageHero({
   eyebrow,
@@ -15,13 +15,13 @@ export function PageHero({
   intro?: string
 }) {
   return (
-    <section className="bg-ink pt-20 text-champagne">
-      <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
+    <section className="bg-ink pt-24 text-champagne md:pt-28">
+      <div className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-6 md:py-28">
         <Reveal>
           <Eyebrow className="justify-center">{eyebrow}</Eyebrow>
         </Reveal>
         <Reveal delay={0.1}>
-          <h1 className="mt-6 text-balance font-serif text-5xl leading-[1.05] tracking-tight md:text-6xl">
+          <h1 className="mt-6 text-balance font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
             {title}
           </h1>
         </Reveal>

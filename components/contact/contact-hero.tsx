@@ -5,7 +5,7 @@ import { Eyebrow } from "@/components/ui/atoms"
 
 export function ContactHero() {
   return (
-    <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-[60svh] items-center justify-center overflow-hidden pt-24 md:pt-28">
       {/* Animated mesh gradient — T&M palette: champagne, gold, cream, ink-tint */}
       <MeshGradient
         className="absolute inset-0 h-full w-full"
@@ -25,15 +25,15 @@ export function ContactHero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-3xl px-6 py-28 text-center">
+      <div className="relative z-10 mx-auto max-w-3xl px-5 py-16 text-center sm:px-6 md:py-28">
         <Eyebrow className="text-ink/60">Get In Touch</Eyebrow>
 
-        <h1 className="mt-5 text-balance font-serif text-5xl leading-[1.07] tracking-tight text-ink md:text-6xl lg:text-7xl">
+        <h1 className="mt-5 text-balance font-serif text-4xl leading-[1.07] tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl">
           Let&apos;s{" "}
           <span className="italic text-gold">Begin</span>
         </h1>
 
-        <p className="mx-auto mt-7 max-w-xl text-pretty text-lg leading-relaxed text-ink/65">
+        <p className="mx-auto mt-7 max-w-xl text-pretty text-base leading-relaxed text-ink/65 sm:text-lg">
           Tell us about the day you&apos;re dreaming of. Every enquiry is read
           personally, and we&apos;ll reply with warmth and honesty.
         </p>

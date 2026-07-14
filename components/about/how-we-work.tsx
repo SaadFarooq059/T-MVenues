@@ -229,8 +229,11 @@ export function HowWeWork() {
                   }}
                 />
               </div>
-              <span className="text-left text-xs tracking-wide text-muted-foreground/60 transition-colors group-hover:text-foreground">
-                {s.step} — {s.title}
+              <span className="text-left text-[10px] tracking-wide text-muted-foreground/60 transition-colors group-hover:text-foreground sm:text-xs">
+                <span className="sm:hidden">{s.step}</span>
+                <span className="hidden sm:inline">
+                  {s.step} — {s.title}
+                </span>
               </span>
             </button>
           ))}

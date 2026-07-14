@@ -31,7 +31,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
 
   return (
     <section
-      className="relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-ink text-champagne"
+      className="relative h-[100svh] min-h-[520px] w-full overflow-hidden bg-ink text-champagne md:min-h-[600px]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-roledescription="carousel"
@@ -70,7 +70,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
       </AnimatePresence>
 
       {/* Text anchored bottom-left */}
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-6 pb-20 md:pb-28">
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-5 pb-[max(5rem,env(safe-area-inset-bottom))] sm:px-6 md:pb-28">
         <div className="max-w-2xl">
           <AnimatePresence mode="wait">
             <motion.div
@@ -90,7 +90,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
                 {slide.eyebrow}
               </motion.span>
 
-              <h1 className="mt-5 font-serif text-5xl leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-7xl lg:text-8xl">
+              <h1 className="mt-5 font-serif text-4xl leading-[1.02] tracking-tight text-balance sm:text-5xl md:text-7xl lg:text-8xl">
                 {slide.headline.map((line, i) => (
                   <span key={i} className="block overflow-hidden">
                     <motion.span
