@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
-import { Eyebrow } from '@/components/ui/atoms'
+import { Eyebrow, headingSection } from '@/components/ui/atoms'
 
 const SLIDE_DURATION = 6000
 
@@ -101,9 +101,8 @@ export function HowWeWork() {
         {/* Header */}
         <div className="mb-14">
           <Eyebrow className="justify-start">How We Work</Eyebrow>
-          <h2 className="mt-5 text-balance font-serif text-4xl leading-tight tracking-tight text-foreground md:text-5xl">
-            From first hello to the{' '}
-            <em className="not-italic text-gold">final reveal</em>
+          <h2 className={`mt-5 ${headingSection}`}>
+            From first hello to the final reveal
           </h2>
         </div>
 
@@ -123,14 +122,14 @@ export function HowWeWork() {
                 }}
               >
                 <span className="h-px w-8 bg-gold/50" /              >
-                <span className="font-mono text-xs tracking-[0.2em] text-gold uppercase">
+                <span className="text-xs font-medium tracking-[0.2em] text-gold uppercase">
                   {String(current + 1).padStart(2, '0')} / {String(steps.length).padStart(2, '0')}
                 </span>
               </div>
 
               {/* Title */}
               <h3
-                className="font-serif text-4xl leading-tight text-foreground md:text-5xl"
+                className={headingSection}
                 style={{
                   opacity: transitioning ? 0 : 1,
                   transform: transitioning ? 'translateY(16px)' : 'translateY(0)',

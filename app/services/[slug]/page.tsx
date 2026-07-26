@@ -1,13 +1,24 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Check, ArrowLeft, ArrowRight } from 'lucide-react'
-import { services } from '@/lib/content'
+import { galleryImages, services } from '@/lib/content'
 import { PageHero } from '@/components/sections/page-hero'
 import { CtaBanner } from '@/components/sections/cta-banner'
+import { ServiceCardStack } from '@/components/services/service-card-stack'
+import { ServiceAboutSection } from '@/components/services/service-about-section'
 import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
+import type { PageHeroPage } from '@/lib/contentful'
+
+const serviceHeroPageBySlug: Record<string, PageHeroPage> = {
+  weddings: 'Services - Weddings',
+  'corporate-events': 'Services - Corporate Events',
+  'commercial-shoots': 'Services - Commercial Shoots',
+  collaborations: 'Services - Collaborations',
+}
+
+export const revalidate = 60
 
 export async function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }))
@@ -39,28 +50,11 @@ export default async function ServicePage({
   const currentIndex = services.indexOf(service)
   const prev = services[currentIndex - 1] ?? null
   const next = services[currentIndex + 1] ?? null
+  const heroPage = serviceHeroPageBySlug[slug]
 
   return (
     <main>
-      <PageHero
-        eyebrow="Our Services"
-        title={service.title}
-        intro={service.shortDescription}
-      />
-
-      {/* ── Full-width hero image ── */}
-      <section className="relative h-[50vh] min-h-[320px] w-full overflow-hidden md:h-[60vh]">
-        <Image
-          src={service.image}
-          alt={service.imageAlt}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          crossOrigin="anonymous"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
-      </section>
+      {heroPage ? <PageHero page={heroPage} /> : null}
 
       {/* ── Detail body ── */}
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
@@ -104,6 +98,10 @@ export default async function ServicePage({
 
         </div>
       </section>
+
+      <ServiceAboutSection service={service} />
+
+      <ServiceCardStack service={service} gallery={galleryImages} />
 
       {/* ── Prev / Next service navigation ── */}
       <section className="border-t border-border/60">

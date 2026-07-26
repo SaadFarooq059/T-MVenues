@@ -58,7 +58,7 @@ export function ServicesTimeline({ services }: { services: Service[] }) {
               </div>
               {/* Service number + name */}
               <div>
-                <span className="font-mono text-xs font-medium tracking-[0.2em] text-gold">
+                <span className="text-xs font-medium tracking-[0.2em] text-gold">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <h3 className="mt-1 font-serif text-2xl leading-tight tracking-tight text-ink md:text-3xl">

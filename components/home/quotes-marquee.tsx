@@ -46,10 +46,6 @@ function QuoteCard({ quote }: { quote: (typeof quotes)[number] }) {
       <p className="whitespace-nowrap font-serif text-base italic leading-snug text-ink/80 md:text-xl">
         &ldquo;{quote.text}&rdquo;
       </p>
-      <span className="h-7 w-px shrink-0 bg-gold/30" aria-hidden="true" />
-      <span className="whitespace-nowrap text-[0.65rem] font-medium uppercase tracking-[0.2em] text-muted-foreground md:text-[0.7rem]">
-        {quote.attribution}
-      </span>
     </div>
   )
 }
@@ -72,7 +68,7 @@ function QuoteRow({
       }
     >
       {doubled.map((quote, i) => (
-        <QuoteCard key={`${quote.attribution}-${i}`} quote={quote} />
+        <QuoteCard key={`${quote.text}-${i}`} quote={quote} />
       ))}
     </div>
   )

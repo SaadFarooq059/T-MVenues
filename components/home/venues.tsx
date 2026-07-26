@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
-import { Eyebrow } from '@/components/ui/atoms'
+import { Eyebrow, headingSection } from '@/components/ui/atoms'
 import { Reveal, staggerContainer, staggerItem } from '@/components/motion/reveal'
 import type { Venue } from '@/lib/content'
 
@@ -13,7 +13,7 @@ export function Venues({ venues }: { venues: Venue[] }) {
           <Eyebrow className="justify-center" tone="sage">
             Trusted By
           </Eyebrow>
-          <h2 className="mt-6 text-balance font-serif text-3xl leading-tight tracking-tight md:text-4xl">
+          <h2 className={`mt-6 ${headingSection}`}>
             Venues we&apos;re proud to work alongside
           </h2>
         </Reveal>

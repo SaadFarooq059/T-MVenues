@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Check } from 'lucide-react'
-import { Eyebrow } from '@/components/ui/atoms'
+import { Eyebrow, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import type { Service } from '@/lib/content'
 
@@ -40,7 +40,7 @@ function ServiceCard({ service }: { service: Service }) {
         {/* Content */}
         <div className="absolute inset-0 z-10 flex flex-col justify-between p-6 sm:p-8">
           {/* Title */}
-          <h3 className="origin-left font-serif text-3xl font-bold leading-tight text-champagne transition-all duration-300 group-hover:scale-[1.03] group-hover:text-gold sm:text-4xl">
+          <h3 className="origin-left font-serif text-3xl leading-tight tracking-tight text-champagne transition-all duration-300 group-hover:scale-[1.03] group-hover:text-gold sm:text-4xl">
             {service.title}
           </h3>
 
@@ -90,7 +90,7 @@ export function ServicesPreview({ services }: { services: Service[] }) {
         <Reveal>
           <div className="mx-auto mb-14 max-w-2xl text-center">
             <Eyebrow className="justify-center">What We Do</Eyebrow>
-            <h2 className="mt-5 text-balance font-serif text-4xl leading-[1.08] tracking-tight md:text-5xl">
+            <h2 className={`mt-5 ${headingSection}`}>
               Styling for every kind of gathering
             </h2>
           </div>

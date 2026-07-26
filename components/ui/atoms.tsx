@@ -1,5 +1,22 @@
 import { cn } from '@/lib/utils'
 
+/** Site-wide display heading tokens — Fraunces + ink, shared scale. */
+export const headingHero =
+  'text-balance font-serif text-4xl leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl'
+
+/** Full-bleed home hero — slightly larger on desktop only. */
+export const headingHeroHome =
+  'text-balance font-serif text-4xl leading-[1.05] tracking-tight text-champagne sm:text-5xl md:text-7xl lg:text-8xl'
+
+export const headingSection =
+  'text-balance font-serif text-4xl leading-[1.08] tracking-tight text-ink md:text-5xl'
+
+export const headingCard =
+  'font-serif text-2xl leading-tight tracking-tight text-ink md:text-3xl'
+
+export const bodyLead =
+  'text-pretty text-base leading-relaxed text-ink/65 sm:text-lg'
+
 /** Small gold/sage eyebrow label used above headings site-wide. */
 export function Eyebrow({
   children,

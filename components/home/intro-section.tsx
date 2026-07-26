@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Eyebrow } from '@/components/ui/atoms'
+import { Eyebrow, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import { VideoCard } from '@/components/home/video-card'
 
@@ -13,12 +13,12 @@ export function IntroSection() {
           {/* ── Left: text ── */}
           <Reveal>
             <Eyebrow>Welcome to T&amp;M</Eyebrow>
-            <h2 className="mt-6 text-balance font-serif text-4xl leading-[1.1] tracking-tight md:text-5xl">
+            <h2 className={`mt-6 ${headingSection}`}>
               Styling rooted in warmth,{' '}
               <span className="text-gold">texture</span>{' '}
               and quiet detail
             </h2>
-            <div className="mt-6 space-y-4 text-pretty leading-relaxed text-muted-foreground">
+            <div className="mt-6 space-y-4 text-pretty leading-relaxed text-ink/65">
               <p>
                 T&amp;M Venue Styling is a UK-based studio dressing weddings and events with a
                 considered, editorial hand. We believe a beautifully styled room is felt before
@@ -49,7 +49,7 @@ export function IntroSection() {
               {/* Top-right corner image — rotated +6deg, overlaps the video */}
               <div className="group absolute -right-6 -top-6 h-28 w-28 rotate-6 overflow-hidden rounded-xl shadow-xl transition-all duration-500 hover:rotate-0 hover:scale-105 md:-right-8 md:-top-8 md:h-36 md:w-36">
                 <Image
-                  src="/images/gallery-2.png"
+                  src="/corner1.jpg"
                   alt="Elegant wedding place setting detail"
                   fill
                   sizes="9rem"

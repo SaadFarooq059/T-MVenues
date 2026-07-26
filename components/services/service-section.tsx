@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Eyebrow } from '@/components/ui/atoms'
+import { Eyebrow, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import type { Service } from '@/lib/content'
 
@@ -32,10 +32,10 @@ export function ServiceSection({
 
         <Reveal delay={0.12} className={cn(flipped && 'lg:order-1')}>
           <Eyebrow>{`0${index + 1}`}</Eyebrow>
-          <h2 className="mt-5 font-serif text-4xl leading-tight tracking-tight md:text-5xl">
+          <h2 className={`mt-5 ${headingSection}`}>
             {service.title}
           </h2>
-          <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">
+          <p className="mt-5 text-pretty leading-relaxed text-ink/65">
             {service.longDescription}
           </p>
 

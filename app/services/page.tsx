@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { ServicesHero } from '@/components/services/services-hero'
+import { ServicesPageHero } from '@/components/services/services-page-hero'
 import { ServicesTimeline } from '@/components/services/services-timeline'
 import { CtaBanner } from '@/components/sections/cta-banner'
 import { services } from '@/lib/content'
@@ -10,10 +10,12 @@ export const metadata: Metadata = {
     'Wedding styling, corporate event styling, commercial shoots and creative collaborations from T&M Venue Styling.',
 }
 
+export const revalidate = 60
+
 export default function ServicesPage() {
   return (
     <main>
-      <ServicesHero />
+      <ServicesPageHero />
 
       <ServicesTimeline services={services} />
 

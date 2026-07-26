@@ -1,40 +1,103 @@
-import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
-import { Reveal } from '@/components/motion/reveal'
+import Image from 'next/image'
+import Link from 'next/link'
+import {
+  getPageHero,
+  type PageHeroPage,
+} from '@/lib/contentful'
+import { headingHeroHome } from '@/components/ui/atoms'
+
+function isInternalHref(href: string) {
+  return href.startsWith('/') && !href.startsWith('//')
+}
+
+const ctaClassName =
+  'mt-8 inline-flex items-center justify-center rounded-sm bg-gold px-7 py-3.5 text-sm font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-gold-dark hover:text-champagne'
 
 /**
- * Shared header block for inner pages. Sits below the fixed header
- * (pt-24 / md:pt-28 account for the taller logo bar) on a warm ink background.
+ * CMS-driven full-bleed page hero.
+ * Pass the exact Contentful "page" dropdown value, e.g. page="Home".
+ * Renders nothing when no matching published entry exists.
  */
-export function PageHero({
-  eyebrow,
-  title,
-  intro,
-}: {
-  eyebrow: string
-  title: string
-  intro?: string
-}) {
+export async function PageHero({ page }: { page: PageHeroPage }) {
+  const hero = await getPageHero(page)
+  if (!hero) return null
+
+  const showCta = Boolean(hero.ctaText && hero.ctaLink)
+  const hasMobileImage = Boolean(hero.mobileHeroImageUrl)
+
   return (
-    <section className="bg-ink pt-24 text-champagne md:pt-28">
-      <div className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-6 md:py-28">
-        <Reveal>
-          <Eyebrow className="justify-center">{eyebrow}</Eyebrow>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h1 className="mt-6 text-balance font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
-            {title}
-          </h1>
-        </Reveal>
-        {intro && (
-          <Reveal delay={0.2}>
-            <p className="mx-auto mt-6 max-w-xl text-pretty leading-relaxed text-champagne/70">
-              {intro}
-            </p>
-          </Reveal>
-        )}
-        <Reveal delay={0.3}>
-          <SeamDivider className="mt-8" />
-        </Reveal>
+    <section
+      className="relative flex min-h-[75svh] w-full items-center justify-center overflow-hidden bg-ink text-champagne md:min-h-[90svh]"
+      aria-label={`${page} hero`}
+    >
+      {hasMobileImage ? (
+        <>
+          <Image
+            src={hero.mobileHeroImageUrl!}
+            alt={hero.mobileHeroImageAlt || hero.heading}
+            fill
+            priority
+            quality={92}
+            sizes="100vw"
+            className="object-cover object-center md:hidden"
+          />
+          <Image
+            src={hero.heroImageUrl}
+            alt={hero.heroImageAlt}
+            fill
+            priority
+            quality={92}
+            sizes="100vw"
+            className="hidden object-cover object-center md:block"
+          />
+        </>
+      ) : (
+        <Image
+          src={hero.heroImageUrl}
+          alt={hero.heroImageAlt}
+          fill
+          priority
+          quality={92}
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      )}
+
+      <div className="absolute inset-0 bg-ink/30" aria-hidden="true" />
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-ink/25"
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-5 pb-16 pt-28 text-center sm:px-6 md:px-8 md:pb-20 md:pt-32">
+        <h1
+          className={`${headingHeroHome} max-w-[18ch] text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]`}
+        >
+          {hero.heading}
+        </h1>
+
+        {hero.subheading ? (
+          <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-champagne/85 sm:text-lg">
+            {hero.subheading}
+          </p>
+        ) : null}
+
+        {showCta ? (
+          isInternalHref(hero.ctaLink!) ? (
+            <Link href={hero.ctaLink!} className={ctaClassName}>
+              {hero.ctaText}
+            </Link>
+          ) : (
+            <a
+              href={hero.ctaLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={ctaClassName}
+            >
+              {hero.ctaText}
+            </a>
+          )
+        ) : null}
       </div>
     </section>
   )

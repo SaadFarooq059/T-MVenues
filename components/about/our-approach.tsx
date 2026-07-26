@@ -2,7 +2,7 @@
 
 import { Box, HeartHandshake, Sparkles, Wand2 } from 'lucide-react'
 import { GlowingEffect } from '@/components/ui/glowing-effect'
-import { Eyebrow } from '@/components/ui/atoms'
+import { Eyebrow, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 
 const cards = [
@@ -53,7 +53,7 @@ function ApproachCard({
             <Icon className="size-5" strokeWidth={1.5} />
           </div>
           <div>
-            <h3 className="font-serif text-xl tracking-tight text-foreground md:text-2xl">
+            <h3 className="font-serif text-xl tracking-tight text-ink md:text-2xl">
               {title}
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-[0.95rem]">
@@ -83,12 +83,12 @@ export function OurApproach() {
             <Eyebrow tone="sage">Our Approach</Eyebrow>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="mt-5 text-balance font-serif text-4xl leading-tight tracking-tight text-foreground md:text-5xl">
+            <h2 className={`mt-5 ${headingSection}`}>
               Making your event a WOW
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <div className="mt-8 space-y-5 text-pretty leading-relaxed text-foreground/70">
+            <div className="mt-8 space-y-5 text-pretty leading-relaxed text-ink/70">
               <p>
                 At T&amp;M, we offer a wide range of stock and services to ensure
                 your event is a WOW. From exquisite décor and backdrop options to

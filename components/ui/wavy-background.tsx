@@ -12,7 +12,7 @@ type WavyBackgroundProps = {
   waveWidth?: number
   backgroundFill?: string
   blur?: number
-  speed?: 'slow' | 'fast'
+  speed?: 'slow' | 'medium' | 'fast'
   waveOpacity?: number
 }
 
@@ -51,7 +51,11 @@ export function WavyBackground({
     let h = 0
     let nt = 0
 
-    const getSpeed = () => (speed === 'fast' ? 0.002 : 0.001)
+    const getSpeed = () => {
+      if (speed === 'fast') return 0.002
+      if (speed === 'medium') return 0.0015
+      return 0.001
+    }
 
     const waveColors = colors ?? [
       '#b08d57',

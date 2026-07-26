@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Mail, Phone } from 'lucide-react'
 import { ContactHero } from '@/components/contact/contact-hero'
 import { ContactForm } from '@/components/contact/contact-form'
-import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
+import { Eyebrow, SeamDivider, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import { siteMeta } from '@/lib/content'
 
@@ -30,12 +30,12 @@ export default function ContactPage() {
               <Eyebrow>Contact Details</Eyebrow>
             </Reveal>
             <Reveal delay={0.1}>
-              <h2 className="mt-5 text-balance font-serif text-4xl leading-tight tracking-tight text-foreground">
+              <h2 className={`mt-5 ${headingSection}`}>
                 We&apos;d love to hear from you
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-5 leading-relaxed text-foreground/65">
+              <p className="mt-5 leading-relaxed text-ink/65">
                 Prefer to reach out directly? Use the details below, or fill in
                 the form and we&apos;ll come back to you shortly.
               </p>

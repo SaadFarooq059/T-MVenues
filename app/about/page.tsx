@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { PageHero } from '@/components/sections/page-hero'
 import { CtaBanner } from '@/components/sections/cta-banner'
-import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
+import { Eyebrow, SeamDivider, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import { siteMeta } from '@/lib/content'
+import { AboutUsHero } from '@/components/about/about-us-hero'
+import { LoveStory } from '@/components/about/love-story'
 import { HowWeWork } from '@/components/about/how-we-work'
 import { WhatGuidesUs } from '@/components/about/what-guides-us'
 import { OurApproach } from '@/components/about/our-approach'
@@ -18,11 +19,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Our Story"
-        title="The Hands Behind the Styling"
-        intro="We are Katie & Lucie — sisters-in-law who have always loved planning parties and finding any excuse to get the decorations up."
-      />
+      <AboutUsHero />
 
       {/* Founder story */}
       <section className="bg-background py-20 md:py-28">
@@ -35,12 +32,12 @@ export default function AboutPage() {
               <Eyebrow>Katie &amp; Lucie</Eyebrow>
             </Reveal>
             <Reveal delay={0.1}>
-              <h2 className="mt-5 text-balance font-serif text-4xl leading-tight tracking-tight text-foreground md:text-5xl">
+              <h2 className={`mt-5 ${headingSection}`}>
                 Sisters-in-law, co-founders, biggest supporters
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <div className="mt-6 space-y-4 leading-relaxed text-foreground/70">
+              <div className="mt-6 space-y-4 leading-relaxed text-ink/70">
                 <p>
                   We are Katie &amp; Lucie — the faces behind T&amp;M! We have
                   known each other since 2004 and are sisters-in-law. We have
@@ -77,6 +74,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <LoveStory />
 
       <OurApproach />
 
