@@ -134,13 +134,13 @@ export const services: Service[] = [
       'Full venue styling for your celebration — drapery, florals, tablescapes and those quiet finishing touches.',
     longDescription:
       'Your wedding day deserves a setting as considered as the moment itself. We work closely with you to translate your vision into a beautifully cohesive space, layering texture, light and colour so every corner feels intentional and every guest feels welcomed.',
-    image: '/images/service-weddings.png',
+    image: '/Home/service1.png',
     imageAlt: 'Romantic wedding reception with ivory drapery and floral centerpieces',
     included: [
       'Ceiling drapery & backdrop design',
       'Floral centerpieces & installations',
       'Chair covers, linens & tablescapes',
-      'Ceremony arch & aisle styling',
+      'Ceremony arch & aisle stylifng',
       'Candlelight & ambient lighting',
     ],
   },
@@ -152,7 +152,7 @@ export const services: Service[] = [
       'Polished, brand-aware styling for galas, awards evenings, launches and conferences.',
     longDescription:
       'We bring editorial polish to corporate occasions, creating environments that reflect your brand while feeling warm and human. From awards dinners to product launches, we handle the styling so your team can focus on the moment.',
-    image: '/images/service-corporate.png',
+    image: '/Home/service2.png',
     imageAlt: 'Sophisticated corporate gala with elegant draping and uplighting',
     included: [
       'Brand-led colour & styling direction',
@@ -170,7 +170,7 @@ export const services: Service[] = [
       'Art-directed set styling and props for editorial, brand and product photography.',
     longDescription:
       'We collaborate with photographers, brands and creative directors to build sets that photograph beautifully. Thoughtful prop styling, fabric and floral detail bring depth and story to every frame.',
-    image: '/images/service-shoots.png',
+    image: '/Home/service3.png',
     imageAlt: 'Art-directed styled photoshoot set with draped fabric and props',
     included: [
       'Concept & mood development',

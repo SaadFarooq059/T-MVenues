@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Check } from 'lucide-react'
-import { Eyebrow, headingSection } from '@/components/ui/atoms'
+import { Eyebrow, headingSection, headingCard } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import type { Service } from '@/lib/content'
 
@@ -28,19 +28,17 @@ function ServiceCard({ service }: { service: Service }) {
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             crossOrigin="anonymous"
           />
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-ink/55 transition-opacity duration-500 group-hover:bg-ink/70" />
         </div>
 
         {/* Top-right number */}
-        <div className="absolute top-5 right-5 z-10 select-none font-serif text-4xl font-bold leading-none text-champagne/20 sm:text-5xl">
+        <div className="absolute top-5 right-5 z-10 select-none font-serif text-4xl font-bold leading-none text-white/40 transition-colors duration-300 group-hover:text-white/50 sm:text-5xl">
           0{(['weddings','corporate','shoots','collaborations'].indexOf(service.id) + 1)}
         </div>
 
         {/* Content */}
         <div className="absolute inset-0 z-10 flex flex-col justify-between p-6 sm:p-8">
           {/* Title */}
-          <h3 className="origin-left font-serif text-3xl leading-tight tracking-tight text-champagne transition-all duration-300 group-hover:scale-[1.03] group-hover:text-gold sm:text-4xl">
+          <h3 className={`origin-left ${headingCard} text-white transition-all duration-300 group-hover:scale-[1.03]`}>
             {service.title}
           </h3>
 
@@ -54,11 +52,11 @@ function ServiceCard({ service }: { service: Service }) {
           >
             <ul className="space-y-3">
               {service.included.slice(0, 4).map((point, i) => (
-                <li key={i} className="flex items-center gap-3 text-champagne">
-                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-gold transition-transform duration-300 group-hover:scale-110">
+                <li key={i} className="flex items-center gap-3 text-white">
+                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-gold transition-transform duration-300 group-hover:scale-110 group-hover:bg-white">
                     <Check className="size-3 text-ink" strokeWidth={3} />
                   </span>
-                  <span className="text-base transition-colors duration-300 group-hover:text-gold/90">
+                  <span className="text-base">
                     {point}
                   </span>
                 </li>
@@ -66,7 +64,7 @@ function ServiceCard({ service }: { service: Service }) {
             </ul>
 
             {/* CTA label */}
-            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-white">
               Explore {service.title} &rarr;
             </p>
           </div>

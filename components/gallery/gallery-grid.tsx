@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
 import { galleryCategories } from '@/lib/content'
 import type { GalleryEvent, GalleryEventCategory } from '@/lib/contentful'
-import { Eyebrow, headingSection } from '@/components/ui/atoms'
+import { Eyebrow, headingSection, headingCard } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import { cn } from '@/lib/utils'
 

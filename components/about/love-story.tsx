@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { Reveal } from '@/components/motion/reveal'
+import { headingCard, headingSection } from '@/components/ui/atoms'
 
 function GoldBloom({ className }: { className?: string }) {
   return (
@@ -53,7 +54,7 @@ function PortraitFrame({
         fill
         sizes="(max-width: 768px) 50vw, 320px"
         quality={92}
-        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+        className="object-cover object-center grayscale transition-[filter,transform] duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
       />
     </div>
   )
@@ -69,7 +70,7 @@ export function LoveStory() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid items-center gap-10 md:grid-cols-[1fr_auto_1fr] md:gap-6 lg:gap-10">
           <Reveal className="order-2 text-center md:order-1 md:text-left">
-            <h3 className="font-serif text-3xl tracking-tight text-ink md:text-4xl">
+            <h3 className={headingCard}>
               Soft Beginnings
             </h3>
             <p className="mt-4 text-pretty text-base leading-relaxed text-ink/65 md:text-lg">
@@ -84,14 +85,14 @@ export function LoveStory() {
           >
             <div className="absolute left-0 top-4 z-10 transition-transform duration-500 ease-out hover:-translate-y-2 hover:rotate-3 sm:top-6">
               <PortraitFrame
-                src="/images/gallery-1.png"
+                src="/AboutUs/about4.jpg"
                 alt="Ceremony aisle with florals and a floral arch"
                 rotate="rotate-[-8deg] group-hover:rotate-[-4deg]"
               />
             </div>
             <div className="absolute bottom-2 right-0 z-20 transition-transform duration-500 ease-out hover:-translate-y-2 hover:-rotate-3 sm:bottom-4">
               <PortraitFrame
-                src="/images/gallery-6.png"
+                src="/AboutUs/about3.png"
                 alt="Outdoor marquee wedding with draped ceiling at dusk"
                 rotate="rotate-[8deg] group-hover:rotate-[4deg]"
               />
@@ -103,7 +104,7 @@ export function LoveStory() {
           </Reveal>
 
           <Reveal delay={0.12} className="order-3 text-center md:text-right">
-            <h3 className="font-serif text-3xl tracking-tight text-ink md:text-4xl">
+            <h3 className={headingCard}>
               Forever Rooms
             </h3>
             <p className="mt-4 text-pretty text-base leading-relaxed text-ink/65 md:ml-auto md:max-w-md md:text-lg">
@@ -115,7 +116,7 @@ export function LoveStory() {
 
         <Reveal delay={0.18}>
           <div className="mx-auto mt-16 max-w-4xl text-center md:mt-24">
-            <p className="font-serif text-[clamp(2rem,1.3rem+2.4vw,3.5rem)] leading-[1.2] tracking-tight text-ink">
+            <p className={`${headingSection}`}>
               <span className="text-gold" aria-hidden="true">
                 &ldquo;
               </span>

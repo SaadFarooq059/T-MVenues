@@ -46,7 +46,7 @@ export function CtaBanner({
         <div className="flex items-center bg-[#B08D57] px-6 py-16 sm:px-10 md:px-12 md:py-20 lg:px-16 lg:py-24">
           <Reveal className="w-full max-w-lg">
             <Eyebrow className="text-champagne">{eyebrow}</Eyebrow>
-            <h2 className={`mt-5 ${headingSection} text-ink`}>{heading}</h2>
+            <h2 className={`mt-5 ${headingSection}`}>{heading}</h2>
             <p className="mt-5 text-pretty leading-relaxed text-ink/75">
               {body}
             </p>

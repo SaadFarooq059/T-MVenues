@@ -1,30 +1,30 @@
+'use client'
+
 import Image from 'next/image'
 import { Reveal } from '@/components/motion/reveal'
+import { GlowingEffect } from '@/components/ui/glowing-effect'
+import { headingSection } from '@/components/ui/atoms'
 
 const images = [
   {
-    src: '/images/gallery-1.png',
+    src: '/Home/s12.jpg',
     alt: 'Ceremony aisle lined with florals leading to a floral arch',
-    className:
-      'left-[2%] top-[4%] h-56 w-40 lg:h-72 lg:w-52',
+    className: 'left-[1%] top-[1%] h-72 w-52 lg:h-[26rem] lg:w-72',
   },
   {
-    src: '/images/gallery-2.png',
+    src: '/Home/s11.jpg',
     alt: 'Elegant wedding place setting with gold cutlery and a floral posy',
-    className:
-      'bottom-[12%] left-[10%] h-36 w-36 lg:h-44 lg:w-44',
+    className: 'bottom-[6%] left-[4%] h-48 w-48 lg:h-64 lg:w-64',
   },
   {
-    src: '/images/gallery-5.png',
+    src: '/Home/s4.jpg',
     alt: 'Styled vignette with draped fabric, vintage furniture and florals',
-    className:
-      'right-[8%] top-[8%] h-32 w-32 lg:h-40 lg:w-40',
+    className: 'right-[3%] top-[4%] h-48 w-48 lg:h-60 lg:w-60',
   },
   {
-    src: '/images/gallery-7.png',
+    src: '/Home/s10.jpg',
     alt: 'Lush floral centrepiece with candlelight and gold accents',
-    className:
-      'bottom-[6%] right-[4%] h-56 w-40 lg:h-72 lg:w-52',
+    className: 'bottom-[2%] right-[1%] h-72 w-52 lg:h-[26rem] lg:w-72',
   },
 ]
 
@@ -57,57 +57,74 @@ function GoldBloom({ className }: { className?: string }) {
   )
 }
 
+/** Same rounded + glowing frame as About “Our Approach” cards. */
+function PhotoFrame({
+  src,
+  alt,
+  className,
+}: {
+  src: string
+  alt: string
+  className?: string
+}) {
+  return (
+    <div className={`relative h-full w-full ${className ?? ''}`}>
+      <div className="relative h-full w-full rounded-2xl border border-gold/20 p-1.5 transition-transform duration-500 ease-out will-change-transform group-hover:-translate-y-2 group-hover:scale-[1.02] md:rounded-3xl md:p-2">
+        <GlowingEffect
+          spread={40}
+          glow
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          borderWidth={2}
+        />
+        <div className="relative h-full w-full overflow-hidden rounded-xl border border-gold/15 shadow-sm md:rounded-2xl">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 45vw, 28vw"
+            quality={90}
+            className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /**
  * Editorial “love note” — centred quote framed by floating venue photographs.
- * Layout inspired by romantic editorial grids; palette & type are T&M brand.
+ * Photo frames match the About Our Approach card hover / radius treatment.
  */
 export function LoveNote() {
   return (
-    <section className="relative overflow-hidden bg-cream py-20 md:py-28 lg:py-32">
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8 md:min-h-[40rem] lg:min-h-[44rem]">
-        {/* Floating photos — desktop / tablet composition */}
+    <section className="relative overflow-x-clip overflow-y-visible bg-cream py-20 md:py-28 lg:py-32">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8 md:min-h-[48rem] lg:min-h-[54rem]">
+        {/* Floating photos — desktop / tablet */}
         {images.map((image, i) => (
           <Reveal
             key={image.src}
             delay={0.08 + i * 0.06}
             className={`group absolute z-20 hidden md:block ${image.className}`}
           >
-            <div className="relative h-full w-full overflow-hidden shadow-[0_12px_40px_rgba(42,37,33,0.12)] transition-all duration-500 ease-out will-change-transform group-hover:-translate-y-2 group-hover:scale-[1.03] group-hover:shadow-[0_20px_48px_rgba(42,37,33,0.2)]">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="22vw"
-                quality={90}
-                className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-            </div>
+            <PhotoFrame src={image.src} alt={image.alt} />
           </Reveal>
         ))}
 
         {/* Mobile photo strip */}
         <div className="mb-10 grid grid-cols-2 gap-3 md:hidden">
-          {images.slice(0, 4).map((image) => (
-            <div
-              key={`m-${image.src}`}
-              className="group relative aspect-[3/4] overflow-hidden"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="45vw"
-                quality={90}
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-              />
+          {images.map((image) => (
+            <div key={`m-${image.src}`} className="group relative aspect-[3/4]">
+              <PhotoFrame src={image.src} alt={image.alt} />
             </div>
           ))}
         </div>
 
         {/* Centre copy */}
-        <div className="relative z-10 mx-auto flex max-w-xl flex-col items-center justify-center px-4 text-center md:absolute md:inset-0 md:min-h-[40rem] lg:min-h-[44rem]">
+        <div className="relative z-10 mx-auto flex max-w-xl flex-col items-center justify-center px-4 text-center md:absolute md:inset-0 md:min-h-[48rem] lg:min-h-[54rem]">
           <Reveal>
-            <p className="font-serif text-[clamp(1.75rem,1.2rem+2vw,3rem)] leading-[1.2] tracking-tight text-ink">
+            <p className={headingSection}>
               <span className="text-gold" aria-hidden="true">
                 &ldquo;
               </span>

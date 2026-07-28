@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { Check, Mail, Phone, X } from 'lucide-react'
 import Link from 'next/link'
 import { siteMeta } from '@/lib/content'
+import { headingCard } from '@/components/ui/atoms'
 
 const eventTypes = [
   'Wedding',
@@ -203,7 +204,7 @@ export function ContactForm() {
 
                 <h3
                   id="enquiry-success-title"
-                  className="mt-3 font-serif text-3xl leading-tight tracking-tight text-ink sm:text-4xl"
+                  className={`mt-3 ${headingCard}`}
                 >
                   Thank you
                 </h3>

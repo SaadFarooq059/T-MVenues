@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { Eyebrow, headingSection } from '@/components/ui/atoms'
+import { Eyebrow, headingSection, headingCard } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 
 const reasons = [
@@ -79,7 +79,7 @@ export function WhyChooseUs() {
                     {r.number}
                   </div>
                   <div className="relative z-10 pl-8 sm:pl-10">
-                    <h3 className="font-serif text-xl tracking-tight text-ink">
+                    <h3 className={headingCard}>
                       {r.title}
                     </h3>
                     <p className="mt-2 leading-relaxed text-ink/65">{r.body}</p>
@@ -125,7 +125,7 @@ export function WhyChooseUs() {
                     {r.number}
                   </div>
                   <div className="relative z-10 pr-8 sm:pr-10">
-                    <h3 className="font-serif text-xl tracking-tight text-ink">
+                    <h3 className={headingCard}>
                       {r.title}
                     </h3>
                     <p className="mt-2 leading-relaxed text-ink/65">{r.body}</p>

@@ -2,7 +2,7 @@
 
 import { Box, HeartHandshake, Sparkles, Wand2 } from 'lucide-react'
 import { GlowingEffect } from '@/components/ui/glowing-effect'
-import { Eyebrow, headingSection } from '@/components/ui/atoms'
+import { Eyebrow, headingSection, headingCard } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 
 const cards = [
@@ -53,7 +53,7 @@ function ApproachCard({
             <Icon className="size-5" strokeWidth={1.5} />
           </div>
           <div>
-            <h3 className="font-serif text-xl tracking-tight text-ink md:text-2xl">
+            <h3 className={headingCard}>
               {title}
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-[0.95rem]">

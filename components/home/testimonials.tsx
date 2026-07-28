@@ -112,7 +112,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex + '-quote'}
-                  className="font-serif text-2xl font-light leading-[1.2] tracking-tight text-champagne sm:text-3xl md:text-4xl lg:text-5xl"
+                  className="text-balance font-serif text-4xl font-light leading-[1.08] tracking-tight text-white md:text-5xl"
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -166,7 +166,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                     style={{ originX: 0 }}
                   />
                   <div>
-                    <p className="font-medium text-champagne">{current.name}</p>
+                    <p className="font-medium text-white">{current.name}</p>
                     <p className="mt-0.5 text-sm uppercase tracking-[0.15em] text-gold">
                       {current.eventType}
                     </p>

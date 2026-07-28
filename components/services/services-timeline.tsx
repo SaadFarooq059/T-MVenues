@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 import type { Service } from '@/lib/content'
+import { headingCard } from '@/components/ui/atoms'
 
 export function ServicesTimeline({ services }: { services: Service[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -61,7 +62,7 @@ export function ServicesTimeline({ services }: { services: Service[] }) {
                 <span className="text-xs font-medium tracking-[0.2em] text-gold">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mt-1 font-serif text-2xl leading-tight tracking-tight text-ink md:text-3xl">
+                <h3 className={`mt-1 ${headingCard}`}>
                   {service.title}
                 </h3>
               </div>

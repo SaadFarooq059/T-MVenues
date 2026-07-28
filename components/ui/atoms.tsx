@@ -1,16 +1,23 @@
 import { cn } from '@/lib/utils'
 
-/** Site-wide display heading tokens — Fraunces + ink, shared scale. */
+/**
+ * Site-wide heading tokens — one Fraunces style everywhere.
+ * Use these instead of one-off font-size / tracking classes.
+ */
+
+/** Standard page / section hero (h1) on light backgrounds */
 export const headingHero =
   'text-balance font-serif text-4xl leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl'
 
-/** Full-bleed home hero — slightly larger on desktop only. */
+/** Same scale as headingHero, champagne for dark / photo heroes */
 export const headingHeroHome =
-  'text-balance font-serif text-4xl leading-[1.05] tracking-tight text-champagne sm:text-5xl md:text-7xl lg:text-8xl'
+  'text-balance font-serif text-4xl leading-[1.05] tracking-tight text-champagne sm:text-5xl md:text-6xl lg:text-7xl'
 
+/** Main section titles (h2) — every component block */
 export const headingSection =
   'text-balance font-serif text-4xl leading-[1.08] tracking-tight text-ink md:text-5xl'
 
+/** Nested titles inside cards / steps (h3) */
 export const headingCard =
   'font-serif text-2xl leading-tight tracking-tight text-ink md:text-3xl'
 

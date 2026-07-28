@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { Eye, Heart, Sparkles, Users } from 'lucide-react'
-import { Eyebrow, headingSection } from '@/components/ui/atoms'
+import { Eyebrow, headingSection, headingCard } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 
 const values = [
@@ -77,7 +77,7 @@ export function WhatGuidesUs() {
                 <div className="flex size-12 items-center justify-center rounded-full bg-gold text-ink shadow-md">
                   <Icon size={22} strokeWidth={1.5} />
                 </div>
-                <h3 className="font-serif text-lg tracking-tight text-ink">
+                <h3 className={headingCard}>
                   {value.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-ink/65">

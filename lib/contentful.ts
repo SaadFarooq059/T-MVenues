@@ -5,6 +5,7 @@ import {
   type EntryFieldTypes,
   type EntrySkeletonType,
 } from 'contentful'
+import { cache } from 'react'
 
 /** Contentful content type API ID for "Gallery Event" */
 export const GALLERY_EVENT_CONTENT_TYPE = 'galleryEvent'
@@ -14,6 +15,27 @@ export const JOURNEY_IMAGE_CONTENT_TYPE = 'journeyImage'
 
 /** Contentful content type API ID for "Page Hero" */
 export const PAGE_HERO_CONTENT_TYPE = 'pageHero'
+
+/** Contentful content type API ID for "Site Video" */
+export const SITE_VIDEO_CONTENT_TYPE = 'siteVideo'
+
+/** Locked "placement" field values from the Site Video content type */
+export const SITE_VIDEO_PLACEMENTS = ['Home Intro', 'About Hero'] as const
+
+export type SiteVideoPlacement = (typeof SITE_VIDEO_PLACEMENTS)[number]
+
+export type SiteVideoData = {
+  id: string
+  placement: SiteVideoPlacement
+  title: string
+  /** Prefer embed when present */
+  videoUrl?: string
+  /** Native file URL when videoUrl is empty */
+  videoFileUrl?: string
+  posterUrl?: string
+  posterAlt?: string
+  caption?: string
+}
 
 /** Locked "page" field values from the Page Hero content type */
 export const PAGE_HERO_PAGES = [
@@ -118,6 +140,17 @@ interface PageHeroFields {
 }
 
 type PageHeroSkeleton = EntrySkeletonType<PageHeroFields, 'pageHero'>
+
+interface SiteVideoFields {
+  placement: EntryFieldTypes.Symbol
+  title: EntryFieldTypes.Symbol
+  videoUrl: EntryFieldTypes.Symbol
+  videoFile: EntryFieldTypes.AssetLink
+  posterImage: EntryFieldTypes.AssetLink
+  caption: EntryFieldTypes.Text
+}
+
+type SiteVideoSkeleton = EntrySkeletonType<SiteVideoFields, 'siteVideo'>
 
 function requireEnv(name: string): string {
   const value = process.env[name]
@@ -398,3 +431,75 @@ export async function getPageHero(
   const heroes = await getPageHeroes(page)
   return heroes[0] ?? null
 }
+
+function asSiteVideoPlacement(value: unknown): SiteVideoPlacement | null {
+  if (
+    typeof value === 'string' &&
+    (SITE_VIDEO_PLACEMENTS as readonly string[]).includes(value)
+  ) {
+    return value as SiteVideoPlacement
+  }
+  return null
+}
+
+function mapSiteVideo(entry: Entry<SiteVideoSkeleton>): SiteVideoData | null {
+  const placement = asSiteVideoPlacement(entry.fields.placement)
+  if (!placement) return null
+
+  const title =
+    typeof entry.fields.title === 'string' ? entry.fields.title.trim() : ''
+  if (!title) return null
+
+  const videoUrl =
+    typeof entry.fields.videoUrl === 'string' && entry.fields.videoUrl.trim()
+      ? entry.fields.videoUrl.trim()
+      : undefined
+
+  const videoFile = resolveAsset(entry.fields.videoFile as Asset | undefined)
+  const poster = resolveAsset(entry.fields.posterImage as Asset | undefined)
+
+  // Need at least one playable source
+  if (!videoUrl && !videoFile?.url) return null
+
+  const caption =
+    typeof entry.fields.caption === 'string' && entry.fields.caption.trim()
+      ? entry.fields.caption.trim()
+      : undefined
+
+  return {
+    id: entry.sys.id,
+    placement,
+    title,
+    videoUrl,
+    videoFileUrl: videoFile?.url,
+    posterUrl: poster?.url,
+    posterAlt: poster?.alt || title,
+    caption,
+  }
+}
+
+/**
+ * Fetch the Site Video entry whose "placement" field matches exactly.
+ * Returns null if missing, unpublished, or Contentful is unreachable.
+ * Cached per-request so Home/About can read poster + player without double network.
+ */
+export const getSiteVideo = cache(
+  async (placement: SiteVideoPlacement): Promise<SiteVideoData | null> => {
+    try {
+      const client = getContentfulClient()
+      const response = await client.getEntries<SiteVideoSkeleton>({
+        content_type: SITE_VIDEO_CONTENT_TYPE,
+        'fields.placement': placement,
+        include: 1,
+        limit: 1,
+      })
+
+      const entry = response.items[0]
+      if (!entry) return null
+      return mapSiteVideo(entry)
+    } catch (error) {
+      console.warn(`[contentful] getSiteVideo("${placement}") failed:`, error)
+      return null
+    }
+  },
+)

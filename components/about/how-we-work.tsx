@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
-import { Eyebrow, headingSection } from '@/components/ui/atoms'
+import { Eyebrow, headingSection, headingCard } from '@/components/ui/atoms'
 
 const SLIDE_DURATION = 6000
 
@@ -13,7 +13,7 @@ const steps = [
     subtitle: 'The First Conversation',
     description:
       'Tell us about your day, your venue and the feeling you want to create. We listen first — no templates, no rush. Every enquiry is read personally and answered with care.',
-    image: '/images/gallery-1.png',
+    image: '/AboutUs/work.png',
     alt: 'Wedding ceremony aisle lined with florals leading to a floral arch',
   },
   {
@@ -22,7 +22,7 @@ const steps = [
     subtitle: 'Your Vision, Designed',
     description:
       'We design a bespoke styling scheme with mood boards, material selections and a clear plan tailored entirely to you. This is where your day starts to take shape.',
-    image: '/images/service-weddings.png',
+    image: '/AboutUs/work2.png',
     alt: 'Romantic wedding reception with ivory drapery and floral centrepieces',
   },
   {
@@ -31,7 +31,7 @@ const steps = [
     subtitle: 'The Transformation',
     description:
       'Our team arrives early and dresses your venue with precision and care, handling every last detail so you never have to. You simply arrive to something beautiful.',
-    image: '/images/gallery-3.png',
+    image: '/AboutUs/work3.png',
     alt: 'Ceiling silk drapery with hanging floral installation over a dance floor',
   },
   {
@@ -40,7 +40,7 @@ const steps = [
     subtitle: 'The Moment We Live For',
     description:
       'You step into a space transformed — composed, warm, and unmistakably yours. This is the moment we work toward from that very first conversation.',
-    image: '/images/gallery-7.png',
+    image: '/AboutUs/work4.png',
     alt: 'Lush wedding floral centrepiece with candlelight and gold accents',
   },
 ]
@@ -129,7 +129,7 @@ export function HowWeWork() {
 
               {/* Title */}
               <h3
-                className={headingSection}
+                className={headingCard}
                 style={{
                   opacity: transitioning ? 0 : 1,
                   transform: transitioning ? 'translateY(16px)' : 'translateY(0)',

@@ -29,7 +29,7 @@ import {
   useTransform,
   type Variants,
 } from 'motion/react'
-import { headingSection } from '@/components/ui/atoms'
+import { headingSection, headingCard } from '@/components/ui/atoms'
 
 export type AboutUsPillar = {
   icon: React.ReactNode
@@ -385,7 +385,7 @@ export default function AboutUsSection({
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <div className="flex-1">
-            <h3 className="mb-2 font-serif text-2xl">{ctaHeading}</h3>
+            <h3 className={`mb-2 ${headingCard} text-champagne`}>{ctaHeading}</h3>
             <p className="text-champagne/75">{ctaBody}</p>
           </div>
           <Link

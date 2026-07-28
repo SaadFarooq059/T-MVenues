@@ -10,6 +10,7 @@ import {
 } from '@/components/home/featured-gallery'
 import { QuotesMarquee } from '@/components/home/quotes-marquee'
 import { Testimonials } from '@/components/home/testimonials'
+import { FromOurStudio } from '@/components/home/from-our-studio'
 import { CtaBanner } from '@/components/sections/cta-banner'
 import { services, testimonials } from '@/lib/content'
 import { getJourneyImages, getPageHeroes } from '@/lib/contentful'
@@ -42,6 +43,7 @@ export default function HomePage() {
         <JourneyFromCms />
       </Suspense>
       <Testimonials testimonials={testimonials} />
+      <FromOurStudio />
       <div className="h-16 bg-background md:h-24" aria-hidden="true" />
       <CtaBanner />
     </main>
