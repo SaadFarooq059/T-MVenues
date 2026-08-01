@@ -5,7 +5,7 @@ import { Reveal } from '@/components/motion/reveal'
 import { siteMeta } from '@/lib/content'
 import { AboutUsHero } from '@/components/about/about-us-hero'
 import { LoveStory } from '@/components/about/love-story'
-import { HowWeWork } from '@/components/about/how-we-work'
+import { AboutHowItWorks } from '@/components/about/about-how-it-works'
 import { WhatGuidesUs } from '@/components/about/what-guides-us'
 import { OurApproach } from '@/components/about/our-approach'
 import { FounderPortrait } from '@/components/about/founder-portrait'
@@ -81,7 +81,7 @@ export default function AboutPage() {
 
       <WhatGuidesUs />
 
-      <HowWeWork />
+      <AboutHowItWorks />
 
       <CtaBanner
         eyebrow="Say Hello"
