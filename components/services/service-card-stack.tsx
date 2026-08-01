@@ -55,8 +55,8 @@ export function ServiceCardStack({
             Moments from our {service.title} work
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-pretty text-base leading-relaxed text-ink/65">
-            Swipe or use the arrows to explore related styling — drag the active
-            card, or tap a neighbour to bring it forward.
+            Swipe to explore related styling — drag the active card, tap a
+            neighbour to bring it forward, or use the dots below.
           </p>
         </div>
 

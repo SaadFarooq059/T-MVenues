@@ -65,8 +65,8 @@ export function WhyChooseUs() {
           <div className="mx-auto mt-5 h-px w-24 rounded-full bg-gold/60" />
         </Reveal>
 
-        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-12 md:gap-6">
-          <div className="space-y-10 md:col-span-4 md:pr-4">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-6">
+          <div className="space-y-10 lg:col-span-4 lg:pr-4">
             {reasons
               .filter((r) => r.align === 'left')
               .map((r, i) => (
@@ -75,7 +75,7 @@ export function WhyChooseUs() {
                   delay={0.08 * i}
                   className="group relative cursor-default p-3 transition-transform duration-300 hover:translate-x-1"
                 >
-                  <div className="pointer-events-none absolute -left-2 top-1/2 -translate-y-1/2 select-none font-serif text-[4.5rem] font-bold leading-none text-gold/15 transition-colors duration-300 group-hover:text-gold/25 sm:text-[7rem]">
+                  <div className="pointer-events-none absolute -left-2 top-1/2 -translate-y-1/2 select-none font-serif text-[4.5rem] font-bold leading-none text-gold/15 transition-colors duration-300 group-hover:text-gold/25 md:text-[7rem]">
                     {r.number}
                   </div>
                   <div className="relative z-10 pl-8 sm:pl-10">
@@ -88,7 +88,7 @@ export function WhyChooseUs() {
               ))}
           </div>
 
-          <div ref={imageRef} className="flex justify-center md:col-span-4">
+          <div ref={imageRef} className="flex justify-center lg:col-span-4">
             <Reveal className="relative mx-auto aspect-square w-full max-w-[340px] sm:max-w-[400px]">
               <div className="absolute inset-[6%] rounded-full border border-dashed border-gold/25" />
               <div className="absolute inset-[14%] rounded-full border border-gold/15" />
@@ -112,16 +112,16 @@ export function WhyChooseUs() {
             </Reveal>
           </div>
 
-          <div className="space-y-10 md:col-span-4 md:pl-4">
+          <div className="space-y-10 lg:col-span-4 lg:pl-4">
             {reasons
               .filter((r) => r.align === 'right')
               .map((r, i) => (
                 <Reveal
                   key={r.number}
                   delay={0.08 * i}
-                  className="group relative cursor-default p-3 text-left transition-transform duration-300 hover:-translate-x-1 md:text-right"
+                  className="group relative cursor-default p-3 text-left transition-transform duration-300 hover:-translate-x-1 lg:text-right"
                 >
-                  <div className="pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 select-none font-serif text-[4.5rem] font-bold leading-none text-gold/15 transition-colors duration-300 group-hover:text-gold/25 sm:text-[7rem]">
+                  <div className="pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 select-none font-serif text-[4.5rem] font-bold leading-none text-gold/15 transition-colors duration-300 group-hover:text-gold/25 md:text-[7rem]">
                     {r.number}
                   </div>
                   <div className="relative z-10 pr-8 sm:pr-10">

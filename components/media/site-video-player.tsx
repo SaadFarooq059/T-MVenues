@@ -25,11 +25,10 @@ function CustomSlider({
   className?: string
 }) {
   return (
+    // Vertical padding gives the 4px track a finger-sized hit area without
+    // affecting the horizontal maths used to seek.
     <div
-      className={cn(
-        'relative h-1 w-full cursor-pointer rounded-full bg-ink/15',
-        className,
-      )}
+      className={cn('relative w-full cursor-pointer py-3', className)}
       onClick={(e) => {
         const rect = e.currentTarget.getBoundingClientRect()
         const x = e.clientX - rect.left
@@ -42,13 +41,15 @@ function CustomSlider({
       aria-valuemax={100}
       tabIndex={0}
     >
-      <motion.div
-        className="absolute top-0 left-0 h-full rounded-full bg-gold"
-        style={{ width: `${value}%` }}
-        initial={false}
-        animate={{ width: `${value}%` }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      />
+      <div className="relative h-1 w-full rounded-full bg-ink/15">
+        <motion.div
+          className="absolute top-0 left-0 h-full rounded-full bg-gold"
+          style={{ width: `${value}%` }}
+          initial={false}
+          animate={{ width: `${value}%` }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        />
+      </div>
     </div>
   )
 }
@@ -64,9 +65,10 @@ function NativeVideoPlayer({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [volume, setVolume] = useState(1)
+  // Starts muted so the autoplay below is allowed on iOS and Android.
+  const [volume, setVolume] = useState(0)
   const [progress, setProgress] = useState(0)
-  const [isMuted, setIsMuted] = useState(false)
+  const [isMuted, setIsMuted] = useState(true)
   const [playbackSpeed, setPlaybackSpeed] = useState(1)
   const [showControls, setShowControls] = useState(true)
   const [currentTime, setCurrentTime] = useState(0)
@@ -163,6 +165,7 @@ function NativeVideoPlayer({
         poster={poster}
         onClick={togglePlay}
         playsInline
+        muted={isMuted}
         aria-label={title}
       />
 
@@ -191,7 +194,7 @@ function NativeVideoPlayer({
                   onClick={togglePlay}
                   variant="ghost"
                   size="icon"
-                  className="text-ink hover:bg-gold/20 hover:text-ink"
+                  className="size-11 text-ink hover:bg-gold/20 hover:text-ink"
                 >
                   {isPlaying ? (
                     <Pause className="size-5" />
@@ -204,7 +207,7 @@ function NativeVideoPlayer({
                     onClick={toggleMute}
                     variant="ghost"
                     size="icon"
-                    className="text-ink hover:bg-gold/20 hover:text-ink"
+                    className="size-11 text-ink hover:bg-gold/20 hover:text-ink"
                   >
                     {isMuted ? (
                       <VolumeX className="size-5" />
@@ -231,7 +234,7 @@ function NativeVideoPlayer({
                     variant="ghost"
                     size="icon"
                     className={cn(
-                      'text-ink hover:bg-gold/20 hover:text-ink',
+                      'size-9 text-ink hover:bg-gold/20 hover:text-ink',
                       playbackSpeed === speed && 'bg-gold/25',
                     )}
                   >

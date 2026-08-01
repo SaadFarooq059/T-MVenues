@@ -73,7 +73,7 @@ export function Hero({ slides }: { slides: PageHeroData[] }) {
 
   return (
     <section
-      className="relative h-[100svh] min-h-[560px] w-full overflow-hidden bg-ink text-champagne"
+      className="relative h-[100svh] w-full overflow-hidden bg-ink text-champagne sm:min-h-[560px]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={(e) => {

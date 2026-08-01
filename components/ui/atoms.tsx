@@ -37,7 +37,7 @@ export function Eyebrow({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.28em]',
+        'inline-flex max-w-full items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] sm:tracking-[0.28em]',
         tone === 'gold' ? 'text-gold' : 'text-sage',
         className,
       )}

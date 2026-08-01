@@ -28,13 +28,15 @@ const LERP = 0.22
  */
 export function HorizontalParallaxGallery() {
   const sectionRef = useRef<HTMLElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [sectionHeight, setSectionHeight] = useState('225vh')
 
   useEffect(() => {
     const section = sectionRef.current
+    const stage = stageRef.current
     const wrapper = wrapperRef.current
-    if (!section || !wrapper) return
+    if (!section || !stage || !wrapper) return
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
@@ -49,10 +51,14 @@ export function HorizontalParallaxGallery() {
 
     const galleryTravel = () => Math.max(wrapper.scrollHeight - wrapper.clientHeight, 0)
 
-    const pageTravel = () => Math.max(window.innerHeight * SCROLL_VIEWPORTS, 1)
+    // Measured from the sticky stage rather than window.innerHeight: on mobile
+    // the two differ (browser chrome), which left dead scroll after the strip.
+    const stageHeight = () => stage.getBoundingClientRect().height || window.innerHeight
+
+    const pageTravel = () => Math.max(stageHeight() * SCROLL_VIEWPORTS, 1)
 
     const measure = () => {
-      setSectionHeight(`${pageTravel() + window.innerHeight}px`)
+      setSectionHeight(`${pageTravel() + stageHeight()}px`)
     }
 
     const readTarget = () => {
@@ -128,7 +134,7 @@ export function HorizontalParallaxGallery() {
       style={{ height: sectionHeight }}
       aria-label="Journey gallery"
     >
-      <div className="sticky top-0 h-svh overflow-hidden bg-champagne">
+      <div ref={stageRef} className={styles.stickyStage}>
         <div className={styles.galleryContainer}>
           <p className={styles.scrollInfo}>Scroll to explore</p>
           <div ref={wrapperRef} className={styles.horizontalScrollWrapper}>

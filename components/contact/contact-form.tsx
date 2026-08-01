@@ -187,7 +187,7 @@ export function ContactForm() {
               <button
                 type="button"
                 onClick={closeSuccess}
-                className="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full border border-ink/10 text-ink/50 transition-colors hover:border-gold hover:bg-gold/15 hover:text-ink"
+                className="absolute top-4 right-4 flex size-11 items-center justify-center rounded-full border border-ink/10 text-ink/50 transition-colors hover:border-gold hover:bg-gold/15 hover:text-ink"
                 aria-label="Close"
               >
                 <X className="size-4" />

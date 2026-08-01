@@ -45,10 +45,10 @@ const Card = ({
       <div className="rounded-2xl border border-gold/20 bg-cream p-2.5 shadow-[0_20px_50px_-20px_rgba(176,141,87,0.35)] sm:rounded-[28px] sm:p-3">
         <Pin className="mx-auto mb-4 h-8 w-8 text-gold sm:mb-7 sm:h-10 sm:w-10" />
         <div className="relative flex h-full flex-col overflow-hidden rounded-xl border border-gold/25 bg-champagne/60 p-4 sm:rounded-[18px] sm:p-6">
-          <span className="mb-3 font-serif text-4xl font-medium text-gold sm:mb-6 sm:text-5xl">
+          <span className="mb-3 font-serif text-3xl font-medium text-gold sm:mb-6 sm:text-4xl md:text-5xl">
             {number}
           </span>
-          <h3 className="mb-2 font-serif text-2xl font-medium leading-tight tracking-tight text-ink sm:mb-3 sm:text-3xl sm:leading-none">
+          <h3 className="mb-2 font-serif text-xl font-medium leading-tight tracking-tight text-ink sm:mb-3 sm:text-2xl md:text-3xl md:leading-none">
             {title}
           </h3>
           <p className="text-sm leading-relaxed tracking-tight text-ink/65 sm:text-base">

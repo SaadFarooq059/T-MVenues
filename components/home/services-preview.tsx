@@ -13,7 +13,7 @@ function ServiceCard({ service }: { service: Service }) {
 
   return (
     <div
-      className="relative h-[420px] w-full cursor-pointer overflow-hidden rounded-xl group sm:h-[480px]"
+      className="group relative h-[400px] w-full cursor-pointer overflow-hidden rounded-xl sm:h-[440px] md:h-[480px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -96,7 +96,7 @@ export function ServicesPreview({ services }: { services: Service[] }) {
 
         {/* 2×2 card grid */}
         <Reveal delay={0.1}>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {services.map((service) => (
               <ServiceCard key={service.id} service={service} />
             ))}

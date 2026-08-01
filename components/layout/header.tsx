@@ -76,10 +76,18 @@ function DropdownNavItem({ link, solid }: { link: NavLink; solid: boolean }) {
     }
   }, [])
 
+  const tone = solid
+    ? active
+      ? 'text-gold'
+      : 'text-ink hover:text-gold'
+    : active
+    ? 'text-gold'
+    : 'text-champagne/90 hover:text-champagne'
+
   return (
     <div
       ref={ref}
-      className="relative"
+      className="relative flex items-center"
       onMouseEnter={openNow}
       onMouseLeave={scheduleClose}
     >
@@ -87,25 +95,36 @@ function DropdownNavItem({ link, solid }: { link: NavLink; solid: boolean }) {
         href={link.href}
         onClick={() => setOpen(false)}
         onFocus={openNow}
-        aria-expanded={open}
         className={cn(
-          'flex items-center gap-1 px-4 py-2 text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200',
-          solid
-            ? active ? 'text-gold' : 'text-ink hover:text-gold'
-            : active ? 'text-gold' : 'text-champagne/90 hover:text-champagne',
+          'py-2 pl-4 pr-1 text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200',
+          tone,
         )}
       >
         {link.label}
+      </Link>
+
+      {/* Separate toggle so touch devices can open the panel without navigating */}
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-label={`${open ? 'Hide' : 'Show'} ${link.label} links`}
+        className={cn(
+          'inline-flex items-center py-2 pl-1 pr-4 transition-colors duration-200',
+          tone,
+        )}
+      >
         <ChevronDown
           className={cn('size-3.5 transition-transform duration-200', open && 'rotate-180')}
         />
-        {active && (
-          <span
-            className="absolute bottom-0 left-1/2 h-px w-4 -translate-x-1/2 rounded-full bg-gold"
-            aria-hidden="true"
-          />
-        )}
-      </Link>
+      </button>
+
+      {active && (
+        <span
+          className="absolute bottom-0 left-1/2 h-px w-4 -translate-x-1/2 rounded-full bg-gold"
+          aria-hidden="true"
+        />
+      )}
 
       {/* Dropdown panel — CSS transition, always in DOM, toggled via opacity/visibility */}
       <div
@@ -257,7 +276,7 @@ export function Header({ links = navLinks }: { links?: NavLink[] }) {
               <button
                 type="button"
                 className={cn(
-                  'inline-flex size-10 items-center justify-center rounded-full transition-colors',
+                  'inline-flex size-11 items-center justify-center rounded-full transition-colors',
                   solid ? 'text-ink hover:bg-ink/8' : 'text-champagne hover:bg-champagne/15',
                 )}
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
@@ -284,8 +303,8 @@ export function Header({ links = navLinks }: { links?: NavLink[] }) {
       {/* Panel */}
       <nav
         className={cn(
-          'fixed right-4 z-40 w-[calc(100%-2rem)] max-w-sm max-h-[calc(100dvh-7.5rem)] overflow-y-auto rounded-2xl bg-champagne px-3 py-3 shadow-2xl transition-all duration-300 ease-out lg:hidden',
-          scrolled ? 'top-[5.75rem]' : 'top-28 md:top-[7.25rem]',
+          'fixed right-4 z-40 w-[calc(100%-2rem)] max-w-sm max-h-[calc(100dvh-8rem)] overflow-y-auto overscroll-contain rounded-2xl bg-champagne px-3 py-3 shadow-2xl transition-all duration-300 ease-out lg:hidden',
+          scrolled ? 'top-[5.75rem]' : 'top-[6.25rem] md:top-[7.25rem]',
           mobileOpen
             ? 'visible translate-y-0 opacity-100'
             : 'invisible -translate-y-2 opacity-0',

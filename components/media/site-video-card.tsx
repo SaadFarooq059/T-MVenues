@@ -94,7 +94,7 @@ export function SiteVideoCard({
           />
           <div
             className="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-300"
-            style={{ opacity: hovered ? 1 : 0 }}
+            style={{ opacity: hovered || !playing ? 1 : 0 }}
             aria-hidden="true"
           >
             <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-champagne/80 bg-ink/40 backdrop-blur-sm">

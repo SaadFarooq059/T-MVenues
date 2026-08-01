@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { cn } from '@/lib/utils'
 import { Reveal } from '@/components/motion/reveal'
 import { GlowingEffect } from '@/components/ui/glowing-effect'
 import { headingSection } from '@/components/ui/atoms'
@@ -113,18 +114,18 @@ export function LoveNote() {
         ))}
 
         {/* Mobile photo strip */}
-        <div className="mb-10 grid grid-cols-2 gap-3 md:hidden">
+        <div className="mb-10 grid grid-cols-2 gap-2.5 sm:gap-3 md:hidden">
           {images.map((image) => (
-            <div key={`m-${image.src}`} className="group relative aspect-[3/4]">
+            <div key={`m-${image.src}`} className="group relative aspect-[4/5]">
               <PhotoFrame src={image.src} alt={image.alt} />
             </div>
           ))}
         </div>
 
         {/* Centre copy */}
-        <div className="relative z-10 mx-auto flex max-w-xl flex-col items-center justify-center px-4 text-center md:absolute md:inset-0 md:min-h-[48rem] lg:min-h-[54rem]">
+        <div className="relative z-10 mx-auto flex max-w-xl flex-col items-center justify-center px-1 text-center sm:px-4 md:absolute md:inset-0 md:min-h-[48rem] lg:min-h-[54rem]">
           <Reveal>
-            <p className={headingSection}>
+            <p className={cn(headingSection, 'text-3xl sm:text-4xl md:text-5xl')}>
               <span className="text-gold" aria-hidden="true">
                 &ldquo;
               </span>

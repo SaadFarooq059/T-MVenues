@@ -11,16 +11,28 @@ export function SplashScreen() {
   useEffect(() => {
     document.documentElement.style.overflow = 'hidden'
 
-    const hide = window.setTimeout(() => {
-      setPhase('out')
-      document.documentElement.style.overflow = ''
-    }, SPLASH_MS)
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+      .matches
+
+    const hide = window.setTimeout(
+      () => {
+        setPhase('out')
+        document.documentElement.style.overflow = ''
+      },
+      reduceMotion ? 0 : SPLASH_MS,
+    )
 
     return () => {
       window.clearTimeout(hide)
       document.documentElement.style.overflow = ''
     }
   }, [])
+
+  const dismiss = () => {
+    if (phase !== 'in') return
+    document.documentElement.style.overflow = ''
+    setPhase('out')
+  }
 
   useEffect(() => {
     if (phase !== 'out') return
@@ -33,6 +45,8 @@ export function SplashScreen() {
   return (
     <div
       aria-hidden="true"
+      onClick={dismiss}
+      onTouchStart={dismiss}
       style={{
         position: 'fixed',
         inset: 0,

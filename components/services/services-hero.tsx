@@ -15,7 +15,7 @@ export function ServicesHero({
 }) {
   return (
     <WavyBackground
-      containerClassName="pt-24 md:pt-28"
+      containerClassName="min-h-[60svh] pt-24 sm:min-h-[520px] md:pt-28"
       className="mx-auto max-w-4xl px-5 pb-12 text-center sm:px-6 md:pb-16"
       backgroundFill="#f3ecdf"
       colors={['#b08d57', '#c9a86c', '#d4b483', '#8f7245', '#e0c9a0']}

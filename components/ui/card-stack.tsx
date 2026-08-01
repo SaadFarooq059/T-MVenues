@@ -87,6 +87,7 @@ export function CardStack<T extends CardStackItem>({
   const [hovering, setHovering] = React.useState(false)
   const [width, setWidth] = React.useState(cardWidth)
   const [height, setHeight] = React.useState(cardHeight)
+  const [tier, setTier] = React.useState<'sm' | 'md' | 'lg'>('lg')
 
   React.useEffect(() => {
     setActive((a) => wrapIndex(a, len))
@@ -105,12 +106,19 @@ export function CardStack<T extends CardStackItem>({
       if (vw < 480) {
         setWidth(Math.min(cardWidth, vw - 48))
         setHeight(Math.round(cardHeight * 0.72))
+        setTier('sm')
       } else if (vw < 768) {
         setWidth(Math.min(cardWidth, vw - 64))
         setHeight(Math.round(cardHeight * 0.85))
+        setTier('sm')
+      } else if (vw < 1024) {
+        setWidth(Math.min(cardWidth, vw - 96))
+        setHeight(Math.round(cardHeight * 0.92))
+        setTier('md')
       } else {
         setWidth(cardWidth)
         setHeight(cardHeight)
+        setTier('lg')
       }
     }
     update()
@@ -118,9 +126,20 @@ export function CardStack<T extends CardStackItem>({
     return () => window.removeEventListener('resize', update)
   }, [cardWidth, cardHeight])
 
-  const maxOffset = Math.max(0, Math.floor(maxVisible / 2))
+  // Fewer neighbours and a tighter fan on small screens, where wide spreads
+  // push cards off-screen and out of reach.
+  const visibleCards =
+    tier === 'sm'
+      ? Math.min(maxVisible, 3)
+      : tier === 'md'
+      ? Math.min(maxVisible, 5)
+      : maxVisible
+  const fanDeg =
+    tier === 'sm' ? spreadDeg * 0.55 : tier === 'md' ? spreadDeg * 0.8 : spreadDeg
+
+  const maxOffset = Math.max(0, Math.floor(visibleCards / 2))
   const cardSpacing = Math.max(10, Math.round(width * (1 - overlap)))
-  const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0
+  const stepDeg = maxOffset > 0 ? fanDeg / maxOffset : 0
 
   const canGoPrev = loop || active > 0
   const canGoNext = loop || active < len - 1
@@ -172,8 +191,8 @@ export function CardStack<T extends CardStackItem>({
       onMouseLeave={() => setHovering(false)}
     >
       <div
-        className="relative w-full outline-none"
-        style={{ height: Math.max(380, height + 80) }}
+        className="relative w-full overflow-hidden outline-none"
+        style={{ height: Math.max(height + 72, 260) }}
         tabIndex={0}
         onKeyDown={onKeyDown}
         role="region"
@@ -293,8 +312,8 @@ export function CardStack<T extends CardStackItem>({
       </div>
 
       {showDots ? (
-        <div className="mt-6 flex items-center justify-center gap-3">
-          <div className="flex items-center gap-2">
+        <div className="mt-4 flex items-center justify-center gap-1">
+          <div className="flex items-center">
             {items.map((it, idx) => {
               const on = idx === active
               return (
@@ -302,20 +321,24 @@ export function CardStack<T extends CardStackItem>({
                   key={it.id}
                   type="button"
                   onClick={() => setActive(idx)}
-                  className={cn(
-                    'h-2 w-2 rounded-full transition',
-                    on ? 'bg-gold' : 'bg-ink/25 hover:bg-ink/40',
-                  )}
+                  className="inline-flex size-10 items-center justify-center"
                   aria-label={`Go to ${it.title}`}
                   aria-current={on ? 'true' : undefined}
-                />
+                >
+                  <span
+                    className={cn(
+                      'block size-2 rounded-full transition',
+                      on ? 'bg-gold' : 'bg-ink/25 hover:bg-ink/40',
+                    )}
+                  />
+                </button>
               )
             })}
           </div>
           {activeItem.href ? (
             <Link
               href={activeItem.href}
-              className="text-muted-foreground transition hover:text-gold"
+              className="inline-flex size-10 items-center justify-center text-muted-foreground transition hover:text-gold"
               aria-label="Open related page"
             >
               <SquareArrowOutUpRight className="size-4" />
@@ -341,7 +364,7 @@ function DefaultFanCard({
             src={item.imageSrc}
             alt={item.title}
             fill
-            sizes="520px"
+            sizes="(max-width: 768px) 90vw, 520px"
             className="object-cover"
             draggable={false}
             crossOrigin="anonymous"

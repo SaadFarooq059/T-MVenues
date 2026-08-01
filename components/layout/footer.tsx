@@ -66,12 +66,12 @@ export function Footer({
             <h3 className="text-xs font-medium uppercase tracking-[0.22em] text-gold">
               Explore
             </h3>
-            <ul className="mt-5 space-y-3">
+            <ul className="mt-3 space-y-1">
               {links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-champagne/70 transition-colors hover:text-champagne"
+                    className="flex min-h-11 items-center text-sm text-champagne/70 transition-colors hover:text-champagne"
                   >
                     {link.label}
                   </Link>
@@ -84,23 +84,23 @@ export function Footer({
             <h3 className="text-xs font-medium uppercase tracking-[0.22em] text-gold">
               Contact
             </h3>
-            <ul className="mt-5 space-y-3 text-sm text-champagne/70">
+            <ul className="mt-3 space-y-1 text-sm text-champagne/70">
               <li>
-                <a href={`tel:${meta.phone.replace(/\s/g, '')}`} className="inline-flex items-center gap-3 transition-colors hover:text-champagne">
-                  <Phone className="size-4 text-gold" />
+                <a href={`tel:${meta.phone.replace(/\s/g, '')}`} className="flex min-h-11 items-center gap-3 transition-colors hover:text-champagne">
+                  <Phone className="size-4 shrink-0 text-gold" />
                   {meta.phone}
                 </a>
               </li>
               <li>
-                <a href={`mailto:${meta.email}`} className="inline-flex items-center gap-3 transition-colors hover:text-champagne">
-                  <Mail className="size-4 text-gold" />
-                  {meta.email}
+                <a href={`mailto:${meta.email}`} className="flex min-h-11 items-center gap-3 transition-colors hover:text-champagne">
+                  <Mail className="size-4 shrink-0 text-gold" />
+                  <span className="break-all">{meta.email}</span>
                 </a>
               </li>
               <li>
-                <a href={meta.instagramUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 transition-colors hover:text-champagne">
-                  <InstagramGlyph className="size-4 text-gold" />
-                  {meta.instagram}
+                <a href={meta.instagramUrl} target="_blank" rel="noreferrer" className="flex min-h-11 items-center gap-3 transition-colors hover:text-champagne">
+                  <InstagramGlyph className="size-4 shrink-0 text-gold" />
+                  <span className="break-all">{meta.instagram}</span>
                 </a>
               </li>
             </ul>
@@ -129,7 +129,7 @@ export function Footer({
                 />
                 <button
                   type="submit"
-                  className="shrink-0 pl-3 text-xs font-medium uppercase tracking-[0.16em] text-gold transition-colors hover:text-champagne"
+                  className="inline-flex min-h-11 shrink-0 items-center pl-3 text-xs font-medium uppercase tracking-[0.16em] text-gold transition-colors hover:text-champagne"
                 >
                   Join
                 </button>

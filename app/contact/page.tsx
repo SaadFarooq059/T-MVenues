@@ -58,12 +58,12 @@ export default function ContactPage() {
                       {d.href ? (
                         <a
                           href={d.href}
-                          className="mt-1 block text-lg text-foreground transition-colors hover:text-gold"
+                          className="mt-1 flex min-h-11 items-center break-words text-lg text-foreground transition-colors hover:text-gold"
                         >
                           {d.value}
                         </a>
                       ) : (
-                        <span className="mt-1 block text-lg text-foreground">
+                        <span className="mt-1 block break-words text-lg text-foreground">
                           {d.value}
                         </span>
                       )}

@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { cn } from '@/lib/utils'
 import { Reveal } from '@/components/motion/reveal'
 import { headingCard, headingSection } from '@/components/ui/atoms'
 
@@ -46,7 +47,7 @@ function PortraitFrame({
 }) {
   return (
     <div
-      className={`group relative aspect-[3/4] w-[13.5rem] overflow-hidden border-[12px] border-champagne bg-champagne shadow-[0_16px_40px_rgba(42,37,33,0.12)] transition-transform duration-500 ease-out will-change-transform sm:w-60 md:w-72 lg:w-80 ${rotate} ${className ?? ''}`}
+      className={`group relative aspect-[3/4] w-[11.5rem] overflow-hidden border-8 border-champagne bg-champagne shadow-[0_16px_40px_rgba(42,37,33,0.12)] transition-transform duration-500 ease-out will-change-transform sm:w-60 sm:border-[12px] md:w-72 lg:w-80 ${rotate} ${className ?? ''}`}
     >
       <Image
         src={src}
@@ -81,7 +82,7 @@ export function LoveStory() {
 
           <Reveal
             delay={0.08}
-            className="relative order-1 mx-auto flex h-[22rem] w-[21rem] items-center justify-center sm:h-[26rem] sm:w-[26rem] md:order-2 md:h-[32rem] md:w-[32rem] lg:h-[36rem] lg:w-[36rem]"
+            className="relative order-1 mx-auto flex h-[20rem] w-full max-w-[21rem] items-center justify-center sm:h-[26rem] sm:max-w-[26rem] md:order-2 md:h-[32rem] md:max-w-[32rem] lg:h-[36rem] lg:max-w-[36rem]"
           >
             <div className="absolute left-0 top-4 z-10 transition-transform duration-500 ease-out hover:-translate-y-2 hover:rotate-3 sm:top-6">
               <PortraitFrame
@@ -116,7 +117,7 @@ export function LoveStory() {
 
         <Reveal delay={0.18}>
           <div className="mx-auto mt-16 max-w-4xl text-center md:mt-24">
-            <p className={`${headingSection}`}>
+            <p className={cn(headingSection, 'text-3xl sm:text-4xl md:text-5xl')}>
               <span className="text-gold" aria-hidden="true">
                 &ldquo;
               </span>

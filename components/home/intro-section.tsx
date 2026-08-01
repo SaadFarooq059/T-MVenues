@@ -8,7 +8,7 @@ export async function IntroSection() {
   return (
     <section className="overflow-hidden py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
+        <div className="grid items-center gap-10 md:gap-16 lg:grid-cols-2 lg:gap-20">
 
           {/* ── Left: text ── */}
           <Reveal>

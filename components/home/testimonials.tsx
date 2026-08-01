@@ -112,7 +112,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex + '-quote'}
-                  className="text-balance font-serif text-4xl font-light leading-[1.08] tracking-tight text-white md:text-5xl"
+                  className="text-balance font-serif text-3xl font-light leading-[1.08] tracking-tight text-white sm:text-4xl md:text-5xl"
                   initial="hidden"
                   animate="visible"
                   exit="exit"

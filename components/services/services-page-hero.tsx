@@ -106,7 +106,7 @@ function SealBadge({ label }: { label: string }) {
 
 function HeroCta({ text, href }: { text: string; href: string }) {
   const className =
-    'mt-5 inline-flex items-center justify-center rounded-full bg-gold px-6 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-gold-dark hover:text-champagne sm:text-sm'
+    'mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-gold px-6 py-3 text-xs font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-gold-dark hover:text-champagne sm:text-sm'
 
   if (isInternalHref(href)) {
     return (
@@ -170,7 +170,7 @@ export async function ServicesPageHero() {
           </Reveal>
         ) : null}
 
-        <Reveal delay={0.12} className="mt-8 flex items-center gap-5">
+        <Reveal delay={0.12} className="mt-8 flex flex-col items-start gap-4 min-[420px]:flex-row min-[420px]:items-center min-[420px]:gap-5">
           <SealBadge label={sealLabel} />
           <p className="text-pretty text-sm leading-relaxed text-ink/65">
             {subheading}

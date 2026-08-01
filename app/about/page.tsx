@@ -22,7 +22,7 @@ export default function AboutPage() {
       <AboutUsHero />
 
       {/* Founder story */}
-      <section className="bg-background py-20 md:py-28">
+      <section className="bg-background pb-20 pt-10 sm:pt-16 md:py-28">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-2 md:gap-16 md:px-8">
           <Reveal>
             <FounderPortrait />

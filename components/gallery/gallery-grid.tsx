@@ -152,7 +152,7 @@ export function GalleryGrid({ events }: { events: GalleryEvent[] }) {
               onClick={() => setActive(cat)}
               aria-pressed={cat === active}
               className={cn(
-                'rounded-full border px-5 py-2 text-sm font-medium tracking-wide transition-all duration-200',
+                'inline-flex min-h-11 items-center rounded-full border px-5 py-2 text-sm font-medium tracking-wide transition-all duration-200',
                 cat === active
                   ? 'border-gold bg-gold text-ink shadow-sm'
                   : 'border-border text-muted-foreground hover:border-gold/50 hover:text-foreground',
@@ -206,10 +206,10 @@ export function GalleryGrid({ events }: { events: GalleryEvent[] }) {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   crossOrigin="anonymous"
                 />
-                {/* Hover overlay */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-ink/0 backdrop-blur-0 transition-all duration-300 group-hover:bg-ink/50 group-hover:backdrop-blur-sm">
-                  <ZoomIn className="h-8 w-8 text-champagne opacity-0 transition-all duration-300 group-hover:opacity-100" />
-                  <span className="px-4 text-center text-xs font-medium uppercase tracking-[0.2em] text-champagne opacity-0 transition-all duration-300 group-hover:opacity-100">
+                {/* Overlay — always legible on touch, reveals on hover with a pointer */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent transition-all duration-300 [@media(hover:hover)]:bg-ink/0 [@media(hover:hover)]:bg-none [@media(hover:hover)]:backdrop-blur-0 [@media(hover:hover)]:group-hover:bg-ink/50 [@media(hover:hover)]:group-hover:backdrop-blur-sm">
+                  <ZoomIn className="h-8 w-8 text-champagne transition-all duration-300 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100" />
+                  <span className="absolute bottom-4 px-4 text-center text-xs font-medium uppercase tracking-[0.2em] text-champagne transition-all duration-300 [@media(hover:hover)]:static [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100">
                     {event.title}
                   </span>
                 </div>
@@ -245,19 +245,19 @@ export function GalleryGrid({ events }: { events: GalleryEvent[] }) {
               type="button"
               onClick={closeLightbox}
               aria-label="Close lightbox"
-              className="absolute right-2 top-2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:-right-12 md:top-0"
+              className="absolute right-2 top-2 z-10 flex size-11 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:-right-12 md:top-0"
             >
               <X className="h-4 w-4" />
             </button>
 
             {/* Image */}
-            <div className="relative max-h-[75vh] w-full overflow-hidden rounded-xl">
+            <div className="relative max-h-[58svh] w-full overflow-hidden rounded-xl sm:max-h-[75vh]">
               <Image
                 src={lightboxPhoto.url}
                 alt={lightboxPhoto.alt}
                 width={1200}
                 height={800}
-                className="mx-auto max-h-[75vh] w-auto rounded-xl object-contain"
+                className="mx-auto max-h-[58svh] w-auto rounded-xl object-contain sm:max-h-[75vh]"
                 crossOrigin="anonymous"
               />
             </div>

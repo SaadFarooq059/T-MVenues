@@ -53,14 +53,14 @@ const columns = [
 function StudioPhoto({
   src,
   alt,
-  height,
+  className,
 }: {
   src: string
   alt: string
-  height: string
+  className: string
 }) {
   return (
-    <div className={`group relative ${height}`}>
+    <div className={`group relative ${className}`}>
       <div className="relative h-full w-full rounded-xl p-px transition-transform duration-500 ease-out will-change-transform group-hover:-translate-y-1 group-hover:scale-[1.02]">
         <GlowingEffect
           spread={40}
@@ -75,7 +75,7 @@ function StudioPhoto({
             src={src}
             alt={alt}
             fill
-            sizes="(max-width: 1024px) 30vw, 15vw"
+            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 15vw"
             quality={90}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
@@ -132,15 +132,28 @@ export function FromOurStudio() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <div className="flex gap-2 sm:gap-3">
+            {/* Phones / tablets: even two-up grid so columns never become thin strips */}
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:hidden">
+              {images.map((image) => (
+                <StudioPhoto
+                  key={image.src}
+                  src={image.src}
+                  alt={image.alt}
+                  className="aspect-[3/4]"
+                />
+              ))}
+            </div>
+
+            {/* Desktop: staggered masonry columns */}
+            <div className="hidden gap-3 lg:flex">
               {columns.map((col, colIndex) => (
-                <div key={colIndex} className="flex min-w-0 flex-1 flex-col gap-2 sm:gap-3">
+                <div key={colIndex} className="flex min-w-0 flex-1 flex-col gap-3">
                   {col.map((image) => (
                     <StudioPhoto
                       key={image.src}
                       src={image.src}
                       alt={image.alt}
-                      height={image.height}
+                      className={image.height}
                     />
                   ))}
                 </div>
