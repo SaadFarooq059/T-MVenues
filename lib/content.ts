@@ -21,6 +21,11 @@ export interface HeroSlide {
   imageAlt: string
 }
 
+export interface ServiceHighlight {
+  title: string
+  description: string
+}
+
 export interface Service {
   id: string
   title: string
@@ -30,6 +35,8 @@ export interface Service {
   image: string
   imageAlt: string
   included: string[]
+  /** Same ground as `included`, with supporting copy for the bento grid */
+  highlights?: ServiceHighlight[]
 }
 
 export interface GalleryImage {
@@ -140,8 +147,35 @@ export const services: Service[] = [
       'Ceiling drapery & backdrop design',
       'Floral centerpieces & installations',
       'Chair covers, linens & tablescapes',
-      'Ceremony arch & aisle stylifng',
+      'Ceremony arch & aisle styling',
       'Candlelight & ambient lighting',
+    ],
+    highlights: [
+      {
+        title: 'Ceiling drapery & backdrops',
+        description:
+          'Soft silk falls and framed backdrops that change the shape of a room before a single guest walks in. We work with your venue rather than against it, softening hard lines and drawing the eye to the moments that matter.',
+      },
+      {
+        title: 'Florals & installations',
+        description:
+          'Seasonal blooms arranged in scale with your space — low tablescapes, statement urns or suspended installations above the dance floor.',
+      },
+      {
+        title: 'Linens, chairs & tablescapes',
+        description:
+          'Layered textures, considered place settings and finishes chosen to sit quietly with your palette. Every cover, runner and napkin fold is decided in advance so your tables look composed from the first course to the last.',
+      },
+      {
+        title: 'Ceremony & aisle styling',
+        description:
+          'The first thing your guests see, styled to frame the moment you say yes.',
+      },
+      {
+        title: 'Candlelight & ambience',
+        description:
+          'Warm, low light that carries the room from vows through to the last dance.',
+      },
     ],
   },
   {
@@ -161,6 +195,33 @@ export const services: Service[] = [
       'Feature installations & signage framing',
       'On-site styling team',
     ],
+    highlights: [
+      {
+        title: 'Brand-led styling direction',
+        description:
+          'We start with your brand — its colours, tone and the impression you want to leave — then translate that into a room. The result feels unmistakably yours without ever looking like a trade stand.',
+      },
+      {
+        title: 'Stage & backdrop draping',
+        description:
+          'Clean, well-lit staging for speeches, awards and launches, framed so every photograph works.',
+      },
+      {
+        title: 'Tables & centrepieces',
+        description:
+          'Dining styling that holds up to a long evening: florals at a height that lets guests talk across the table, linens in your palette, and finishes that photograph as well as they feel. Set up and cleared entirely by our team.',
+      },
+      {
+        title: 'Installations & signage',
+        description:
+          'Feature moments and framed signage that guide guests and give the press a focal point.',
+      },
+      {
+        title: 'On-site styling team',
+        description:
+          'We install, adjust through the day and strip out afterwards, so your team never has to.',
+      },
+    ],
   },
   {
     id: 'shoots',
@@ -179,6 +240,33 @@ export const services: Service[] = [
       'Floral & fabric detailing',
       'On-set styling support',
     ],
+    highlights: [
+      {
+        title: 'Concept & mood development',
+        description:
+          'We begin with references, palette and texture, agreeing the look before anything is booked. You know exactly how the frames will feel long before the camera comes out.',
+      },
+      {
+        title: 'Set & backdrop styling',
+        description:
+          'Backdrops, surfaces and drapery built to photograph — considered depth, no distracting seams.',
+      },
+      {
+        title: 'Prop sourcing & styling',
+        description:
+          'From tableware and glassware to furniture and vintage finds, we source and style props that carry the story of the shoot. Our own hire collection means most of what you need is already in the studio.',
+      },
+      {
+        title: 'Floral & fabric detail',
+        description:
+          'The close-up layer — blooms, silks and small details that give a frame its texture.',
+      },
+      {
+        title: 'On-set support',
+        description:
+          'A stylist on hand through the day to reset, adjust and keep continuity between shots.',
+      },
+    ],
   },
   {
     id: 'collaborations',
@@ -196,6 +284,33 @@ export const services: Service[] = [
       'Venue & planner partnerships',
       'Trade & styling hire',
       'Shared project management',
+    ],
+    highlights: [
+      {
+        title: 'Creative direction',
+        description:
+          'We are happy leading the design or supporting yours. Either way the concept is agreed together, with clear drawings and material choices so everyone is building the same room.',
+      },
+      {
+        title: 'Large-scale installations',
+        description:
+          'Ceiling work, suspended florals and statement structures, installed safely with your venue.',
+      },
+      {
+        title: 'Venue & planner partnerships',
+        description:
+          'We work as an extension of your team, not a competing voice. That means fitting around your timings, respecting your client relationship and turning up with everything ready — the kind of collaboration that leads to repeat bookings.',
+      },
+      {
+        title: 'Trade & styling hire',
+        description:
+          'Access to our full décor, backdrop and signage collection at trade terms.',
+      },
+      {
+        title: 'Shared project management',
+        description:
+          'One point of contact, clear schedules, and a team that communicates through the build.',
+      },
     ],
   },
 ]

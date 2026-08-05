@@ -1,12 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { getPageHero } from '@/lib/contentful'
+import { getPageHero, type PageHeroPage } from '@/lib/contentful'
 import { Reveal } from '@/components/motion/reveal'
 
 const FALLBACK_HEADING = 'Bespoke Styling'
-const FALLBACK_SUBHEADING =
-  'Weddings, corporate events and commercial shoots — dressed with drapery, florals and quiet, considered detail. No set packages, just a scheme made entirely for you.'
 const FALLBACK_IMAGE =
   'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop'
 
@@ -124,21 +122,29 @@ function HeroCta({ text, href }: { text: string; href: string }) {
 }
 
 /**
- * Services page header — split editorial hero: oversized serif heading stacked
- * across the layout, seal motif and copy lower left, full-bleed image right.
- * Data from Contentful Page Hero (page = "Services").
+ * Split editorial hero: oversized serif heading stacked across the layout,
+ * seal motif lower left, full-bleed image right. Shared by the services index
+ * and each individual service page; data from the matching Contentful Page Hero.
  */
-export async function ServicesPageHero() {
-  const hero = await getPageHero('Services')
+export async function ServicesPageHero({
+  page = 'Services',
+  sealLabel = 'Our Services',
+  fallbackHeading = FALLBACK_HEADING,
+  fallbackImage = FALLBACK_IMAGE,
+}: {
+  page?: PageHeroPage
+  sealLabel?: string
+  fallbackHeading?: string
+  fallbackImage?: string
+} = {}) {
+  const hero = await getPageHero(page)
 
-  const heading = hero?.heading?.trim() || FALLBACK_HEADING
+  const heading = hero?.heading?.trim() || fallbackHeading
   const [first, second] = splitHeading(heading)
-  const imageSrc = hero?.heroImageUrl || FALLBACK_IMAGE
+  const imageSrc = hero?.heroImageUrl || fallbackImage
   const imageAlt = hero?.heroImageAlt || heading
   const mobileImageSrc = hero?.mobileHeroImageUrl || imageSrc
   const mobileImageAlt = hero?.mobileHeroImageAlt || imageAlt
-  const subheading = hero?.subheading?.trim() || FALLBACK_SUBHEADING
-  const sealLabel = 'Our Services'
   const showCta = Boolean(hero?.ctaText && hero?.ctaLink)
 
   const headingClass =
@@ -149,7 +155,7 @@ export async function ServicesPageHero() {
   return (
     <section
       className="relative overflow-hidden bg-cream pt-24 md:pt-28"
-      aria-label="Services hero"
+      aria-label={`${page} hero`}
     >
       {/* ── Mobile: stacked invitation ── */}
       <div className="px-5 pb-12 sm:px-8 md:hidden">
@@ -170,11 +176,8 @@ export async function ServicesPageHero() {
           </Reveal>
         ) : null}
 
-        <Reveal delay={0.12} className="mt-8 flex flex-col items-start gap-4 min-[420px]:flex-row min-[420px]:items-center min-[420px]:gap-5">
+        <Reveal delay={0.12} className="mt-8">
           <SealBadge label={sealLabel} />
-          <p className="text-pretty text-sm leading-relaxed text-ink/65">
-            {subheading}
-          </p>
         </Reveal>
 
         {showCta ? (
@@ -230,14 +233,11 @@ export async function ServicesPageHero() {
               <SealBadge label={sealLabel} />
             </Reveal>
 
-            <Reveal delay={0.15} className="mt-6 max-w-sm">
-              <p className="text-pretty text-sm leading-relaxed text-ink/65 lg:text-base">
-                {subheading}
-              </p>
-              {showCta ? (
+            {showCta ? (
+              <Reveal delay={0.15}>
                 <HeroCta text={hero!.ctaText!} href={hero!.ctaLink!} />
-              ) : null}
-            </Reveal>
+              </Reveal>
+            ) : null}
           </div>
 
           <div aria-hidden />

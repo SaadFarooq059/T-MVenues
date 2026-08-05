@@ -3,10 +3,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Check, ArrowLeft, ArrowRight } from 'lucide-react'
 import { galleryImages, services } from '@/lib/content'
-import { PageHero } from '@/components/sections/page-hero'
 import { CtaBanner } from '@/components/sections/cta-banner'
+import { ServicesPageHero } from '@/components/services/services-page-hero'
 import { ServiceCardStack } from '@/components/services/service-card-stack'
 import { ServiceAboutSection } from '@/components/services/service-about-section'
+import { ServiceHighlights } from '@/components/services/service-highlights'
 import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import type { PageHeroPage } from '@/lib/contentful'
@@ -54,7 +55,12 @@ export default async function ServicePage({
 
   return (
     <main>
-      {heroPage ? <PageHero page={heroPage} /> : null}
+      <ServicesPageHero
+        page={heroPage ?? 'Services'}
+        sealLabel={service.title}
+        fallbackHeading={service.title}
+        fallbackImage={service.image}
+      />
 
       {/* ── Detail body ── */}
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
@@ -98,6 +104,8 @@ export default async function ServicePage({
 
         </div>
       </section>
+
+      <ServiceHighlights service={service} />
 
       <ServiceAboutSection service={service} />
 
