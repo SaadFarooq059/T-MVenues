@@ -8,6 +8,7 @@ import { ServicesPageHero } from '@/components/services/services-page-hero'
 import { ServiceCardStack } from '@/components/services/service-card-stack'
 import { ServiceAboutSection } from '@/components/services/service-about-section'
 import { ServiceHighlights } from '@/components/services/service-highlights'
+import { ServiceTestimonials } from '@/components/services/service-testimonials'
 import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import {
@@ -123,6 +124,8 @@ export default async function ServicePage({
       <ServiceHighlights service={service} />
 
       <ServiceAboutSection service={service} />
+
+      <ServiceTestimonials service={service} />
 
       <ServiceCardStack service={service} images={sliderImages} />
 

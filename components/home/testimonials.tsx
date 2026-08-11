@@ -40,18 +40,19 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
   const current = testimonials[activeIndex]
 
   return (
-    <section className="bg-ink text-champagne overflow-hidden">
+    <section className="overflow-hidden bg-ink text-champagne">
       <div
         ref={containerRef}
-        className="relative mx-auto max-w-5xl px-6 py-24 md:py-32"
+        className="relative mx-auto max-w-5xl px-5 py-20 sm:px-6 md:py-32"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
         {/* Oversized index number bleeding off left edge */}
         <motion.div
-          className="pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[22rem] font-bold leading-none tracking-tighter text-champagne/[0.04] md:text-[28rem]"
+          className="pointer-events-none absolute -left-8 top-1/2 hidden -translate-y-1/2 select-none text-[22rem] font-bold leading-none tracking-tighter text-champagne/[0.04] md:block md:text-[28rem]"
           style={{ x: numberX, y: numberY }}
+          aria-hidden="true"
         >
           <AnimatePresence mode="wait">
             <motion.span
@@ -89,7 +90,11 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
           </div>
 
           {/* Centre — main content */}
-          <div className="min-w-0 flex-1 py-4 md:pl-16">
+          <div className="min-w-0 flex-1 py-2 md:py-4 md:pl-16">
+            <p className="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-champagne/40 md:hidden">
+              Testimonials
+            </p>
+
             {/* Event type badge */}
             <AnimatePresence mode="wait">
               <motion.div
@@ -98,7 +103,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 1, x: 20 }}
                 transition={{ duration: 0.4 }}
-                className="mb-8"
+                className="mb-6 sm:mb-8"
               >
                 <span className="inline-flex items-center gap-2 rounded-full border border-champagne/20 px-3 py-1 font-mono text-xs text-champagne/50">
                   <span className="size-1.5 rounded-full bg-gold" aria-hidden="true" />
@@ -107,12 +112,12 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
               </motion.div>
             </AnimatePresence>
 
-            {/* Quote — word-by-word reveal */}
-            <div className="relative mb-12 min-h-[130px] md:min-h-[160px]">
+            {/* Fixed quote area keeps every slide the same height */}
+            <div className="relative mb-8 h-[9.5rem] sm:mb-10 sm:h-[10.5rem] md:mb-12 md:h-[11.5rem]">
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex + '-quote'}
-                  className="text-balance font-serif text-3xl font-light leading-[1.08] tracking-tight text-white sm:text-4xl md:text-5xl"
+                  className="absolute inset-0 text-pretty font-serif text-[1.65rem] font-light leading-[1.2] tracking-tight text-white sm:text-3xl sm:leading-[1.15] md:text-4xl md:leading-[1.12]"
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -120,7 +125,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                   {current.quote.split(' ').map((word, i) => (
                     <motion.span
                       key={i}
-                      className="mr-[0.25em] inline-block"
+                      className="mr-[0.22em] inline-block"
                       variants={{
                         hidden: { opacity: 1, y: 20, rotateX: 60 },
                         visible: {
@@ -129,14 +134,14 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                           rotateX: 0,
                           transition: {
                             duration: 0.5,
-                            delay: i * 0.04,
+                            delay: i * 0.03,
                             ease: [0.22, 1, 0.36, 1],
                           },
                         },
                         exit: {
                           opacity: 1,
                           y: -8,
-                          transition: { duration: 0.15, delay: i * 0.015 },
+                          transition: { duration: 0.15, delay: i * 0.01 },
                         },
                       }}
                     >
@@ -148,7 +153,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
             </div>
 
             {/* Author row + navigation */}
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex + '-author'}
@@ -156,7 +161,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 1, y: -16 }}
                   transition={{ duration: 0.4, delay: 0.15 }}
-                  className="flex items-center gap-4"
+                  className="flex min-h-[3.25rem] items-center gap-4"
                 >
                   <motion.div
                     className="h-px bg-gold"
@@ -180,7 +185,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                   type="button"
                   onClick={goPrev}
                   aria-label="Previous testimonial"
-                  className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-champagne/20 transition-colors hover:border-gold"
+                  className="group relative flex size-11 items-center justify-center overflow-hidden rounded-full border border-champagne/20 transition-colors hover:border-gold sm:size-12"
                 >
                   <motion.div
                     className="absolute inset-0 bg-gold"
@@ -188,7 +193,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                     whileHover={{ x: '0%' }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   />
-                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="relative z-10 text-champagne transition-colors group-hover:text-ink">
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="relative z-10 text-champagne transition-colors group-hover:text-ink" aria-hidden>
                     <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
@@ -197,7 +202,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                   type="button"
                   onClick={goNext}
                   aria-label="Next testimonial"
-                  className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-champagne/20 transition-colors hover:border-gold"
+                  className="group relative flex size-11 items-center justify-center overflow-hidden rounded-full border border-champagne/20 transition-colors hover:border-gold sm:size-12"
                 >
                   <motion.div
                     className="absolute inset-0 bg-gold"
@@ -205,7 +210,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                     whileHover={{ x: '0%' }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   />
-                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="relative z-10 text-champagne transition-colors group-hover:text-ink">
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="relative z-10 text-champagne transition-colors group-hover:text-ink" aria-hidden>
                     <path d="M6 4L10 8L6 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
@@ -215,7 +220,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
         </div>
 
         {/* Bottom ticker — repeating names */}
-        <div className="pointer-events-none absolute -bottom-8 left-0 right-0 overflow-hidden opacity-[0.06]">
+        <div className="pointer-events-none absolute -bottom-8 left-0 right-0 hidden overflow-hidden opacity-[0.06] md:block" aria-hidden="true">
           <motion.div
             className="flex whitespace-nowrap text-5xl font-bold tracking-tight text-champagne"
             animate={{ x: [0, -1200] }}

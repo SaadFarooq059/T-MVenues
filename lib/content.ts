@@ -405,14 +405,14 @@ export const testimonials: Testimonial[] = [
   {
     id: 't2',
     quote:
-      'The girls were amazing from start to finish! They knew exactly what our vision was and truly exceeded it. They always answered my questions, regardless of how many I had, and went above and beyond to make sure everything was perfect! We couldn’t have been happier and will forever be grateful for all their hard work on our wedding day. Thank you again ❤️',
+      'The girls were amazing from start to finish. They knew exactly what our vision was and truly exceeded it — we couldn\u2019t have been happier.',
     name: 'E&J',
     eventType: 'May 2026',
   },
   {
     id: 't3',
     quote:
-      'From the moment we met, we knew we were in the best hands. Your warmth, professionalism, and genuine passion instantly put us at ease, and we felt so confident trusting you with such an important part of our day…',
+      'From the moment we met, we knew we were in the best hands. Your warmth and genuine passion instantly put us at ease.',
     name: 'A Kind Client',
     eventType: 'Wedding',
   },
