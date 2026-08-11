@@ -17,7 +17,7 @@ export function ServiceHighlights({ service }: { service: Service }) {
     <RuixenBentoCards
       eyebrow="What's Included"
       cards={cards}
-      heading={`Every ${service.title.toLowerCase()} detail, handled for you.`}
+      heading={`Every ${service.singularTitle} detail, handled for you.`}
       body={service.shortDescription}
     />
   )

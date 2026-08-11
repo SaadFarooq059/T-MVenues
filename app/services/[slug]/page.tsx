@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Check, ArrowLeft, ArrowRight } from 'lucide-react'
-import { galleryImages, services } from '@/lib/content'
+import { services } from '@/lib/content'
 import { CtaBanner } from '@/components/sections/cta-banner'
 import { ServicesPageHero } from '@/components/services/services-page-hero'
 import { ServiceCardStack } from '@/components/services/service-card-stack'
@@ -10,13 +10,24 @@ import { ServiceAboutSection } from '@/components/services/service-about-section
 import { ServiceHighlights } from '@/components/services/service-highlights'
 import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
-import type { PageHeroPage } from '@/lib/contentful'
+import {
+  getServiceSliderImages,
+  type PageHeroPage,
+  type ServiceSliderService,
+} from '@/lib/contentful'
 
 const serviceHeroPageBySlug: Record<string, PageHeroPage> = {
   weddings: 'Services - Weddings',
   'corporate-events': 'Services - Corporate Events',
   'commercial-shoots': 'Services - Commercial Shoots',
   collaborations: 'Services - Collaborations',
+}
+
+const sliderServiceBySlug: Record<string, ServiceSliderService> = {
+  weddings: 'Weddings',
+  'corporate-events': 'Corporate Events',
+  'commercial-shoots': 'Commercial Shoots',
+  collaborations: 'Collaborations',
 }
 
 export const revalidate = 60
@@ -52,6 +63,10 @@ export default async function ServicePage({
   const prev = services[currentIndex - 1] ?? null
   const next = services[currentIndex + 1] ?? null
   const heroPage = serviceHeroPageBySlug[slug]
+  const sliderService = sliderServiceBySlug[slug]
+  const sliderImages = sliderService
+    ? await getServiceSliderImages(sliderService)
+    : []
 
   return (
     <main>
@@ -109,7 +124,7 @@ export default async function ServicePage({
 
       <ServiceAboutSection service={service} />
 
-      <ServiceCardStack service={service} gallery={galleryImages} />
+      <ServiceCardStack service={service} images={sliderImages} />
 
       {/* ── Prev / Next service navigation ── */}
       <section className="border-t border-border/60">

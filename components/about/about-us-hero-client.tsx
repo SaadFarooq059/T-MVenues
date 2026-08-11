@@ -8,6 +8,7 @@ import { Eyebrow, headingHero, bodyLead } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import { HorizontalParallaxGallery } from '@/components/about/horizontal-parallax-gallery'
 import { JourneyVideoModal } from '@/components/about/journey-video-modal'
+import type { TimelineMilestone } from '@/lib/contentful'
 
 const FALLBACK_THUMBNAIL = '/AboutUs/thumbnail.png'
 
@@ -15,11 +16,13 @@ export function AboutUsHeroClient({
   posterUrl,
   posterAlt,
   showPlay,
+  milestones,
   children,
 }: {
   posterUrl?: string
   posterAlt?: string
   showPlay: boolean
+  milestones: TimelineMilestone[]
   children?: ReactNode
 }) {
   const [videoOpen, setVideoOpen] = useState(false)
@@ -97,7 +100,7 @@ export function AboutUsHeroClient({
         </div>
       </section>
 
-      <HorizontalParallaxGallery />
+      <HorizontalParallaxGallery milestones={milestones} />
 
       {showPlay ? (
         <JourneyVideoModal open={videoOpen} onClose={() => setVideoOpen(false)}>

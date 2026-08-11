@@ -2,21 +2,31 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import type { TimelineMilestone } from '@/lib/contentful'
 import styles from './horizontal-parallax-gallery.module.css'
 
-const images = [
-  { src: '/images/gallery-1.png', alt: 'Styled wedding ceremony aisle', className: styles.slower },
-  { src: '/images/gallery-2.png', alt: 'Reception tablescape detail', className: styles.faster },
-  { src: '/images/gallery-3.png', alt: 'Ceiling drapery installation', className: `${styles.slower} ${styles.vertical}` },
-  { src: '/images/gallery-4.png', alt: 'Candlelit venue styling', className: `${styles.slower} ${styles.slowerDown}` },
-  { src: '/images/gallery-5.png', alt: 'Floral centrepiece detail', className: '' },
-  { src: '/images/hero-1.png', alt: 'Fully dressed wedding venue', className: styles.slower },
-  { src: '/images/gallery-6.png', alt: 'Corporate event styling', className: styles.faster1 },
-  { src: '/images/gallery-7.png', alt: 'Gold and floral tablescape', className: `${styles.slower} ${styles.slower2}` },
-  { src: '/images/gallery-8.png', alt: 'Intimate barn wedding styling', className: styles.slower1 },
-  { src: '/images/hero-2.png', alt: 'Evening venue atmosphere', className: styles.faster },
-  { src: '/images/gallery-9.png', alt: 'Styled shoot backdrop', className: `${styles.slower} ${styles.last}` },
+/**
+ * Depth rhythm of the strip. Cycled by position so any number of milestones
+ * keeps the original staggering; the closing offset is added to the last one.
+ */
+const PARALLAX_CLASSES = [
+  styles.slower,
+  styles.faster,
+  `${styles.slower} ${styles.vertical}`,
+  `${styles.slower} ${styles.slowerDown}`,
+  '',
+  styles.slower,
+  styles.faster1,
+  `${styles.slower} ${styles.slower2}`,
+  styles.slower1,
+  styles.faster,
+  styles.slower,
 ]
+
+function parallaxClass(index: number, total: number) {
+  const base = PARALLAX_CLASSES[index % PARALLAX_CLASSES.length]
+  return index === total - 1 ? `${base} ${styles.last}` : base
+}
 
 /** How many viewport heights of page scroll to finish the whole strip */
 const SCROLL_VIEWPORTS = 1.25
@@ -25,8 +35,13 @@ const LERP = 0.22
 /**
  * Template CSS parallax gallery. A short vertical scroll finishes the full
  * image strip smoothly, then the page continues.
+ * Images come from Contentful "Timeline Milestone" entries.
  */
-export function HorizontalParallaxGallery() {
+export function HorizontalParallaxGallery({
+  milestones,
+}: {
+  milestones: TimelineMilestone[]
+}) {
   const sectionRef = useRef<HTMLElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -125,7 +140,9 @@ export function HorizontalParallaxGallery() {
       wrapper.removeEventListener('wheel', onWheel)
       ro.disconnect()
     }
-  }, [])
+  }, [milestones.length])
+
+  if (milestones.length === 0) return null
 
   return (
     <section
@@ -138,15 +155,15 @@ export function HorizontalParallaxGallery() {
         <div className={styles.galleryContainer}>
           <p className={styles.scrollInfo}>Scroll to explore</p>
           <div ref={wrapperRef} className={styles.horizontalScrollWrapper}>
-            {images.map((image) => (
+            {milestones.map((milestone, index) => (
               <div
-                key={image.src}
-                className={`${styles.imgWrapper} ${image.className}`}
+                key={milestone.id}
+                className={`${styles.imgWrapper} ${parallaxClass(index, milestones.length)}`}
               >
                 <span className={styles.imgLink}>
                   <Image
-                    src={image.src}
-                    alt={image.alt}
+                    src={milestone.imageUrl}
+                    alt={milestone.imageAlt}
                     width={400}
                     height={500}
                     className={styles.galleryImage}

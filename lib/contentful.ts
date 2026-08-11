@@ -16,8 +16,33 @@ export const JOURNEY_IMAGE_CONTENT_TYPE = 'journeyImage'
 /** Contentful content type API ID for "Page Hero" */
 export const PAGE_HERO_CONTENT_TYPE = 'pageHero'
 
+/** Contentful content type API ID for "Timeline Milestone" */
+export const TIMELINE_MILESTONE_CONTENT_TYPE = 'timelineMilestone'
+
+/** Contentful content type API ID for "Service Slider Image" */
+export const SERVICE_SLIDER_IMAGE_CONTENT_TYPE = 'serviceSliderImage'
+
 /** Contentful content type API ID for "Site Video" */
 export const SITE_VIDEO_CONTENT_TYPE = 'siteVideo'
+
+/** Locked "service" field values from the Service Slider Image content type */
+export const SERVICE_SLIDER_SERVICES = [
+  'Weddings',
+  'Corporate Events',
+  'Commercial Shoots',
+  'Collaborations',
+] as const
+
+export type ServiceSliderService = (typeof SERVICE_SLIDER_SERVICES)[number]
+
+export type ServiceSliderImage = {
+  id: string
+  service: ServiceSliderService
+  imageUrl: string
+  alt: string
+  caption?: string
+  order: number
+}
 
 /** Locked "placement" field values from the Site Video content type */
 export const SITE_VIDEO_PLACEMENTS = ['Home Intro', 'About Hero'] as const
@@ -74,6 +99,17 @@ export type JourneyImage = {
   alt: string
   category: GalleryEventCategory
   span: JourneyImageSpan
+  order: number
+}
+
+/** A single step on the About page's "Our Journey" timeline */
+export type TimelineMilestone = {
+  id: string
+  year: string
+  title: string
+  description?: string
+  imageUrl: string
+  imageAlt: string
   order: number
 }
 
@@ -140,6 +176,32 @@ interface PageHeroFields {
 }
 
 type PageHeroSkeleton = EntrySkeletonType<PageHeroFields, 'pageHero'>
+
+interface TimelineMilestoneFields {
+  year: EntryFieldTypes.Symbol
+  title: EntryFieldTypes.Symbol
+  description: EntryFieldTypes.Text
+  image: EntryFieldTypes.AssetLink
+  order: EntryFieldTypes.Integer
+}
+
+type TimelineMilestoneSkeleton = EntrySkeletonType<
+  TimelineMilestoneFields,
+  'timelineMilestone'
+>
+
+interface ServiceSliderImageFields {
+  service: EntryFieldTypes.Symbol
+  image: EntryFieldTypes.AssetLink
+  alt: EntryFieldTypes.Symbol
+  caption: EntryFieldTypes.Symbol
+  order: EntryFieldTypes.Integer
+}
+
+type ServiceSliderImageSkeleton = EntrySkeletonType<
+  ServiceSliderImageFields,
+  'serviceSliderImage'
+>
 
 interface SiteVideoFields {
   placement: EntryFieldTypes.Symbol
@@ -337,6 +399,133 @@ export async function getJourneyImages(): Promise<JourneyImage[]> {
       .filter((item): item is JourneyImage => item !== null)
   } catch (error) {
     console.warn('[contentful] getJourneyImages failed:', error)
+    return []
+  }
+}
+
+function mapTimelineMilestone(
+  entry: Entry<TimelineMilestoneSkeleton>,
+  index: number,
+): TimelineMilestone | null {
+  const asset = resolveAsset(entry.fields.image as Asset | undefined)
+  if (!asset) return null
+
+  const year = typeof entry.fields.year === 'string' ? entry.fields.year.trim() : ''
+  const title =
+    typeof entry.fields.title === 'string' ? entry.fields.title.trim() : ''
+
+  const description =
+    typeof entry.fields.description === 'string' && entry.fields.description.trim()
+      ? entry.fields.description.trim()
+      : undefined
+
+  const label = [year, title].filter(Boolean).join(' — ')
+
+  return {
+    id: entry.sys.id,
+    year,
+    title,
+    description,
+    imageUrl: contentfulImageUrl(asset.url, { width: 1200, quality: 90 }),
+    imageAlt: asset.alt || label || 'T&M Venue Styling milestone',
+    order: typeof entry.fields.order === 'number' ? entry.fields.order : index,
+  }
+}
+
+/**
+ * Fetch all published Timeline Milestone entries for the About page journey
+ * slider, ordered by the "order" field ascending.
+ * Returns [] if Contentful is unreachable or the content type is missing.
+ */
+export async function getTimelineMilestones(): Promise<TimelineMilestone[]> {
+  try {
+    const client = getContentfulClient()
+    const response = await client.getEntries<TimelineMilestoneSkeleton>({
+      content_type: TIMELINE_MILESTONE_CONTENT_TYPE,
+      include: 1,
+      order: ['fields.order', 'sys.createdAt'],
+      limit: 100,
+    })
+
+    return response.items
+      .map(mapTimelineMilestone)
+      .filter((item): item is TimelineMilestone => item !== null)
+  } catch (error) {
+    console.warn('[contentful] getTimelineMilestones failed:', error)
+    return []
+  }
+}
+
+function asServiceSliderService(value: unknown): ServiceSliderService | null {
+  if (
+    typeof value === 'string' &&
+    (SERVICE_SLIDER_SERVICES as readonly string[]).includes(value)
+  ) {
+    return value as ServiceSliderService
+  }
+  return null
+}
+
+function mapServiceSliderImage(
+  entry: Entry<ServiceSliderImageSkeleton>,
+  index: number,
+): ServiceSliderImage | null {
+  const service = asServiceSliderService(entry.fields.service)
+  if (!service) return null
+
+  const asset = resolveAsset(entry.fields.image as Asset | undefined)
+  if (!asset) {
+    // Unresolved Link usually means the Asset exists on the entry but is not
+    // published — Delivery API returns a bare link with no fields.
+    console.warn(
+      `[contentful] serviceSliderImage ${entry.sys.id} skipped: image asset missing or unpublished`,
+    )
+    return null
+  }
+
+  const alt =
+    typeof entry.fields.alt === 'string' && entry.fields.alt.trim()
+      ? entry.fields.alt.trim()
+      : asset.alt || `${service} styling`
+
+  const caption =
+    typeof entry.fields.caption === 'string' && entry.fields.caption.trim()
+      ? entry.fields.caption.trim()
+      : undefined
+
+  return {
+    id: entry.sys.id,
+    service,
+    imageUrl: contentfulImageUrl(asset.url, { width: 1400, quality: 90 }),
+    alt,
+    caption,
+    order: typeof entry.fields.order === 'number' ? entry.fields.order : index,
+  }
+}
+
+/**
+ * Fetch published Service Slider Image entries for one service
+ * ("Weddings", "Corporate Events", …), ordered by "order" ascending.
+ * Returns [] if Contentful is unreachable or the content type is missing.
+ */
+export async function getServiceSliderImages(
+  service: ServiceSliderService,
+): Promise<ServiceSliderImage[]> {
+  try {
+    const client = getContentfulClient()
+    const response = await client.getEntries<ServiceSliderImageSkeleton>({
+      content_type: SERVICE_SLIDER_IMAGE_CONTENT_TYPE,
+      'fields.service': service,
+      include: 1,
+      order: ['fields.order', 'sys.createdAt'],
+      limit: 100,
+    })
+
+    return response.items
+      .map(mapServiceSliderImage)
+      .filter((item): item is ServiceSliderImage => item !== null)
+  } catch (error) {
+    console.warn(`[contentful] getServiceSliderImages("${service}") failed:`, error)
     return []
   }
 }

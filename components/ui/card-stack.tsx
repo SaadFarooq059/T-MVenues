@@ -4,7 +4,7 @@ import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { SquareArrowOutUpRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, SquareArrowOutUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export type CardStackItem = {
@@ -38,6 +38,7 @@ export type CardStackProps<T extends CardStackItem> = {
   intervalMs?: number
   pauseOnHover?: boolean
   showDots?: boolean
+  showArrows?: boolean
   className?: string
   onChangeIndex?: (index: number, item: T) => void
   renderCard?: (item: T, state: { active: boolean }) => React.ReactNode
@@ -76,6 +77,7 @@ export function CardStack<T extends CardStackItem>({
   intervalMs = 2800,
   pauseOnHover = true,
   showDots = true,
+  showArrows = true,
   className,
   onChangeIndex,
   renderCard,
@@ -103,17 +105,18 @@ export function CardStack<T extends CardStackItem>({
   React.useEffect(() => {
     const update = () => {
       const vw = window.innerWidth
+      // Leave room for side arrows (~44px each) plus section padding
       if (vw < 480) {
-        setWidth(Math.min(cardWidth, vw - 48))
-        setHeight(Math.round(cardHeight * 0.72))
+        setWidth(Math.min(cardWidth, vw - 112))
+        setHeight(Math.round(cardHeight * 0.78))
         setTier('sm')
       } else if (vw < 768) {
-        setWidth(Math.min(cardWidth, vw - 64))
-        setHeight(Math.round(cardHeight * 0.85))
+        setWidth(Math.min(cardWidth, vw - 128))
+        setHeight(Math.round(cardHeight * 0.88))
         setTier('sm')
       } else if (vw < 1024) {
-        setWidth(Math.min(cardWidth, vw - 96))
-        setHeight(Math.round(cardHeight * 0.92))
+        setWidth(Math.min(cardWidth, vw - 160))
+        setHeight(Math.round(cardHeight * 0.94))
         setTier('md')
       } else {
         setWidth(cardWidth)
@@ -191,8 +194,8 @@ export function CardStack<T extends CardStackItem>({
       onMouseLeave={() => setHovering(false)}
     >
       <div
-        className="relative w-full overflow-hidden outline-none"
-        style={{ height: Math.max(height + 72, 260) }}
+        className="relative w-full outline-none"
+        style={{ height: Math.max(height + 96, 280) }}
         tabIndex={0}
         onKeyDown={onKeyDown}
         role="region"
@@ -208,8 +211,41 @@ export function CardStack<T extends CardStackItem>({
           aria-hidden="true"
         />
 
+        {showArrows && len > 1 ? (
+          <>
+            <button
+              type="button"
+              onClick={prev}
+              disabled={!canGoPrev}
+              aria-label="Previous image"
+              className={cn(
+                'absolute left-0 top-1/2 z-[120] inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-champagne/95 text-ink shadow-md transition sm:left-1 sm:size-12',
+                'hover:border-gold hover:bg-gold hover:text-ink',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50',
+                'disabled:pointer-events-none disabled:opacity-35',
+              )}
+            >
+              <ChevronLeft className="size-5 sm:size-6" aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              disabled={!canGoNext}
+              aria-label="Next image"
+              className={cn(
+                'absolute right-0 top-1/2 z-[120] inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-champagne/95 text-ink shadow-md transition sm:right-1 sm:size-12',
+                'hover:border-gold hover:bg-gold hover:text-ink',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50',
+                'disabled:pointer-events-none disabled:opacity-35',
+              )}
+            >
+              <ChevronRight className="size-5 sm:size-6" aria-hidden />
+            </button>
+          </>
+        ) : null}
+
         <div
-          className="absolute inset-0 flex items-end justify-center"
+          className="absolute inset-y-0 left-12 right-12 flex items-end justify-center sm:left-14 sm:right-14"
           style={{ perspective: `${perspectivePx}px` }}
         >
           <AnimatePresence initial={false}>
@@ -358,14 +394,14 @@ function DefaultFanCard({
 }) {
   return (
     <div className="relative h-full w-full">
-      <div className="absolute inset-0 bg-muted">
+      <div className="absolute inset-0 bg-ink/10">
         {item.imageSrc ? (
           <Image
             src={item.imageSrc}
             alt={item.title}
             fill
             sizes="(max-width: 768px) 90vw, 520px"
-            className="object-cover"
+            className="object-cover object-center"
             draggable={false}
             crossOrigin="anonymous"
           />
@@ -376,7 +412,7 @@ function DefaultFanCard({
         )}
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/10 to-transparent" />
 
       <div className="relative z-10 flex h-full flex-col justify-end p-5">
         {item.tag ? (

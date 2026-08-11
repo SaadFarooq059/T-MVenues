@@ -1,65 +1,51 @@
-'use client'
+import { Hero04 } from '@/components/ui/hero-04'
+import { galleryImages, type GalleryImage, type Service } from '@/lib/content'
 
-import {
-  CheckCircle,
-  Flower2,
-  Layers,
-  Lightbulb,
-  Sparkles,
-  Star,
-  Tent,
-} from 'lucide-react'
-import AboutUsSection, {
-  type AboutUsPillar,
-} from '@/components/ui/about-us-section'
-import type { Service } from '@/lib/content'
+const categoryBySlug: Record<string, GalleryImage['category'] | null> = {
+  weddings: 'Weddings',
+  'corporate-events': 'Corporate',
+  'commercial-shoots': 'Styled Shoots',
+  collaborations: null,
+}
 
-const icons = [
-  <Lightbulb key="i1" className="size-6" />,
-  <Tent key="i2" className="size-6" />,
-  <Flower2 key="i3" className="size-6" />,
-  <Layers key="i4" className="size-6" />,
-  <Sparkles key="i5" className="size-6" />,
-  <Star key="i6" className="size-6" />,
-]
+function secondaryImageFor(service: Service): GalleryImage | undefined {
+  const preferred = categoryBySlug[service.slug]
+  const matched = preferred
+    ? galleryImages.filter((image) => image.category === preferred)
+    : galleryImages
 
-const secondary = [
-  <Sparkles key="s1" className="absolute -top-1 -right-1 size-4 text-gold/70" />,
-  <CheckCircle key="s2" className="absolute -top-1 -right-1 size-4 text-gold/70" />,
-  <Star key="s3" className="absolute -top-1 -right-1 size-4 text-gold/70" />,
-]
-
-function pillarsFromService(service: Service): AboutUsPillar[] {
-  const items = service.included.slice(0, 6)
-  // Pad to 6 if a service has fewer than 6 included lines
-  while (items.length < 6) {
-    items.push(service.included[items.length % service.included.length]!)
-  }
-
-  return items.map((title, index) => ({
-    icon: icons[index % icons.length],
-    secondaryIcon: secondary[index % secondary.length],
-    title: title.split(/[&,]/)[0]!.trim().slice(0, 28),
-    description: `${title} — part of our ${service.title.toLowerCase()} styling, shaped around your venue and vision.`,
-    position: index < 3 ? ('left' as const) : ('right' as const),
-  }))
+  const pool = matched.length > 0 ? matched : galleryImages
+  return pool.find((image) => image.src !== service.image) ?? pool[0]
 }
 
 export function ServiceAboutSection({ service }: { service: Service }) {
+  const secondary = secondaryImageFor(service)
+  if (!secondary) return null
+
   return (
-    <AboutUsSection
+    <Hero04
+      as="h2"
       eyebrow="How We Deliver"
-      title={`About ${service.title}`}
+      title={`Every ${service.singularTitle} we style`}
+      titleLine2="begins with your vision."
       description={service.longDescription}
-      imageSrc={service.image}
-      imageAlt={service.imageAlt}
-      portfolioHref="/gallery"
-      portfolioLabel="View Gallery"
-      pillars={pillarsFromService(service)}
-      ctaHeading={`Ready to plan your ${service.title.toLowerCase()}?`}
-      ctaBody="Tell us about your date, venue and vision — we'll shape a styling scheme just for you."
-      ctaHref="/contact"
-      ctaLabel="Enquire Now"
+      washImage={service.image}
+      primaryImage={service.image}
+      primaryAlt={service.imageAlt}
+      secondaryImage={secondary.src}
+      secondaryAlt={secondary.alt}
+      animation="subtle"
+      primaryCTA={{
+        ctaEnabled: true,
+        text: 'Enquire Now',
+        link: '/contact',
+      }}
+      secondaryCTA={{
+        ctaEnabled: true,
+        text: 'View Gallery',
+        link: '/gallery',
+        variant: 'link',
+      }}
     />
   )
 }

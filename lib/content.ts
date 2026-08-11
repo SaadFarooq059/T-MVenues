@@ -29,6 +29,8 @@ export interface ServiceHighlight {
 export interface Service {
   id: string
   title: string
+  /** Singular form for prose, e.g. "wedding" for the "Weddings" service */
+  singularTitle: string
   slug: string
   shortDescription: string
   longDescription: string
@@ -136,6 +138,7 @@ export const services: Service[] = [
   {
     id: 'weddings',
     title: 'Weddings',
+    singularTitle: 'wedding',
     slug: 'weddings',
     shortDescription:
       'Full venue styling for your celebration — drapery, florals, tablescapes and those quiet finishing touches.',
@@ -181,6 +184,7 @@ export const services: Service[] = [
   {
     id: 'corporate',
     title: 'Corporate Events',
+    singularTitle: 'corporate event',
     slug: 'corporate-events',
     shortDescription:
       'Polished, brand-aware styling for galas, awards evenings, launches and conferences.',
@@ -226,6 +230,7 @@ export const services: Service[] = [
   {
     id: 'shoots',
     title: 'Commercial Shoots',
+    singularTitle: 'shoot',
     slug: 'commercial-shoots',
     shortDescription:
       'Art-directed set styling and props for editorial, brand and product photography.',
@@ -271,6 +276,7 @@ export const services: Service[] = [
   {
     id: 'collaborations',
     title: 'Collaborations',
+    singularTitle: 'collaboration',
     slug: 'collaborations',
     shortDescription:
       'Partnering with planners, florists and venues to deliver ambitious, memorable design.',
@@ -392,30 +398,23 @@ export const testimonials: Testimonial[] = [
   {
     id: 't1',
     quote:
-      'T&M turned an empty barn into something out of a dream. Every guest walked in and gasped. We still cannot quite believe it was our wedding.',
-    name: 'Eleanor & James',
-    eventType: 'Barn Wedding, Hampshire',
+      'You did such a wonderful job, and the table looked so beautiful. It really helped create such a lovely visual feature for the guests who joined us.',
+    name: 'CJ',
+    eventType: 'May 2026',
   },
   {
     id: 't2',
     quote:
-      'The most calm, organised and genuinely lovely team. They understood our brand instantly and the room felt elevated without ever feeling corporate.',
-    name: 'Priya Mehta',
-    eventType: 'Awards Evening, London',
+      'The girls were amazing from start to finish! They knew exactly what our vision was and truly exceeded it. They always answered my questions, regardless of how many I had, and went above and beyond to make sure everything was perfect! We couldn’t have been happier and will forever be grateful for all their hard work on our wedding day. Thank you again ❤️',
+    name: 'E&J',
+    eventType: 'May 2026',
   },
   {
     id: 't3',
     quote:
-      'Working with T&M on our editorial shoot was a joy. Their eye for texture and detail gave every frame a warmth we could not have created alone.',
-    name: 'Sofia Laurent',
-    eventType: 'Brand Photoshoot',
-  },
-  {
-    id: 't4',
-    quote:
-      'From the first consultation to the final candle being lit, they carried our vision with such care. Truly the heart of our day.',
-    name: 'Charlotte & Tom',
-    eventType: 'Country House Wedding',
+      'From the moment we met, we knew we were in the best hands. Your warmth, professionalism, and genuine passion instantly put us at ease, and we felt so confident trusting you with such an important part of our day…',
+    name: 'A Kind Client',
+    eventType: 'Wedding',
   },
 ]
 
