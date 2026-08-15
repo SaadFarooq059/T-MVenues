@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Mail, Phone } from 'lucide-react'
 import { ContactHero } from '@/components/contact/contact-hero'
-import { ContactForm } from '@/components/contact/contact-form'
+import { HatsInquiryForm } from '@/components/contact/hats-inquiry-form'
 import { Eyebrow, SeamDivider, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import { siteMeta } from '@/lib/content'
@@ -22,8 +22,8 @@ export default function ContactPage() {
     <>
       <ContactHero />
 
-      <section className="bg-background py-20 md:py-28">
-        <div className="mx-auto grid max-w-6xl gap-14 px-5 md:grid-cols-[1fr_1.3fr] md:gap-20 md:px-8">
+      <section className="bg-background py-16 md:py-20">
+        <div className="mx-auto max-w-3xl px-5 md:px-8">
           {/* Details */}
           <div>
             <Reveal>
@@ -31,13 +31,13 @@ export default function ContactPage() {
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className={`mt-5 ${headingSection}`}>
-                We&apos;d love to hear from you
+                Reach us directly
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-5 leading-relaxed text-ink/65">
-                Prefer to reach out directly? Use the details below, or fill in
-                the form and we&apos;ll come back to you shortly.
+                Prefer email or a call? Use the details below, or send an enquiry
+                through the form — we&apos;ll come back to you shortly.
               </p>
             </Reveal>
             <Reveal delay={0.3}>
@@ -73,13 +73,10 @@ export default function ContactPage() {
               ))}
             </ul>
           </div>
-
-          {/* Form */}
-          <Reveal delay={0.2}>
-            <ContactForm />
-          </Reveal>
         </div>
       </section>
+
+      <HatsInquiryForm />
     </>
   )
 }

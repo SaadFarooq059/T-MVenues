@@ -1,10 +1,13 @@
 import { TestimonialBasic } from '@/components/ui/testimonial-basic'
-import {
-  galleryImages,
-  testimonials as siteTestimonials,
-  type GalleryImage,
-  type Service,
-} from '@/lib/content'
+import { galleryImages, type GalleryImage, type Service } from '@/lib/content'
+import type { CmsTestimonial, ServiceSliderService } from '@/lib/contentful'
+
+const eventTypeBySlug: Record<string, ServiceSliderService> = {
+  weddings: 'Weddings',
+  'corporate-events': 'Corporate Events',
+  'commercial-shoots': 'Commercial Shoots',
+  collaborations: 'Collaborations',
+}
 
 const categoryBySlug: Record<string, GalleryImage['category'] | null> = {
   weddings: 'Weddings',
@@ -19,25 +22,36 @@ function photosForService(service: Service): GalleryImage[] {
     ? galleryImages.filter((image) => image.category === preferred)
     : galleryImages
   const pool = matched.length > 0 ? matched : galleryImages
-  // Prefer gallery photos that are not the service hero itself
   return pool.filter((image) => image.src !== service.image)
 }
 
 /**
- * Client testimonials on each service page — same design, real site quotes,
- * photos drawn from the matching gallery category.
+ * Client testimonials on each service page — Contentful quotes for this
+ * service, photos from the matching gallery category as visual backing.
  */
-export function ServiceTestimonials({ service }: { service: Service }) {
-  const photos = photosForService(service)
-  if (siteTestimonials.length === 0 || photos.length === 0) return null
+export function ServiceTestimonials({
+  service,
+  testimonials,
+}: {
+  service: Service
+  testimonials: CmsTestimonial[]
+}) {
+  const eventType = eventTypeBySlug[service.slug]
+  const matching = eventType
+    ? testimonials.filter((t) => t.eventType === eventType)
+    : testimonials
 
-  const items = siteTestimonials.map((t, i) => {
+  const photos = photosForService(service)
+  if (matching.length === 0 || photos.length === 0) return null
+
+  const items = matching.map((t, i) => {
     const photo = photos[i % photos.length]!
     return {
       name: t.name,
-      role: `${service.title} · ${t.eventType}`,
+      role: t.eventType,
       quote: t.quote,
-      rating: 5,
+      rating: t.rating ?? 5,
+      image: t.clientPhotoUrl,
       photo: photo.src,
       photoAlt: photo.alt,
     }

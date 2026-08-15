@@ -2,9 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'motion/react'
-import type { Testimonial } from '@/lib/content'
+import type { CmsTestimonial } from '@/lib/contentful'
 
-export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
+export function Testimonials({
+  testimonials,
+}: {
+  testimonials: CmsTestimonial[]
+}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -37,7 +41,10 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
     return () => clearInterval(t)
   }, [paused, goNext])
 
+  if (testimonials.length === 0) return null
+
   const current = testimonials[activeIndex]
+  if (!current) return null
 
   return (
     <section className="overflow-hidden bg-ink text-champagne">

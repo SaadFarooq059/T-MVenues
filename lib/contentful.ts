@@ -22,6 +22,9 @@ export const TIMELINE_MILESTONE_CONTENT_TYPE = 'timelineMilestone'
 /** Contentful content type API ID for "Service Slider Image" */
 export const SERVICE_SLIDER_IMAGE_CONTENT_TYPE = 'serviceSliderImage'
 
+/** Contentful content type API ID for "Testimonial" */
+export const TESTIMONIAL_CONTENT_TYPE = 'testimonial'
+
 /** Contentful content type API ID for "Site Video" */
 export const SITE_VIDEO_CONTENT_TYPE = 'siteVideo'
 
@@ -42,6 +45,18 @@ export type ServiceSliderImage = {
   alt: string
   caption?: string
   order: number
+}
+
+export type CmsTestimonial = {
+  id: string
+  name: string
+  eventType: ServiceSliderService
+  quote: string
+  rating?: number
+  clientPhotoUrl?: string
+  clientPhotoAlt?: string
+  order: number
+  featured: boolean
 }
 
 /** Locked "placement" field values from the Site Video content type */
@@ -202,6 +217,18 @@ type ServiceSliderImageSkeleton = EntrySkeletonType<
   ServiceSliderImageFields,
   'serviceSliderImage'
 >
+
+interface TestimonialFields {
+  clientName: EntryFieldTypes.Symbol
+  eventType: EntryFieldTypes.Symbol
+  quote: EntryFieldTypes.Text
+  rating: EntryFieldTypes.Integer
+  clientPhoto: EntryFieldTypes.AssetLink
+  order: EntryFieldTypes.Integer
+  featured: EntryFieldTypes.Boolean
+}
+
+type TestimonialSkeleton = EntrySkeletonType<TestimonialFields, 'testimonial'>
 
 interface SiteVideoFields {
   placement: EntryFieldTypes.Symbol
@@ -526,6 +553,72 @@ export async function getServiceSliderImages(
       .filter((item): item is ServiceSliderImage => item !== null)
   } catch (error) {
     console.warn(`[contentful] getServiceSliderImages("${service}") failed:`, error)
+    return []
+  }
+}
+
+function mapCmsTestimonial(
+  entry: Entry<TestimonialSkeleton>,
+  index: number,
+): CmsTestimonial | null {
+  const name =
+    typeof entry.fields.clientName === 'string'
+      ? entry.fields.clientName.trim()
+      : ''
+  const quote =
+    typeof entry.fields.quote === 'string' ? entry.fields.quote.trim() : ''
+  const eventType = asServiceSliderService(entry.fields.eventType)
+  if (!name || !quote || !eventType) return null
+
+  const photo = resolveAsset(entry.fields.clientPhoto as Asset | undefined)
+
+  const rawRating = entry.fields.rating
+  const rating =
+    typeof rawRating === 'number'
+      ? Math.min(5, Math.max(1, Math.round(rawRating)))
+      : undefined
+
+  return {
+    id: entry.sys.id,
+    name,
+    eventType,
+    quote,
+    rating,
+    clientPhotoUrl: photo
+      ? contentfulImageUrl(photo.url, { width: 400, quality: 88 })
+      : undefined,
+    clientPhotoAlt: photo?.alt || name,
+    order: typeof entry.fields.order === 'number' ? entry.fields.order : index,
+    featured: entry.fields.featured === true,
+  }
+}
+
+/**
+ * Fetch published Testimonial entries, ordered by "order" ascending.
+ * Pass `featuredOnly: true` for the homepage carousel.
+ * Returns [] if Contentful is unreachable or the content type is missing.
+ */
+export async function getTestimonials(
+  featuredOnly = false,
+): Promise<CmsTestimonial[]> {
+  try {
+    const client = getContentfulClient()
+    const response = await client.getEntries<TestimonialSkeleton>({
+      content_type: TESTIMONIAL_CONTENT_TYPE,
+      include: 1,
+      order: ['fields.order', 'sys.createdAt'],
+      limit: 100,
+      ...(featuredOnly ? { 'fields.featured': true } : {}),
+    })
+
+    return response.items
+      .map(mapCmsTestimonial)
+      .filter((item): item is CmsTestimonial => item !== null)
+  } catch (error) {
+    console.warn(
+      `[contentful] getTestimonials(featuredOnly=${featuredOnly}) failed:`,
+      error,
+    )
     return []
   }
 }

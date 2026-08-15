@@ -13,6 +13,7 @@ import { Eyebrow, SeamDivider } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import {
   getServiceSliderImages,
+  getTestimonials,
   type PageHeroPage,
   type ServiceSliderService,
 } from '@/lib/contentful'
@@ -65,9 +66,10 @@ export default async function ServicePage({
   const next = services[currentIndex + 1] ?? null
   const heroPage = serviceHeroPageBySlug[slug]
   const sliderService = sliderServiceBySlug[slug]
-  const sliderImages = sliderService
-    ? await getServiceSliderImages(sliderService)
-    : []
+  const [sliderImages, testimonials] = await Promise.all([
+    sliderService ? getServiceSliderImages(sliderService) : Promise.resolve([]),
+    getTestimonials(false),
+  ])
 
   return (
     <main>
@@ -125,7 +127,7 @@ export default async function ServicePage({
 
       <ServiceAboutSection service={service} />
 
-      <ServiceTestimonials service={service} />
+      <ServiceTestimonials service={service} testimonials={testimonials} />
 
       <ServiceCardStack service={service} images={sliderImages} />
 
