@@ -76,6 +76,8 @@ export const siteMeta = {
   email: 'info@tmvenuestyling.com',
   instagram: '@tmvenuestyling',
   instagramUrl: 'https://instagram.com/tmvenuestyling',
+  tiktok: '@tm.venue.styling',
+  tiktokUrl: 'https://www.tiktok.com/@tm.venue.styling',
 }
 
 export const navLinks: NavLink[] = [

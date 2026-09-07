@@ -25,6 +25,9 @@ export const SERVICE_SLIDER_IMAGE_CONTENT_TYPE = 'serviceSliderImage'
 /** Contentful content type API ID for "Testimonial" */
 export const TESTIMONIAL_CONTENT_TYPE = 'testimonial'
 
+/** Contentful content type API ID for "Social Media Item" (Home Follow Along) */
+export const SOCIAL_MEDIA_ITEM_CONTENT_TYPE = 'socialMediaItem'
+
 /** Contentful content type API ID for "Site Video" */
 export const SITE_VIDEO_CONTENT_TYPE = 'siteVideo'
 
@@ -57,6 +60,21 @@ export type CmsTestimonial = {
   clientPhotoAlt?: string
   order: number
   featured: boolean
+}
+
+/** Locked "span" presets for the Follow Along bento grid */
+export const SOCIAL_MEDIA_SPANS = ['tall', 'wide', 'feature'] as const
+
+export type SocialMediaSpan = (typeof SOCIAL_MEDIA_SPANS)[number]
+
+export type SocialMediaItem = {
+  id: string
+  type: 'image' | 'video'
+  title: string
+  desc: string
+  url: string
+  span: SocialMediaSpan
+  order: number
 }
 
 /** Locked "placement" field values from the Site Video content type */
@@ -155,6 +173,7 @@ type AssetFields = {
   description?: string
   file?: {
     url?: string
+    contentType?: string
   }
 }
 
@@ -229,6 +248,19 @@ interface TestimonialFields {
 }
 
 type TestimonialSkeleton = EntrySkeletonType<TestimonialFields, 'testimonial'>
+
+interface SocialMediaItemFields {
+  title: EntryFieldTypes.Symbol
+  description: EntryFieldTypes.Text
+  media: EntryFieldTypes.AssetLink
+  span: EntryFieldTypes.Symbol
+  order: EntryFieldTypes.Integer
+}
+
+type SocialMediaItemSkeleton = EntrySkeletonType<
+  SocialMediaItemFields,
+  'socialMediaItem'
+>
 
 interface SiteVideoFields {
   placement: EntryFieldTypes.Symbol
@@ -619,6 +651,98 @@ export async function getTestimonials(
       `[contentful] getTestimonials(featuredOnly=${featuredOnly}) failed:`,
       error,
     )
+    return []
+  }
+}
+
+function asSocialMediaSpan(value: unknown): SocialMediaSpan | null {
+  if (
+    typeof value === 'string' &&
+    (SOCIAL_MEDIA_SPANS as readonly string[]).includes(value)
+  ) {
+    return value as SocialMediaSpan
+  }
+  return null
+}
+
+function mediaTypeFromAsset(asset: Asset | undefined | null): 'image' | 'video' | null {
+  if (!asset || typeof asset !== 'object') return null
+  const fields = asset.fields as AssetFields | undefined
+  const contentType = fields?.file?.contentType
+  if (typeof contentType === 'string' && contentType.startsWith('video/')) {
+    return 'video'
+  }
+  if (typeof contentType === 'string' && contentType.startsWith('image/')) {
+    return 'image'
+  }
+  // Fall back: if we have a URL but no mime, treat as image
+  if (fields?.file?.url) return 'image'
+  return null
+}
+
+function mapSocialMediaItem(
+  entry: Entry<SocialMediaItemSkeleton>,
+  index: number,
+): SocialMediaItem | null {
+  const title =
+    typeof entry.fields.title === 'string' ? entry.fields.title.trim() : ''
+  if (!title) return null
+
+  const asset = entry.fields.media as Asset | undefined
+  const resolved = resolveAsset(asset)
+  if (!resolved) {
+    console.warn(
+      `[contentful] socialMediaItem ${entry.sys.id} skipped: media asset missing or unpublished`,
+    )
+    return null
+  }
+
+  const type = mediaTypeFromAsset(asset)
+  if (!type) return null
+
+  const desc =
+    typeof entry.fields.description === 'string' && entry.fields.description.trim()
+      ? entry.fields.description.trim()
+      : resolved.alt || title
+
+  const span =
+    asSocialMediaSpan(entry.fields.span) ??
+    SOCIAL_MEDIA_SPANS[index % SOCIAL_MEDIA_SPANS.length]!
+
+  return {
+    id: entry.sys.id,
+    type,
+    title,
+    desc,
+    url:
+      type === 'image'
+        ? contentfulImageUrl(resolved.url, { width: 1400, quality: 90 })
+        : withHttps(resolved.url),
+    span,
+    order: typeof entry.fields.order === 'number' ? entry.fields.order : index,
+  }
+}
+
+/**
+ * Fetch published Social Media Item entries for the home Follow Along bento,
+ * ordered by "order" ascending.
+ * Returns [] if Contentful is unreachable or the content type is missing.
+ */
+export async function getSocialMediaItems(): Promise<SocialMediaItem[]> {
+  try {
+    const client = getContentfulClient()
+    const response = await client.getEntries<SocialMediaItemSkeleton>({
+      content_type: SOCIAL_MEDIA_ITEM_CONTENT_TYPE,
+      include: 1,
+      order: ['fields.order', 'sys.createdAt'],
+      limit: 40,
+    })
+
+    return response.items
+      .map(mapSocialMediaItem)
+      .filter((item): item is SocialMediaItem => item !== null)
+  } catch (error) {
+    console.warn('[contentful] getSocialMediaItems failed:', error)
     return []
   }
 }

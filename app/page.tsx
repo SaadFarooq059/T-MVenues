@@ -11,9 +11,15 @@ import {
 import { QuotesMarquee } from '@/components/home/quotes-marquee'
 import { Testimonials } from '@/components/home/testimonials'
 import { FromOurStudio } from '@/components/home/from-our-studio'
+import { FollowAlong } from '@/components/home/follow-along'
 import { CtaBanner } from '@/components/sections/cta-banner'
 import { services } from '@/lib/content'
-import { getJourneyImages, getPageHeroes, getTestimonials } from '@/lib/contentful'
+import {
+  getJourneyImages,
+  getPageHeroes,
+  getSocialMediaItems,
+  getTestimonials,
+} from '@/lib/contentful'
 
 /** Revalidate so CMS heroes / journey images refresh without a redeploy. */
 export const revalidate = 60
@@ -31,6 +37,11 @@ async function JourneyFromCms() {
 async function TestimonialsFromCms() {
   const entries = await getTestimonials(true)
   return <Testimonials testimonials={entries} />
+}
+
+async function FollowAlongFromCms() {
+  const items = await getSocialMediaItems()
+  return <FollowAlong items={items} />
 }
 
 export default function HomePage() {
@@ -51,6 +62,9 @@ export default function HomePage() {
         <TestimonialsFromCms />
       </Suspense>
       <FromOurStudio />
+      <Suspense fallback={null}>
+        <FollowAlongFromCms />
+      </Suspense>
       <div className="h-16 bg-background md:h-24" aria-hidden="true" />
       <CtaBanner />
     </main>
