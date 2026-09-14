@@ -1,12 +1,11 @@
 {
-  "name": "my-project",
+  "name": "tanni-venue-styling",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint ."
+    "start": "next start"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",

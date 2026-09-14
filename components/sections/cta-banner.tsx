@@ -9,6 +9,7 @@ export interface CtaBannerProps {
   eyebrow?: string
   heading?: string
   body?: string
+  body2?: string
   ctaLabel?: string
   ctaHref?: string
   image?: string
@@ -18,9 +19,10 @@ export interface CtaBannerProps {
 const DEFAULT_IMAGE = '/cta.jpg'
 
 export function CtaBanner({
-  eyebrow = 'Begin The Conversation',
-  heading = "Let's Style Your Perfect Day",
-  body = 'Tell us about your celebration and we will craft a styling scheme made entirely for you.',
+  eyebrow = 'Tell us what you have in mind',
+  heading = 'Ready to start planning?',
+  body = "Whether you've got a Pinterest board full of ideas or absolutely no idea where to begin, we'd love to hear from you.",
+  body2,
   ctaLabel = 'Enquire Now',
   ctaHref = '/contact',
   image = DEFAULT_IMAGE,
@@ -47,9 +49,10 @@ export function CtaBanner({
           <Reveal className="w-full max-w-lg">
             <Eyebrow className="text-champagne">{eyebrow}</Eyebrow>
             <h2 className={`mt-5 ${headingSection}`}>{heading}</h2>
-            <p className="mt-5 text-pretty leading-relaxed text-ink/75">
-              {body}
-            </p>
+            <div className="mt-5 space-y-4 text-pretty leading-relaxed text-ink/75">
+              <p>{body}</p>
+              {body2 ? <p>{body2}</p> : null}
+            </div>
             <Link
               href={ctaHref}
               className="mt-8 inline-flex items-center justify-center rounded-full bg-ink px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] text-champagne transition-colors duration-300 hover:bg-ink/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"

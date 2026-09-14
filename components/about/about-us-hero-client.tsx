@@ -10,7 +10,7 @@ import { HorizontalParallaxGallery } from '@/components/about/horizontal-paralla
 import { JourneyVideoModal } from '@/components/about/journey-video-modal'
 import type { TimelineMilestone } from '@/lib/contentful'
 
-const FALLBACK_THUMBNAIL = '/AboutUs/thumbnail.png'
+const FALLBACK_THUMBNAIL = '/AboutUs/thumbnail.jpg'
 
 export function AboutUsHeroClient({
   posterUrl,

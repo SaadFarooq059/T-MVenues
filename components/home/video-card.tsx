@@ -49,7 +49,7 @@ export function VideoCard({ className }: { className?: string }) {
       <video
         ref={videoRef}
         src="/videos/intro.mp4"
-        poster="/images/intro.png"
+        poster="/images/intro.jpg"
         autoPlay
         loop
         muted

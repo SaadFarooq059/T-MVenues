@@ -28,7 +28,7 @@ const images = [
     height: 'h-72',
   },
   {
-    src: '/Home/s5.jpg  ',
+    src: '/Home/s5.jpg',
     alt: 'Styled shoot with draped fabric',
     height: 'h-52',
   },

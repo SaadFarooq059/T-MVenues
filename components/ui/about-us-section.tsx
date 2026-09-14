@@ -156,7 +156,7 @@ export default function AboutUsSection({
   eyebrow = 'Discover Our Story',
   title = 'How We Work',
   description = 'Katie & Lucie style venues with care, creativity and calm — transforming blank rooms into spaces that feel as unique as the people celebrating in them.',
-  imageSrc = '/images/about-detail.png',
+  imageSrc = '/images/about-detail.jpg',
   imageAlt = 'T&M Venue Styling — dressed venue detail',
   portfolioHref = '/gallery',
   portfolioLabel = 'Our Portfolio',

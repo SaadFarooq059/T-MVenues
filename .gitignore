@@ -1,16 +1,44 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build output
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment variables / secrets
+.env
+.env*.local
+public/.env
+
+# Vercel
+.vercel/
+
 # v0 sandbox internal files
 __v0_runtime_loader.js
 __v0_devtools.tsx
 __v0_jsx-dev-runtime.ts
 .snowflake/
 .v0-trash/
-.vercel/
 
-# Environment variables
-.env*.local
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
 
-# Common ignores
-node_modules
-.next/
-.DS_Storepublic/.env
-.env
+# Local-only docs and reports (kept on disk, not in the repo)
+*.pdf
+report_alarms_*.csv
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.vercel
+.env*

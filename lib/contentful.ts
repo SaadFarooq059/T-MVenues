@@ -113,6 +113,7 @@ export type PageHeroData = {
   page: PageHeroPage
   heading: string
   subheading?: string
+  body?: string
   heroImageUrl: string
   heroImageAlt: string
   mobileHeroImageUrl?: string

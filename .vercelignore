@@ -1,0 +1,58 @@
+# NOTE: once this file exists, Vercel uses it INSTEAD of .gitignore,
+# so everything that must never be uploaded has to be listed here.
+
+# --- Never upload: secrets & local env ---
+.env
+.env*.local
+public/.env
+scripts/.env
+
+# --- Never upload: local-only tooling & docs ---
+scripts/
+*.py
+*.pdf
+report_alarms_*.csv
+
+# --- Build / dependency dirs (Vercel installs & builds these itself) ---
+node_modules
+.next
+.vercel
+*.tsbuildinfo
+.git
+.claude
+
+# --- v0 sandbox leftovers ---
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+.snowflake/
+.v0-trash/
+
+# --- Unused media (~150 MB): kept on disk, not shipped to production ---
+public/Journey/
+public/video1.mp4
+public/can_you_use_our_logo_also.mp4
+public/Home/IMG_3478.jpg
+public/Home/service2.unused.jpg
+public/Home/service1.unused.jpg
+public/Home/desing1.jpg
+public/Home/desing2.JPG
+public/Home/about2.png
+public/Home/about3.jpg
+public/Home/• K&C •What a beautiful day we had celebrating this lovely couple last year - the day was just f.jpg
+public/AboutUs/about2.png
+public/AboutUs/about3.unused.jpg
+public/images/service-weddings.png
+public/images/service-corporate.png
+public/images/service-shoots.png
+public/images/founder.png
+public/images/cta-bg.png
+public/logo_white.png
+public/Logo1.png
+public/Venue-Styling-Collective-3.png
+public/702334888_18102561941105374_6162447803269924858_n.jpg
+public/703296067_18102561824105374_3918525086548796345_n.jpg
+public/placeholder-logo.png
+public/placeholder-logo.svg
+public/placeholder-user.jpg
+public/placeholder.jpg

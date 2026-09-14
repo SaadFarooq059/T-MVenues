@@ -205,6 +205,18 @@ export function Hero({ slides }: { slides: PageHeroData[] }) {
                 </motion.p>
               ) : null}
 
+              {slide.body ? (
+                <motion.p
+                  className="mt-4 max-w-lg text-pretty text-base leading-relaxed text-champagne/75 sm:text-lg"
+                  variants={{
+                    hidden: { y: 14, opacity: 1 },
+                    show: { y: 0, opacity: 1, transition: { duration: 0.7, ease: EASE } },
+                  }}
+                >
+                  {slide.body}
+                </motion.p>
+              ) : null}
+
               <motion.div
                 className="mt-8 flex flex-wrap items-center gap-4"
                 variants={{
@@ -215,12 +227,14 @@ export function Hero({ slides }: { slides: PageHeroData[] }) {
                 {showCta ? (
                   <SlideCta href={slide.ctaLink!} label={slide.ctaText!} />
                 ) : null}
-                <Link
-                  href="/gallery"
-                  className="inline-flex items-center justify-center rounded-full border border-champagne/40 px-7 py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-champagne/90 transition-colors hover:border-gold hover:text-gold"
-                >
-                  View gallery
-                </Link>
+                {showCta && slide.ctaLink === '/gallery' ? null : (
+                  <Link
+                    href="/gallery"
+                    className="inline-flex items-center justify-center rounded-full border border-champagne/40 px-7 py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-champagne/90 transition-colors hover:border-gold hover:text-gold"
+                  >
+                    View gallery
+                  </Link>
+                )}
               </motion.div>
             </motion.div>
           </AnimatePresence>

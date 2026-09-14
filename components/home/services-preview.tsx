@@ -50,6 +50,9 @@ function ServiceCard({ service }: { service: Service }) {
                 : 'translate-y-0 opacity-100 [@media(hover:hover)]:translate-y-10 [@media(hover:hover)]:opacity-0'
             }`}
           >
+            <p className="mb-4 max-w-md text-sm leading-relaxed text-white/85 sm:text-base">
+              {service.shortDescription}
+            </p>
             <ul className="space-y-3">
               {service.included.slice(0, 4).map((point, i) => (
                 <li key={i} className="flex items-center gap-3 text-white">
@@ -89,7 +92,7 @@ export function ServicesPreview({ services }: { services: Service[] }) {
           <div className="mx-auto mb-14 max-w-2xl text-center">
             <Eyebrow className="justify-center">What We Do</Eyebrow>
             <h2 className={`mt-5 ${headingSection}`}>
-              Styling for every kind of gathering
+              Styling for all kinds of celebrations
             </h2>
           </div>
         </Reveal>

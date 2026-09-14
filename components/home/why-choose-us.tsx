@@ -8,26 +8,26 @@ import { Reveal } from '@/components/motion/reveal'
 const reasons = [
   {
     number: '01',
-    title: 'Considered Detail',
-    body: 'Every element — from the fall of a drape to the flicker of a candle — is chosen with intention.',
+    title: "It's all in the details",
+    body: 'The smallest touches can completely change how a room feels. We make sure every part works together beautifully.',
     align: 'left' as const,
   },
   {
     number: '02',
-    title: 'Tailored to You',
-    body: 'No two events are the same. We listen first, then design a scheme that feels unmistakably yours.',
+    title: 'Made for you',
+    body: 'No copy-and-paste wedding packages here. We get to know what you love and create a look around you, your venue and your day.',
     align: 'left' as const,
   },
   {
     number: '03',
-    title: 'Trusted by Venues',
-    body: 'We work seamlessly alongside your venue team, planners and florists for a stress-free day.',
+    title: 'We play nicely with others',
+    body: "Venues, florists, planners, photographers — we're used to working alongside the whole team to make sure everything comes together.",
     align: 'right' as const,
   },
   {
     number: '04',
-    title: 'End-to-End Service',
-    body: 'From initial consultation through to full install and breakdown — we handle everything.',
+    title: 'We take care of it',
+    body: "From those first ideas to setting everything up and taking it all down again, we're there throughout.",
     align: 'right' as const,
   },
 ]
@@ -59,8 +59,7 @@ export function WhyChooseUs() {
         <Reveal className="mb-20 text-center">
           <Eyebrow className="justify-center">Why T&amp;M</Eyebrow>
           <h2 className={`mx-auto mt-4 max-w-2xl ${headingSection}`}>
-            The studio behind your{' '}
-            <span className="text-gold">most memorable</span> moments
+            Beautiful spaces, without the stress
           </h2>
           <div className="mx-auto mt-5 h-px w-24 rounded-full bg-gold/60" />
         </Reveal>
@@ -101,7 +100,7 @@ export function WhyChooseUs() {
                 }}
               >
                 <Image
-                  src="/images/gallery-5.png"
+                  src="/images/gallery-5.jpg"
                   alt="T&M Venue Styling — detail of a beautifully dressed wedding table"
                   fill
                   sizes="(max-width: 640px) 70vw, 290px"

@@ -93,7 +93,7 @@ export function LoveStory() {
             </div>
             <div className="absolute bottom-2 right-0 z-20 transition-transform duration-500 ease-out hover:-translate-y-2 hover:-rotate-3 sm:bottom-4">
               <PortraitFrame
-                src="/AboutUs/about3.png"
+                src="/AboutUs/about3.jpg"
                 alt="Outdoor marquee wedding with draped ceiling at dusk"
                 rotate="rotate-[8deg] group-hover:rotate-[4deg]"
               />

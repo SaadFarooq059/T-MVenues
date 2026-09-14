@@ -112,8 +112,14 @@ function SectionHeader() {
   return (
     <div className="mx-auto mb-10 flex max-w-7xl flex-col items-center px-6 text-center md:mb-12">
       <Reveal>
-        <Eyebrow>Selected Work</Eyebrow>
-        <h2 className={`mt-4 ${headingSection}`}>Our Journey</h2>
+        <Eyebrow>Our Work</Eyebrow>
+        <h2 className={`mt-4 ${headingSection}`}>
+          A little look at what we&apos;ve been up to
+        </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-pretty leading-relaxed text-ink/65">
+          Weddings, parties, corporate events and creative shoots — take a look through some of
+          the spaces we&apos;ve had the pleasure of transforming.
+        </p>
         <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-gold" aria-hidden="true" />
         <Link
           href="/gallery"

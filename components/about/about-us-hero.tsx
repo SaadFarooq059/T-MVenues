@@ -3,7 +3,7 @@ import { getSiteVideo, getTimelineMilestones } from '@/lib/contentful'
 import { resolveSiteVideoSource } from '@/components/media/site-video-utils'
 import { AboutUsHeroClient } from '@/components/about/about-us-hero-client'
 
-const FALLBACK_THUMBNAIL = '/AboutUs/thumbnail.png'
+const FALLBACK_THUMBNAIL = '/AboutUs/thumbnail.jpg'
 
 /**
  * About hero — poster + play open a modal whose video comes from Contentful

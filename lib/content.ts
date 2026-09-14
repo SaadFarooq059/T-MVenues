@@ -71,7 +71,7 @@ export interface ProcessStep {
 
 export const siteMeta = {
   name: 'T&M Venue Styling',
-  tagline: 'Dressing the most beautiful venues for life\u2019s most treasured moments.',
+  tagline: "Dressing beautiful spaces for the moments you'll remember.",
   phone: '07988 320855',
   email: 'info@tmvenuestyling.com',
   instagram: '@tmvenuestyling',
@@ -100,39 +100,15 @@ export const navLinks: NavLink[] = [
 export const heroSlides: HeroSlide[] = [
   {
     id: 'slide-1',
-    eyebrow: 'Wedding & Event Styling',
-    headline: ['Where Every Detail', 'Becomes a Memory'],
+    eyebrow: 'T&M Venue Styling',
+    headline: ['Where Your Story Begins'],
     subtext:
-      'Bespoke drapery, florals and décor that transform venues into unforgettable settings.',
-    ctaLabel: 'Enquire Now',
-    ctaHref: '/contact',
-    image: '/images/hero-1.png',
-    imageAlt:
-      'Elegant wedding reception hall dressed with ivory silk drapery and tall floral centerpieces',
-  },
-  {
-    id: 'slide-2',
-    eyebrow: 'Crafted With Intention',
-    headline: ['Styled To Feel', 'Effortlessly Yours'],
-    subtext:
-      'From grand ceremony backdrops to the smallest place setting, we compose spaces with care.',
+      'Beautifully styled spaces for weddings and events that feel completely you. From the big statement pieces to the little details that bring everything together, we\'ll help transform your venue into a space you\'ll love walking into.',
     ctaLabel: 'View Our Work',
     ctaHref: '/gallery',
-    image: '/images/hero-2.png',
+    image: '/images/hero-1.jpg',
     imageAlt:
-      'Grand floral ceremony arch with draped fabric panels and elegant chair covers',
-  },
-  {
-    id: 'slide-3',
-    eyebrow: 'A Warm Welcome',
-    headline: ['The Art of', 'Dressing a Room'],
-    subtext:
-      'Considered styling, luxurious textures and a warmth that makes every guest feel at home.',
-    ctaLabel: 'Discover Services',
-    ctaHref: '/services',
-    image: '/images/hero-3.png',
-    imageAlt:
-      'Beautifully styled banquet table with brass candlesticks, ivory linen and a low floral runner',
+      'Elegant wedding reception hall dressed with ivory silk drapery and tall floral centerpieces',
   },
 ]
 
@@ -143,16 +119,16 @@ export const services: Service[] = [
     singularTitle: 'wedding',
     slug: 'weddings',
     shortDescription:
-      'Full venue styling for your celebration — drapery, florals, tablescapes and those quiet finishing touches.',
+      "From the ceremony to the wedding breakfast, we'll bring everything together beautifully.",
     longDescription:
       'Your wedding day deserves a setting as considered as the moment itself. We work closely with you to translate your vision into a beautifully cohesive space, layering texture, light and colour so every corner feels intentional and every guest feels welcomed.',
-    image: '/Home/service1.png',
+    image: '/Home/service1.jpg',
     imageAlt: 'Romantic wedding reception with ivory drapery and floral centerpieces',
     included: [
-      'Ceiling drapery & backdrop design',
-      'Floral centerpieces & installations',
-      'Chair covers, linens & tablescapes',
-      'Ceremony arch & aisle styling',
+      'Backdrops',
+      'Faux floral accents and touches',
+      'Chair styling, linens & tablescapes',
+      'Ceremony arches & aisle styling',
       'Candlelight & ambient lighting',
     ],
     highlights: [
@@ -189,16 +165,16 @@ export const services: Service[] = [
     singularTitle: 'corporate event',
     slug: 'corporate-events',
     shortDescription:
-      'Polished, brand-aware styling for galas, awards evenings, launches and conferences.',
+      'Styling that makes your event look polished, memorable and completely on-brand.',
     longDescription:
       'We bring editorial polish to corporate occasions, creating environments that reflect your brand while feeling warm and human. From awards dinners to product launches, we handle the styling so your team can focus on the moment.',
-    image: '/Home/service2.png',
+    image: '/Home/service2.jpg',
     imageAlt: 'Sophisticated corporate gala with elegant draping and uplighting',
     included: [
-      'Brand-led colour & styling direction',
+      'Colour & styling direction',
       'Stage & backdrop draping',
       'Table styling & centrepieces',
-      'Feature installations & signage framing',
+      'Feature installations & signage',
       'On-site styling team',
     ],
     highlights: [
@@ -235,16 +211,16 @@ export const services: Service[] = [
     singularTitle: 'shoot',
     slug: 'commercial-shoots',
     shortDescription:
-      'Art-directed set styling and props for editorial, brand and product photography.',
+      'Need to create the right look for a campaign, shoot or piece of content? We can help bring the whole setting together.',
     longDescription:
       'We collaborate with photographers, brands and creative directors to build sets that photograph beautifully. Thoughtful prop styling, fabric and floral detail bring depth and story to every frame.',
-    image: '/Home/service3.png',
+    image: '/Home/service3.jpg',
     imageAlt: 'Art-directed styled photoshoot set with draped fabric and props',
     included: [
       'Concept & mood development',
       'Set & backdrop styling',
-      'Prop sourcing & styling',
-      'Floral & fabric detailing',
+      'Prop sourcing',
+      'Floral & fabric details',
       'On-set styling support',
     ],
     highlights: [
@@ -281,13 +257,13 @@ export const services: Service[] = [
     singularTitle: 'collaboration',
     slug: 'collaborations',
     shortDescription:
-      'Partnering with planners, florists and venues to deliver ambitious, memorable design.',
+      'We love working alongside brilliant venues, planners, florists and other creatives to make something special happen.',
     longDescription:
       'Some of our favourite work happens alongside other creatives. We love partnering with planners, florists and venues to realise ambitious installations and shared visions, bringing our styling craft to the wider team.',
-    image: '/images/service-collaborations.png',
+    image: '/images/service-collaborations.jpg',
     imageAlt: 'Stylists arranging an elaborate floral installation with draped fabric',
     included: [
-      'Creative direction & concepting',
+      'Creative direction & concepts',
       'Large-scale installations',
       'Venue & planner partnerships',
       'Trade & styling hire',
@@ -326,63 +302,63 @@ export const services: Service[] = [
 export const galleryImages: GalleryImage[] = [
   {
     id: 'g1',
-    src: '/images/gallery-1.png',
+    src: '/images/gallery-1.jpg',
     alt: 'Wedding ceremony aisle lined with florals leading to a floral arch',
     category: 'Weddings',
     span: 'tall',
   },
   {
     id: 'g2',
-    src: '/images/gallery-2.png',
+    src: '/images/gallery-2.jpg',
     alt: 'Elegant wedding place setting with gold cutlery and a floral posy',
     category: 'Weddings',
     span: 'normal',
   },
   {
     id: 'g3',
-    src: '/images/gallery-3.png',
+    src: '/images/gallery-3.jpg',
     alt: 'Ceiling silk drapery with hanging floral installation over a dance floor',
     category: 'Weddings',
     span: 'wide',
   },
   {
     id: 'g4',
-    src: '/images/gallery-4.png',
+    src: '/images/gallery-4.jpg',
     alt: 'Corporate awards dinner with uplit draping and tall centrepieces',
     category: 'Corporate',
     span: 'tall',
   },
   {
     id: 'g5',
-    src: '/images/gallery-5.png',
+    src: '/images/gallery-5.jpg',
     alt: 'Styled shoot vignette with draped fabric, vintage furniture and florals',
     category: 'Styled Shoots',
     span: 'normal',
   },
   {
     id: 'g6',
-    src: '/images/gallery-6.png',
+    src: '/images/gallery-6.jpg',
     alt: 'Outdoor marquee wedding with draped ceiling and string lights at dusk',
     category: 'Weddings',
     span: 'wide',
   },
   {
     id: 'g7',
-    src: '/images/gallery-7.png',
+    src: '/images/gallery-7.jpg',
     alt: 'Lush wedding floral centerpiece with candlelight and gold accents',
     category: 'Weddings',
     span: 'tall',
   },
   {
     id: 'g8',
-    src: '/images/gallery-8.png',
+    src: '/images/gallery-8.jpg',
     alt: 'Corporate product launch space with dramatic fabric draping',
     category: 'Corporate',
     span: 'normal',
   },
   {
     id: 'g9',
-    src: '/images/gallery-9.png',
+    src: '/images/gallery-9.jpg',
     alt: 'Bridal table detail with draped backdrop, glassware and soft florals',
     category: 'Styled Shoots',
     span: 'wide',

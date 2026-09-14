@@ -4,12 +4,13 @@ Home page "Follow Along" interactive bento gallery (photos + videos).
 
 SETUP:
 1. pip install contentful-management python-dotenv
-2. Add CONTENTFUL_MANAGEMENT_TOKEN to public/.env (or project-root .env)
+2. Add CONTENTFUL_MANAGEMENT_TOKEN to scripts/.env (or project-root .env)
    Create one at: Contentful -> Settings -> CMA tokens -> Personal access tokens
    (This is NOT the same as CONTENTFUL_ACCESS_TOKEN / Delivery API key.)
 3. Also need CONTENTFUL_SPACE_ID and optional CONTENTFUL_ENVIRONMENT
 4. Run from anywhere:
      python public/create_social_media_item_content_type.py
+     python create_social_media_item_content_type.py
 """
 
 import os
@@ -18,13 +19,15 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# Load env from project root and public/, regardless of cwd
-ROOT = Path(__file__).resolve().parent.parent
-PUBLIC = Path(__file__).resolve().parent
+# When this file lives at repo root, parent is ROOT; when in public/, go up one.
+HERE = Path(__file__).resolve().parent
+ROOT = HERE if (HERE / "public").is_dir() else HERE.parent
+SCRIPTS = ROOT / "scripts"
+
 for env_path in (
     ROOT / ".env.local",
     ROOT / ".env",
-    PUBLIC / ".env",
+    SCRIPTS / ".env",
 ):
     if env_path.exists():
         load_dotenv(env_path, override=False)
@@ -41,7 +44,7 @@ ENVIRONMENT_ID = os.environ.get("CONTENTFUL_ENVIRONMENT", "master")
 
 if not SPACE_ID or not MANAGEMENT_TOKEN:
     print("Missing CONTENTFUL_SPACE_ID or CONTENTFUL_MANAGEMENT_TOKEN.")
-    print("Add them to public/.env — MANAGEMENT_TOKEN is a CMA Personal Access Token,")
+    print("Add them to scripts/.env — MANAGEMENT_TOKEN is a CMA Personal Access Token,")
     print("not the Delivery API Content Delivery / Preview token from .env.local.")
     sys.exit(1)
 
@@ -60,7 +63,7 @@ def main():
         print("Fix:")
         print("  1. Open https://app.contentful.com -> Settings -> CMA tokens")
         print("  2. Create a Personal access token")
-        print("  3. Put it in public/.env as:")
+        print("  3. Put it in scripts/.env as:")
         print("       CONTENTFUL_MANAGEMENT_TOKEN=CFPAT-...")
         print("  4. Re-run this script")
         print()
