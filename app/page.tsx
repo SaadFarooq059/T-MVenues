@@ -24,38 +24,24 @@ import {
 /** Revalidate so CMS heroes / journey images refresh without a redeploy. */
 export const revalidate = 60
 
-const APPROVED_HOME_HERO_COPY = {
+/** Only used when Contentful returns no Home hero entries at all. */
+const FALLBACK_HOME_HERO: Awaited<ReturnType<typeof getPageHeroes>>[number] = {
+  id: 'home-fallback',
+  page: 'Home',
   heading: 'Where Your Story Begins',
   subheading:
     'Beautifully styled spaces for weddings and events that feel completely you.',
   body: "From the big statement pieces to the little details that bring everything together, we'll help transform your venue into a space you'll love walking into.",
-  ctaText: 'View Our Work',
-  ctaLink: '/gallery',
-} as const
-
-const FALLBACK_HOME_HERO: Awaited<ReturnType<typeof getPageHeroes>>[number] = {
-  id: 'home-fallback',
-  page: 'Home',
-  heading: APPROVED_HOME_HERO_COPY.heading,
-  subheading: APPROVED_HOME_HERO_COPY.subheading,
-  body: APPROVED_HOME_HERO_COPY.body,
   heroImageUrl: '/images/hero-1.jpg',
   heroImageAlt:
     'Elegant wedding reception hall dressed with ivory silk drapery and tall floral centerpieces',
-  ctaText: APPROVED_HOME_HERO_COPY.ctaText,
-  ctaLink: APPROVED_HOME_HERO_COPY.ctaLink,
+  ctaText: 'View Our Work',
+  ctaLink: '/gallery',
 }
 
 async function HomeHeroFromCms() {
   const slides = await getPageHeroes('Home')
-  const withApprovedCopy =
-    slides.length > 0
-      ? slides.map((slide) => ({
-          ...slide,
-          ...APPROVED_HOME_HERO_COPY,
-        }))
-      : [FALLBACK_HOME_HERO]
-  return <Hero slides={withApprovedCopy} />
+  return <Hero slides={slides.length > 0 ? slides : [FALLBACK_HOME_HERO]} />
 }
 
 async function JourneyFromCms() {
