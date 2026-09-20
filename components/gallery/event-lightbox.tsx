@@ -105,12 +105,17 @@ export function EventLightbox({
             />
           </div>
 
-          {/* Caption */}
+          {/* Caption — category is optional, so the eyebrow is conditional */}
           <div className="mt-4 text-center">
-            <p className="text-sm font-medium uppercase tracking-[0.16em] text-gold">
-              {event.category}
-            </p>
-            <p className="mt-1 text-pretty font-serif text-lg text-champagne">
+            {event.category ? (
+              <p className="text-sm font-medium uppercase tracking-[0.16em] text-gold">
+                {event.category}
+              </p>
+            ) : null}
+            <p className={cn(
+              'text-pretty font-serif text-lg text-champagne',
+              event.category && 'mt-1',
+            )}>
               {event.title}
             </p>
           </div>

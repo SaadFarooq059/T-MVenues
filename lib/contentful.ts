@@ -167,7 +167,8 @@ export type GalleryColour = (typeof GALLERY_COLOURS)[number]
 export type GalleryEvent = {
   id: string
   title: string
-  category: GalleryEventCategory
+  /** Optional in Contentful — undefined means "no category badge". */
+  category?: GalleryEventCategory
   coverImageUrl: string
   coverImageAlt: string
   photos: GalleryEventPhoto[]
@@ -370,10 +371,21 @@ function asGalleryColours(value: unknown): GalleryColour[] {
 }
 
 function asCategory(value: unknown): GalleryEventCategory {
-  if (typeof value === 'string' && CATEGORIES.includes(value as GalleryEventCategory)) {
+  return asOptionalCategory(value) ?? 'Weddings'
+}
+
+/**
+ * Gallery Event's "category" is optional, so an unset or unrecognised value
+ * resolves to undefined rather than silently defaulting to "Weddings".
+ */
+function asOptionalCategory(value: unknown): GalleryEventCategory | undefined {
+  if (
+    typeof value === 'string' &&
+    CATEGORIES.includes(value as GalleryEventCategory)
+  ) {
     return value as GalleryEventCategory
   }
-  return 'Weddings'
+  return undefined
 }
 
 function mapGalleryEvent(
@@ -400,10 +412,10 @@ function mapGalleryEvent(
   return {
     id: entry.sys.id,
     title,
-    category: asCategory(entry.fields.category),
     coverImageUrl: cover.url,
     coverImageAlt: cover.alt || title,
     photos: galleryPhotos,
+    category: asOptionalCategory(entry.fields.category),
     colourThemes: asGalleryColours(entry.fields.colourThemes),
     eventDate:
       typeof entry.fields.eventDate === 'string'

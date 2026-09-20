@@ -43,8 +43,14 @@ export function GalleryGrid({ events }: { events: GalleryEvent[] }) {
   const [activeEventId, setActiveEventId] = useState<string | null>(null)
   const [visible, setVisible] = useState<Set<string>>(new Set())
 
+  // Category is optional on Gallery Event — uncategorised events still show
+  // under "All", they just never match a specific category chip.
   const availableCategories = useMemo(() => {
-    const present = new Set(events.map((event) => event.category))
+    const present = new Set(
+      events
+        .map((event) => event.category)
+        .filter((cat): cat is GalleryEventCategory => cat !== undefined),
+    )
     return galleryCategories.filter(
       (cat) => cat === 'All' || present.has(cat as GalleryEventCategory),
     )
