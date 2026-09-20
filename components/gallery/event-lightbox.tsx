@@ -78,7 +78,7 @@ export function EventLightbox({
       {event && photo && (
         <div
           className={cn(
-            'relative flex max-h-[90vh] max-w-5xl flex-col items-center transition-all duration-300',
+            'relative flex max-h-[92svh] w-full max-w-6xl flex-col items-center transition-all duration-300',
             open ? 'scale-100 opacity-100' : 'scale-95 opacity-0',
           )}
           onClick={(e) => e.stopPropagation()}
@@ -93,20 +93,25 @@ export function EventLightbox({
             <X className="h-4 w-4" />
           </button>
 
-          {/* Image */}
-          <div className="relative max-h-[58svh] w-full overflow-hidden rounded-xl sm:max-h-[75vh]">
+          {/*
+            Image is capped against the viewport minus the caption/counter
+            chrome (~8rem), so it renders as large as will fit at any size
+            without the dialog ever needing to scroll.
+          */}
+          <div className="relative flex w-full items-center justify-center overflow-hidden rounded-xl">
             <Image
               src={photo.url}
               alt={photo.alt}
-              width={1200}
-              height={800}
-              className="mx-auto max-h-[58svh] w-auto rounded-xl object-contain sm:max-h-[75vh]"
+              width={2000}
+              height={1333}
+              sizes="(max-width: 640px) 100vw, (max-width: 1152px) 95vw, 1152px"
+              className="h-auto max-h-[calc(92svh-8rem)] w-full rounded-xl object-contain"
               crossOrigin="anonymous"
             />
           </div>
 
           {/* Caption — category is optional, so the eyebrow is conditional */}
-          <div className="mt-4 text-center">
+          <div className="mt-4 shrink-0 text-center">
             {event.category ? (
               <p className="text-sm font-medium uppercase tracking-[0.16em] text-gold">
                 {event.category}
@@ -149,7 +154,7 @@ export function EventLightbox({
           ) : null}
 
           {/* Counter */}
-          <p className="mt-3 text-xs tracking-widest text-champagne/40">
+          <p className="mt-3 shrink-0 text-xs tracking-widest text-champagne/40">
             {photoIndex + 1} / {photos.length}
           </p>
         </div>
