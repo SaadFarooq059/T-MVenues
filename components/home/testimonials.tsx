@@ -3,6 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'motion/react'
 import type { CmsTestimonial } from '@/lib/contentful'
+import { cn } from '@/lib/utils'
+
+/** Shared by the visible quote and the invisible height-reserving copies. */
+const quoteType =
+  'text-pretty font-serif text-[1.65rem] font-light leading-[1.2] tracking-tight text-white sm:text-3xl sm:leading-[1.15] md:text-4xl md:leading-[1.12]'
 
 export function Testimonials({
   testimonials,
@@ -57,7 +62,7 @@ export function Testimonials({
       >
         {/* Oversized index number bleeding off left edge */}
         <motion.div
-          className="pointer-events-none absolute -left-8 top-1/2 hidden -translate-y-1/2 select-none text-[22rem] font-bold leading-none tracking-tighter text-champagne/[0.04] md:block md:text-[28rem]"
+          className="pointer-events-none absolute -left-8 top-1/2 z-0 hidden -translate-y-1/2 select-none text-[22rem] font-bold leading-none tracking-tighter text-champagne/[0.04] md:block md:text-[28rem]"
           style={{ x: numberX, y: numberY }}
           aria-hidden="true"
         >
@@ -76,7 +81,7 @@ export function Testimonials({
         </motion.div>
 
         {/* Asymmetric layout */}
-        <div className="relative flex">
+        <div className="relative z-10 flex">
           {/* Left column — vertical label + progress line */}
           <div className="hidden flex-col items-center justify-center border-r border-champagne/15 pr-12 md:flex">
             <span
@@ -119,12 +124,29 @@ export function Testimonials({
               </motion.div>
             </AnimatePresence>
 
-            {/* Fixed quote area keeps every slide the same height */}
-            <div className="relative mb-8 h-[9.5rem] sm:mb-10 sm:h-[10.5rem] md:mb-12 md:h-[11.5rem]">
+            {/*
+              Grid stack: every quote occupies the same cell, so the area is as
+              tall as the LONGEST quote. Keeps slide height stable without a
+              fixed height that long quotes would overflow into the author row.
+            */}
+            <div className="relative mb-8 grid sm:mb-10 md:mb-12">
+              {testimonials.map((t) => (
+                <p
+                  key={`${t.id}-measure`}
+                  aria-hidden="true"
+                  className={cn('invisible col-start-1 row-start-1', quoteType)}
+                >
+                  {t.quote.split(' ').map((word, i) => (
+                    <span key={i} className="mr-[0.22em] inline-block">
+                      {word}
+                    </span>
+                  ))}
+                </p>
+              ))}
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex + '-quote'}
-                  className="absolute inset-0 text-pretty font-serif text-[1.65rem] font-light leading-[1.2] tracking-tight text-white sm:text-3xl sm:leading-[1.15] md:text-4xl md:leading-[1.12]"
+                  className={cn('col-start-1 row-start-1', quoteType)}
                   initial="hidden"
                   animate="visible"
                   exit="exit"

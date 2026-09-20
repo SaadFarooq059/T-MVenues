@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import Image from 'next/image'
-import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
 import { galleryCategories } from '@/lib/content'
 import type { GalleryEvent, GalleryEventCategory } from '@/lib/contentful'
-import { Eyebrow, headingSection, headingCard } from '@/components/ui/atoms'
+import { Eyebrow, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
+import { EventCard } from '@/components/gallery/event-card'
+import { EventLightbox } from '@/components/gallery/event-lightbox'
 import { cn } from '@/lib/utils'
 
 type Category = (typeof galleryCategories)[number]
@@ -41,7 +41,6 @@ export function GalleryGridSkeleton() {
 export function GalleryGrid({ events }: { events: GalleryEvent[] }) {
   const [active, setActive] = useState<Category>('All')
   const [activeEventId, setActiveEventId] = useState<string | null>(null)
-  const [photoIndex, setPhotoIndex] = useState(0)
   const [visible, setVisible] = useState<Set<string>>(new Set())
 
   const availableCategories = useMemo(() => {
@@ -51,79 +50,31 @@ export function GalleryGrid({ events }: { events: GalleryEvent[] }) {
     )
   }, [events])
 
-  const filtered = active === 'All'
-    ? events
-    : events.filter((event) => event.category === active)
+  const filtered = useMemo(
+    () =>
+      active === 'All'
+        ? events
+        : events.filter((event) => event.category === active),
+    [active, events],
+  )
+
+  // Stagger-reveal cards on filter change
+  useEffect(() => {
+    setVisible(new Set())
+    const timers = filtered.map((event, i) =>
+      setTimeout(() => {
+        setVisible((prev) => new Set([...prev, event.id]))
+      }, i * 60),
+    )
+    return () => timers.forEach(clearTimeout)
+  }, [filtered])
+
+  const closeLightbox = useCallback(() => setActiveEventId(null), [])
 
   const activeEvent =
     activeEventId === null
       ? undefined
-      : filtered.find((event) => event.id === activeEventId) ??
-        events.find((event) => event.id === activeEventId)
-
-  const lightboxPhotos = activeEvent?.photos ?? []
-  const lightboxPhoto = lightboxPhotos[photoIndex]
-
-  // Stagger-reveal cards on filter change
-  useEffect(() => {
-    const nextFiltered =
-      active === 'All'
-        ? events
-        : events.filter((event) => event.category === active)
-
-    setVisible(new Set())
-    nextFiltered.forEach((event, i) => {
-      setTimeout(() => {
-        setVisible((prev) => new Set([...prev, event.id]))
-      }, i * 60)
-    })
-  }, [active, events])
-
-  const closeLightbox = useCallback(() => {
-    setActiveEventId(null)
-    setPhotoIndex(0)
-  }, [])
-
-  const openEvent = useCallback((eventId: string) => {
-    setActiveEventId(eventId)
-    setPhotoIndex(0)
-  }, [])
-
-  const goPrevPhoto = useCallback(() => {
-    if (lightboxPhotos.length === 0) return
-    setPhotoIndex((i) => (i - 1 + lightboxPhotos.length) % lightboxPhotos.length)
-  }, [lightboxPhotos.length])
-
-  const goNextPhoto = useCallback(() => {
-    if (lightboxPhotos.length === 0) return
-    setPhotoIndex((i) => (i + 1) % lightboxPhotos.length)
-  }, [lightboxPhotos.length])
-
-  // Keyboard nav for lightbox
-  useEffect(() => {
-    if (!activeEventId) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeLightbox()
-      if (e.key === 'ArrowRight') goNextPhoto()
-      if (e.key === 'ArrowLeft') goPrevPhoto()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [activeEventId, closeLightbox, goNextPhoto, goPrevPhoto])
-
-  // Lock body scroll when lightbox open
-  useEffect(() => {
-    document.body.style.overflow = activeEventId !== null ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [activeEventId])
-
-  // Keep photo index in range if photos change
-  useEffect(() => {
-    if (lightboxPhotos.length === 0) return
-    if (photoIndex >= lightboxPhotos.length) setPhotoIndex(0)
-  }, [lightboxPhotos.length, photoIndex])
+      : events.find((event) => event.id === activeEventId)
 
   return (
     <section className="bg-background py-20 md:py-28">
@@ -180,133 +131,19 @@ export function GalleryGrid({ events }: { events: GalleryEvent[] }) {
             aria-label="Gallery events"
           >
             {filtered.map((event, i) => (
-              <div
+              <EventCard
                 key={event.id}
-                role="listitem"
-                className={cn(
-                  'group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl bg-muted transition-all duration-500',
-                  visible.has(event.id) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-                )}
-                style={{ transitionDelay: `${i * 40}ms` }}
-                onClick={() => openEvent(event.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    openEvent(event.id)
-                  }
-                }}
-                tabIndex={0}
-                aria-label={`View ${event.title}`}
-              >
-                <Image
-                  src={event.coverImageUrl}
-                  alt={event.coverImageAlt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  crossOrigin="anonymous"
-                />
-                {/* Overlay — always legible on touch, reveals on hover with a pointer */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent transition-all duration-300 [@media(hover:hover)]:bg-ink/0 [@media(hover:hover)]:bg-none [@media(hover:hover)]:backdrop-blur-0 [@media(hover:hover)]:group-hover:bg-ink/50 [@media(hover:hover)]:group-hover:backdrop-blur-sm">
-                  <ZoomIn className="h-8 w-8 text-champagne transition-all duration-300 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100" />
-                  <span className="absolute bottom-4 px-4 text-center text-xs font-medium uppercase tracking-[0.2em] text-champagne transition-all duration-300 [@media(hover:hover)]:static [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100">
-                    {event.title}
-                  </span>
-                </div>
-                {/* Gold corner accent */}
-                <div className="absolute bottom-0 right-0 h-0 w-0 border-b-[3px] border-r-[3px] border-transparent transition-all duration-300 group-hover:h-8 group-hover:w-8 group-hover:border-gold" />
-              </div>
+                event={event}
+                onOpen={() => setActiveEventId(event.id)}
+                revealed={visible.has(event.id)}
+                delayMs={i * 40}
+              />
             ))}
           </div>
         )}
       </div>
 
-      {/* Lightbox — CSS transitions only, no Motion */}
-      <div
-        className={cn(
-          'fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300',
-          activeEventId !== null ? 'visible bg-ink/95 opacity-100' : 'invisible opacity-0',
-        )}
-        onClick={closeLightbox}
-        role="dialog"
-        aria-modal="true"
-        aria-label={activeEvent?.title ?? 'Event lightbox'}
-      >
-        {activeEvent && lightboxPhoto && (
-          <div
-            className={cn(
-              'relative flex max-h-[90vh] max-w-5xl flex-col items-center transition-all duration-300',
-              activeEventId !== null ? 'scale-100 opacity-100' : 'scale-95 opacity-0',
-            )}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close */}
-            <button
-              type="button"
-              onClick={closeLightbox}
-              aria-label="Close lightbox"
-              className="absolute right-2 top-2 z-10 flex size-11 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:-right-12 md:top-0"
-            >
-              <X className="h-4 w-4" />
-            </button>
-
-            {/* Image */}
-            <div className="relative max-h-[58svh] w-full overflow-hidden rounded-xl sm:max-h-[75vh]">
-              <Image
-                src={lightboxPhoto.url}
-                alt={lightboxPhoto.alt}
-                width={1200}
-                height={800}
-                className="mx-auto max-h-[58svh] w-auto rounded-xl object-contain sm:max-h-[75vh]"
-                crossOrigin="anonymous"
-              />
-            </div>
-
-            {/* Caption */}
-            <div className="mt-4 text-center">
-              <p className="text-sm font-medium uppercase tracking-[0.16em] text-gold">
-                {activeEvent.category}
-              </p>
-              <p className="mt-1 text-pretty font-serif text-lg text-champagne">
-                {activeEvent.title}
-              </p>
-            </div>
-
-            {/* Prev / Next — within this event's photos only */}
-            {lightboxPhotos.length > 1 ? (
-              <>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    goPrevPhoto()
-                  }}
-                  aria-label="Previous photo"
-                  className="absolute left-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:left-0 md:-translate-x-12"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    goNextPhoto()
-                  }}
-                  aria-label="Next photo"
-                  className="absolute right-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-champagne/10 text-champagne ring-1 ring-champagne/20 transition-colors hover:bg-champagne hover:text-ink md:right-0 md:translate-x-12"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </>
-            ) : null}
-
-            {/* Counter */}
-            <p className="mt-3 text-xs tracking-widest text-champagne/40">
-              {photoIndex + 1} / {lightboxPhotos.length}
-            </p>
-          </div>
-        )}
-      </div>
+      <EventLightbox event={activeEvent} onClose={closeLightbox} />
     </section>
   )
 }

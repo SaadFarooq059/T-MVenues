@@ -152,6 +152,18 @@ export type GalleryEventPhoto = {
   alt: string
 }
 
+/** Locked "colourThemes" field values from the Gallery Event content type */
+export const GALLERY_COLOURS = [
+  'Blues',
+  'Greens',
+  'Pink/Blush',
+  'Ivory',
+  'Neutrals',
+  'Rustic',
+] as const
+
+export type GalleryColour = (typeof GALLERY_COLOURS)[number]
+
 export type GalleryEvent = {
   id: string
   title: string
@@ -159,6 +171,7 @@ export type GalleryEvent = {
   coverImageUrl: string
   coverImageAlt: string
   photos: GalleryEventPhoto[]
+  colourThemes: GalleryColour[]
   eventDate?: string
   description?: string
 }
@@ -183,6 +196,7 @@ interface GalleryEventFields {
   category: EntryFieldTypes.Symbol
   coverImage: EntryFieldTypes.AssetLink
   photos: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>
+  colourThemes: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
   eventDate: EntryFieldTypes.Date
   description: EntryFieldTypes.Text
 }
@@ -340,6 +354,21 @@ function resolveAsset(asset: Asset | undefined | null): GalleryEventPhoto | null
   }
 }
 
+function asGalleryColours(value: unknown): GalleryColour[] {
+  if (!Array.isArray(value)) return []
+  const seen = new Set<GalleryColour>()
+  for (const raw of value) {
+    if (
+      typeof raw === 'string' &&
+      (GALLERY_COLOURS as readonly string[]).includes(raw)
+    ) {
+      seen.add(raw as GalleryColour)
+    }
+  }
+  // Preserve the locked chip order rather than the editor's tick order
+  return GALLERY_COLOURS.filter((colour) => seen.has(colour))
+}
+
 function asCategory(value: unknown): GalleryEventCategory {
   if (typeof value === 'string' && CATEGORIES.includes(value as GalleryEventCategory)) {
     return value as GalleryEventCategory
@@ -375,6 +404,7 @@ function mapGalleryEvent(
     coverImageUrl: cover.url,
     coverImageAlt: cover.alt || title,
     photos: galleryPhotos,
+    colourThemes: asGalleryColours(entry.fields.colourThemes),
     eventDate:
       typeof entry.fields.eventDate === 'string'
         ? entry.fields.eventDate
@@ -405,6 +435,34 @@ export async function getGalleryEvents(): Promise<GalleryEvent[]> {
       .filter((item): item is GalleryEvent => item !== null)
   } catch (error) {
     console.warn('[contentful] getGalleryEvents failed:', error)
+    return []
+  }
+}
+
+/**
+ * Fetch published Gallery Event entries that carry at least one "colourThemes"
+ * value, for the Gallery page's "Browse by Colour" section. Ordered newest
+ * first to match the main gallery grid.
+ * Returns [] if Contentful is unreachable or nothing is tagged yet.
+ */
+export async function getColourThemedEvents(): Promise<GalleryEvent[]> {
+  try {
+    const client = getContentfulClient()
+    const response = await client.getEntries<GalleryEventSkeleton>({
+      content_type: GALLERY_EVENT_CONTENT_TYPE,
+      'fields.colourThemes[exists]': true,
+      include: 2,
+      order: ['-fields.eventDate', '-sys.updatedAt'],
+      limit: 100,
+    })
+
+    return response.items
+      .map(mapGalleryEvent)
+      .filter((item): item is GalleryEvent => item !== null)
+      // [exists] still matches an empty array — require a real tag
+      .filter((event) => event.colourThemes.length > 0)
+  } catch (error) {
+    console.warn('[contentful] getColourThemedEvents failed:', error)
     return []
   }
 }

@@ -5,8 +5,13 @@ import {
   GalleryGrid,
   GalleryGridSkeleton,
 } from '@/components/gallery/gallery-grid'
+import { ColourGallery } from '@/components/gallery/colour-gallery'
 import { CtaBanner } from '@/components/sections/cta-banner'
-import { getGalleryEvents, getPageHeroes } from '@/lib/contentful'
+import {
+  getColourThemedEvents,
+  getGalleryEvents,
+  getPageHeroes,
+} from '@/lib/contentful'
 
 export const metadata: Metadata = {
   title: 'Gallery | T&M Venue Styling',
@@ -27,6 +32,12 @@ async function GalleryFromCms() {
   return <GalleryGrid events={events} />
 }
 
+async function ColourGalleryFromCms() {
+  const events = await getColourThemedEvents()
+  // ColourGallery renders nothing until an event carries a colour theme
+  return <ColourGallery events={events} />
+}
+
 export default function GalleryPage() {
   return (
     <>
@@ -35,6 +46,9 @@ export default function GalleryPage() {
       </Suspense>
       <Suspense fallback={<GalleryGridSkeleton />}>
         <GalleryFromCms />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ColourGalleryFromCms />
       </Suspense>
       <CtaBanner
         eyebrow="Inspired?"
