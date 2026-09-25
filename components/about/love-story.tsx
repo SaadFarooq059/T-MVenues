@@ -86,14 +86,14 @@ export function LoveStory() {
           >
             <div className="absolute left-0 top-4 z-10 transition-transform duration-500 ease-out hover:-translate-y-2 hover:rotate-3 sm:top-6">
               <PortraitFrame
-                src="/AboutUs/about4.jpg"
+                src="/Home/p1.jpg"
                 alt="Ceremony aisle with florals and a floral arch"
                 rotate="rotate-[-8deg] group-hover:rotate-[-4deg]"
               />
             </div>
             <div className="absolute bottom-2 right-0 z-20 transition-transform duration-500 ease-out hover:-translate-y-2 hover:-rotate-3 sm:bottom-4">
               <PortraitFrame
-                src="/AboutUs/about3.jpg"
+                src="/Home/p14.jpg"
                 alt="Outdoor marquee wedding with draped ceiling at dusk"
                 rotate="rotate-[8deg] group-hover:rotate-[4deg]"
               />

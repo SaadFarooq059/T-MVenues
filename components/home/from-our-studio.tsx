@@ -13,7 +13,7 @@ const images = [
     height: 'h-48',
   },
   {
-    src: '/Home/s4.jpg',
+    src: '/Home/c1.jpg',
     alt: 'Elegant wedding place setting',
     height: 'h-72',
   },

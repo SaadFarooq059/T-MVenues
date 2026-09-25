@@ -10,7 +10,7 @@ import { WhatGuidesUs } from '@/components/about/what-guides-us'
 import { OurApproach } from '@/components/about/our-approach'
 import { FounderPortrait } from '@/components/about/founder-portrait'
 
-/** Revalidate so CMS timeline milestones / hero video refresh without a redeploy. */
+/** Revalidate so CMS hero video refresh without a redeploy. */
 export const revalidate = 60
 
 export const metadata: Metadata = {

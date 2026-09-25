@@ -8,22 +8,22 @@ import { headingSection } from '@/components/ui/atoms'
 
 const images = [
   {
-    src: '/Home/s12.jpg',
+    src: '/Home/p5.jpg',
     alt: 'Ceremony aisle lined with florals leading to a floral arch',
     className: 'left-[1%] top-[1%] h-72 w-52 lg:h-[26rem] lg:w-72',
   },
   {
-    src: '/Home/s11.jpg',
+    src: '/Home/p1.jpg',
     alt: 'Elegant wedding place setting with gold cutlery and a floral posy',
     className: 'bottom-[6%] left-[4%] h-48 w-48 lg:h-64 lg:w-64',
   },
   {
-    src: '/Home/s4.jpg',
+    src: '/Home/p2.jpg',
     alt: 'Styled vignette with draped fabric, vintage furniture and florals',
     className: 'right-[3%] top-[4%] h-48 w-48 lg:h-60 lg:w-60',
   },
   {
-    src: '/Home/s10.jpg',
+    src: '/Home/p3.jpg',
     alt: 'Lush floral centrepiece with candlelight and gold accents',
     className: 'bottom-[2%] right-[1%] h-72 w-52 lg:h-[26rem] lg:w-72',
   },

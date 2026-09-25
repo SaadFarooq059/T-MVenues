@@ -16,7 +16,7 @@ export interface CtaBannerProps {
   imageAlt?: string
 }
 
-const DEFAULT_IMAGE = '/cta.jpg'
+const DEFAULT_IMAGE = '/Home/cta.jpg'
 
 export function CtaBanner({
   eyebrow = 'Tell us what you have in mind',
