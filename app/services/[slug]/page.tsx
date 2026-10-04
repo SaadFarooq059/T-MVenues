@@ -93,11 +93,11 @@ export default async function ServicePage({
             <SeamDivider className="mt-10" />
           </Reveal>
 
-          {/* Right: what's included card */}
+          {/* Right: services on offer card */}
           <Reveal delay={0.15}>
             <div className="rounded-2xl bg-ink px-8 py-8 text-champagne">
               <p className="text-xs font-medium uppercase tracking-[0.22em] text-gold">
-                What&apos;s included
+                Services on offer
               </p>
               <ul className="mt-6 space-y-4">
                 {service.included.map((item) => (

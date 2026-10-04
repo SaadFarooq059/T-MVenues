@@ -8,27 +8,27 @@ import { Reveal } from '@/components/motion/reveal'
 const values = [
   {
     icon: Eye,
-    title: 'Considered',
+    title: 'Thoughtful',
     description:
-      'Nothing is placed by accident. Every choice of texture, tone and light serves the feeling of the room.',
+      'Nothing is there just for the sake of it. From the colours and textures to the tiniest finishing touches, everything has its place.',
   },
   {
     icon: Heart,
     title: 'Warm',
     description:
-      'We style for people, not just photographs. A space should feel as good to stand in as it looks.',
+      'We want your space to feel just as good as it looks. Welcoming, relaxed and somewhere your guests genuinely want to be.',
   },
   {
     icon: Sparkles,
-    title: 'Meticulous',
+    title: 'Detail obsessed',
     description:
-      'From ceiling drapes to the final candle, we sweat the smallest details so you never have to.',
+      "We're big on the little things. From the draping to the final candle, we'll fuss over every detail so you don't have to.",
   },
   {
     icon: Users,
-    title: 'Bespoke',
+    title: 'Made for you',
     description:
-      "We don't offer set packages. Your quote is built around your vision — and flexible until 8 weeks before the day.",
+      "No one-size-fits-all packages here. We'll build everything around your ideas, your space and what matters most to you.",
   },
 ]
 
@@ -38,16 +38,17 @@ export function WhatGuidesUs() {
       <div className="mx-auto max-w-6xl overflow-hidden px-5 md:px-8">
         <Reveal className="mb-12 flex flex-col items-center gap-5 text-center">
           <Eyebrow tone="sage" className="justify-center">
-            What Guides Us
+            What Matters to Us
           </Eyebrow>
-          <h2 className={headingSection}>Three things we never compromise</h2>
+          <h2 className={headingSection}>The little things that make a big difference</h2>
           <div
             className="h-0.5 w-[200px] rounded-full bg-gradient-to-r from-gold via-gold to-gold/30"
             aria-hidden="true"
           />
           <p className="max-w-2xl text-pretty text-lg leading-relaxed text-ink/65">
-            Our values aren&apos;t a branding exercise — they&apos;re the practical
-            standards we hold ourselves to on every single job.
+            We like to keep things simple — listen to what you want, care about
+            the details and make sure everything feels just right. It&apos;s how
+            we approach every event, big or small.
           </p>
         </Reveal>
 
@@ -90,8 +91,8 @@ export function WhatGuidesUs() {
 
         <Reveal delay={0.2} className="mx-auto mt-12 max-w-3xl text-center">
           <p className="text-lg leading-relaxed text-ink/65">
-            These principles shape every decision we make — from the first
-            conversation to the moment we hand the room back to you.
+            It&apos;s a simple approach: hear your ideas, manage the details and
+            create a space that feels completely you.
           </p>
         </Reveal>
       </div>

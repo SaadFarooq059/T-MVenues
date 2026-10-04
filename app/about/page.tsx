@@ -3,15 +3,10 @@ import { CtaBanner } from '@/components/sections/cta-banner'
 import { Eyebrow, SeamDivider, headingSection } from '@/components/ui/atoms'
 import { Reveal } from '@/components/motion/reveal'
 import { siteMeta } from '@/lib/content'
-import { AboutUsHero } from '@/components/about/about-us-hero'
-import { LoveStory } from '@/components/about/love-story'
 import { AboutHowItWorks } from '@/components/about/about-how-it-works'
 import { WhatGuidesUs } from '@/components/about/what-guides-us'
 import { OurApproach } from '@/components/about/our-approach'
 import { FounderPortrait } from '@/components/about/founder-portrait'
-
-/** Revalidate so CMS hero video refresh without a redeploy. */
-export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'About | T&M Venue Styling',
@@ -22,10 +17,8 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <AboutUsHero />
-
-      {/* Founder story */}
-      <section className="bg-background pb-20 pt-10 sm:pt-16 md:py-28">
+      {/* Founder story — first section, so clear the fixed header */}
+      <section className="bg-background pb-20 pt-36 md:pb-28 md:pt-44">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 md:grid-cols-2 md:gap-16 md:px-8">
           <Reveal>
             <FounderPortrait />
@@ -77,8 +70,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      <LoveStory />
 
       <OurApproach />
 

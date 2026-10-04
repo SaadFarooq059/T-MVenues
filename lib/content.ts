@@ -34,6 +34,8 @@ export interface Service {
   slug: string
   shortDescription: string
   longDescription: string
+  /** Copy for the "How We Deliver" section; falls back to `longDescription` */
+  deliverDescription?: string
   image: string
   imageAlt: string
   included: string[]
@@ -103,7 +105,7 @@ export const heroSlides: HeroSlide[] = [
     eyebrow: 'T&M Venue Styling',
     headline: ['Where Your Story Begins'],
     subtext:
-      'Beautifully styled spaces for weddings and events that feel completely you. From the big statement pieces to the little details that bring everything together, we\'ll help transform your venue into a space you\'ll love walking into.',
+      "Beautifully styled spaces for weddings and events that feel completely you. From the big statement pieces to the little details that bring everything together, we'll help transform your venue into a space you'll love walking into.",
     ctaLabel: 'View Our Work',
     ctaHref: '/gallery',
     image: '/images/hero-1.jpg',
@@ -121,7 +123,9 @@ export const services: Service[] = [
     shortDescription:
       "From the ceremony to the wedding breakfast, we'll bring everything together beautifully.",
     longDescription:
-      'Your wedding day deserves a setting as considered as the moment itself. We work closely with you to translate your vision into a beautifully cohesive space, layering texture, light and colour so every corner feels intentional and every guest feels welcomed.',
+      "Your day, your way. We'll work with you to bring everything together beautifully — from the colours and textures to those little finishing touches that make all the difference. The result? A space that feels completely yours, and one your guests will love being in.",
+    deliverDescription:
+      "Your wedding should feel like you. We'll work with you to bring your ideas to life, layering colours, textures and all those little details that make a space feel special. Everything comes together beautifully, so it feels welcoming, personal and completely yours.",
     image: '/Home/service1.jpg',
     imageAlt: 'Romantic wedding reception with ivory drapery and floral centerpieces',
     included: [
@@ -135,27 +139,27 @@ export const services: Service[] = [
       {
         title: 'Ceiling drapery & backdrops',
         description:
-          'Soft silk falls and framed backdrops that change the shape of a room before a single guest walks in. We work with your venue rather than against it, softening hard lines and drawing the eye to the moments that matter.',
+          'Transform the feel of the room before your guests even arrive. Soft draping and beautiful backdrops work with your venue to soften the space and create the perfect setting for those all-important moments.',
       },
       {
-        title: 'Florals & installations',
+        title: 'Faux florals & greenery',
         description:
-          'Seasonal blooms arranged in scale with your space — low tablescapes, statement urns or suspended installations above the dance floor.',
+          'All the beauty, none of the wilting. Think trailing faux greenery runners, pretty silk flower bud vases and carefully placed floral accents to bring backdrops and key areas to life.',
       },
       {
         title: 'Linens, chairs & tablescapes',
         description:
-          'Layered textures, considered place settings and finishes chosen to sit quietly with your palette. Every cover, runner and napkin fold is decided in advance so your tables look composed from the first course to the last.',
+          "This is where all the lovely little details come together. We'll layer linens, place settings, chairs and finishing touches to create tables that feel beautifully put together, without feeling overdone.",
       },
       {
         title: 'Ceremony & aisle styling',
         description:
-          'The first thing your guests see, styled to frame the moment you say yes.',
+          "Make the walk down the aisle feel every bit as special as it should. We'll style the space around you, creating a beautiful backdrop for the moment you say “yes”.",
       },
       {
         title: 'Candlelight & ambience',
         description:
-          'Warm, low light that carries the room from vows through to the last dance.',
+          "Because good lighting changes everything. We'll add that warm, candlelit glow that takes you from the ceremony right through to the last dance.",
       },
     ],
   },
@@ -167,7 +171,7 @@ export const services: Service[] = [
     shortDescription:
       'Styling that makes your event look polished, memorable and completely on-brand.',
     longDescription:
-      'We bring editorial polish to corporate occasions, creating environments that reflect your brand while feeling warm and human. From awards dinners to product launches, we handle the styling so your team can focus on the moment.',
+      "From team celebrations to awards nights and product launches, we'll help you create a space that looks the part and feels like your brand. We'll take care of all the styling and finishing touches, so you can focus on your guests — and actually enjoy the event too.",
     image: '/Home/service2.jpg',
     imageAlt: 'Sophisticated corporate gala with elegant draping and uplighting',
     included: [
@@ -179,29 +183,29 @@ export const services: Service[] = [
     ],
     highlights: [
       {
-        title: 'Brand-led styling direction',
+        title: 'Styling that feels like your brand',
         description:
-          'We start with your brand — its colours, tone and the impression you want to leave — then translate that into a room. The result feels unmistakably yours without ever looking like a trade stand.',
+          "We'll take your colours, style and overall feel and bring them into the space in a way that feels natural and unmistakably you — never too corporate or overdone.",
       },
       {
-        title: 'Stage & backdrop draping',
+        title: 'Stage & backdrop styling',
         description:
-          'Clean, well-lit staging for speeches, awards and launches, framed so every photograph works.',
+          "From speeches and awards to product launches, we'll create a polished backdrop that frames the moment beautifully — and looks great in the photos too.",
       },
       {
         title: 'Tables & centrepieces',
         description:
-          'Dining styling that holds up to a long evening: florals at a height that lets guests talk across the table, linens in your palette, and finishes that photograph as well as they feel. Set up and cleared entirely by our team.',
+          "We'll bring the tables together — creating a look that feels special while still leaving plenty of room to chat, eat and enjoy the evening.",
       },
       {
         title: 'Installations & signage',
         description:
-          'Feature moments and framed signage that guide guests and give the press a focal point.',
+          'Statement backdrops, branded signage and those extra little details that help your guests find their way — while giving them a great spot for a photo along the way.',
       },
       {
         title: 'On-site styling team',
         description:
-          'We install, adjust through the day and strip out afterwards, so your team never has to.',
+          "We'll take care of the set-up and pack it all away afterwards. One less thing for your team to think about.",
       },
     ],
   },
@@ -213,7 +217,7 @@ export const services: Service[] = [
     shortDescription:
       'Need to create the right look for a campaign, shoot or piece of content? We can help bring the whole setting together.',
     longDescription:
-      'We collaborate with photographers, brands and creative directors to build sets that photograph beautifully. Thoughtful prop styling, fabric and floral detail bring depth and story to every frame.',
+      "Got a vision in mind? We'll help bring it to life. From styled shoots and brand content to creative set-ups, we'll pull together backdrops, props, fabrics and finishing touches to create a space that looks just as good on camera as it does in real life.",
     image: '/Home/service3.jpg',
     imageAlt: 'Art-directed styled photoshoot set with draped fabric and props',
     included: [
@@ -225,29 +229,29 @@ export const services: Service[] = [
     ],
     highlights: [
       {
-        title: 'Concept & mood development',
+        title: 'Ideas & inspiration',
         description:
-          'We begin with references, palette and texture, agreeing the look before anything is booked. You know exactly how the frames will feel long before the camera comes out.',
+          "We'll start with your ideas, colours and the overall look you're going for, then pull everything together into a clear direction before we get started.",
       },
       {
         title: 'Set & backdrop styling',
         description:
-          'Backdrops, surfaces and drapery built to photograph — considered depth, no distracting seams.',
+          "From simple backdrops to layered draping and styled sets, we'll create a space that works beautifully on camera and gives you the perfect setting for your shoot.",
       },
       {
-        title: 'Prop sourcing & styling',
+        title: 'Props & styling',
         description:
-          'From tableware and glassware to furniture and vintage finds, we source and style props that carry the story of the shoot. Our own hire collection means most of what you need is already in the studio.',
+          "Tableware, glassware, furniture and all those little extras that make the shot. We'll source and style the pieces you need, with plenty available from our own collection too.",
       },
       {
-        title: 'Floral & fabric detail',
+        title: 'Faux florals & finishing touches',
         description:
-          'The close-up layer — blooms, silks and small details that give a frame its texture.',
+          'Silk flowers, faux greenery, fabrics and carefully chosen details add that extra layer of texture and interest — especially for those all-important close-ups.',
       },
       {
         title: 'On-set support',
         description:
-          'A stylist on hand through the day to reset, adjust and keep continuity between shots.',
+          'Need us there on the day? We can stay on hand to tweak, reset and keep everything looking just right from one shot to the next.',
       },
     ],
   },
@@ -259,7 +263,7 @@ export const services: Service[] = [
     shortDescription:
       'We love working alongside brilliant venues, planners, florists and other creatives to make something special happen.',
     longDescription:
-      'Some of our favourite work happens alongside other creatives. We love partnering with planners, florists and venues to realise ambitious installations and shared visions, bringing our styling craft to the wider team.',
+      "We love working with other creatives to bring an idea together. Whether you're a planner, florist, venue or fellow stylist, we're always happy to collaborate, add our own little bit of magic and help turn a shared vision into something really special.",
     image: '/images/service-collaborations.jpg',
     imageAlt: 'Stylists arranging an elaborate floral installation with draped fabric',
     included: [
@@ -273,27 +277,27 @@ export const services: Service[] = [
       {
         title: 'Creative direction',
         description:
-          'We are happy leading the design or supporting yours. Either way the concept is agreed together, with clear drawings and material choices so everyone is building the same room.',
+          "Got an idea already? Great. Need a little help pulling it together? We can do that too. We'll work alongside you to create a clear look that everyone feels excited about.",
       },
       {
-        title: 'Large-scale installations',
+        title: 'Statement installations',
         description:
-          'Ceiling work, suspended florals and statement structures, installed safely with your venue.',
+          "For those moments that need a little extra wow. From beautiful draping and statement backdrops to carefully styled focal points, we'll work with you and your venue to bring the idea to life.",
       },
       {
         title: 'Venue & planner partnerships',
         description:
-          'We work as an extension of your team, not a competing voice. That means fitting around your timings, respecting your client relationship and turning up with everything ready — the kind of collaboration that leads to repeat bookings.',
+          "Think of us as an extra pair of hands on your team. We'll work around you, your timings and your client, making the styling side feel easy from start to finish.",
       },
       {
-        title: 'Trade & styling hire',
+        title: 'Trade styling & hire',
         description:
-          'Access to our full décor, backdrop and signage collection at trade terms.',
+          'Need the pieces without the full styling service? Our collection of décor, backdrops and signage is available to fellow venues, planners and creatives too.',
       },
       {
-        title: 'Shared project management',
+        title: 'Working together',
         description:
-          'One point of contact, clear schedules, and a team that communicates through the build.',
+          "One point of contact, clear plans and plenty of communication along the way. We'll keep our side organised, so bringing everything together feels nice and straightforward.",
       },
     ],
   },

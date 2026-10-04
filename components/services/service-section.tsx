@@ -41,7 +41,7 @@ export function ServiceSection({
 
           <div className="mt-8">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-sage">
-              What&apos;s included
+              Services on offer
             </p>
             <ul className="mt-4 grid gap-3 sm:grid-cols-2">
               {service.included.map((item) => (

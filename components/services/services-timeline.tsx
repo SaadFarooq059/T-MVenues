@@ -90,7 +90,7 @@ export function ServicesTimeline({ services }: { services: Service[] }) {
               {/* Included list */}
               <div>
                 <p className="text-xs font-medium uppercase tracking-[0.2em] text-sage">
-                  What&apos;s included
+                  Services on offer
                 </p>
                 <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                   {service.included.map((item) => (

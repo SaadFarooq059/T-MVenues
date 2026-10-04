@@ -28,7 +28,7 @@ export function ServiceAboutSection({ service }: { service: Service }) {
       eyebrow="How We Deliver"
       title={`Every ${service.singularTitle} we style`}
       titleLine2="begins with your vision."
-      description={service.longDescription}
+      description={service.deliverDescription ?? service.longDescription}
       washImage={service.image}
       primaryImage={service.image}
       primaryAlt={service.imageAlt}

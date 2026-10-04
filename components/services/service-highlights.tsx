@@ -2,7 +2,7 @@ import RuixenBentoCards, { type BentoCard } from '@/components/ui/ruixen-bento-c
 import type { Service } from '@/lib/content'
 
 /**
- * “What's included” for a single service, laid out as a bento grid.
+ * “Services on offer” for a single service, laid out as a bento grid.
  * Falls back to the plain `included` list when a service has no highlight copy.
  */
 export function ServiceHighlights({ service }: { service: Service }) {
@@ -15,9 +15,9 @@ export function ServiceHighlights({ service }: { service: Service }) {
 
   return (
     <RuixenBentoCards
-      eyebrow="What's Included"
+      eyebrow="Services on Offer"
       cards={cards}
-      heading={`Every ${service.singularTitle} detail, handled for you.`}
+      heading="Every styling detail, handled for you."
       body={service.shortDescription}
     />
   )
